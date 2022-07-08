@@ -1,0 +1,253 @@
+@import "../../style/vars";
+
+.caption {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.row {
+  margin-top: 34px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cancel,
+.save {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 24px;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 4px;
+}
+
+.cancel {
+  color: $dark-blue;
+  border: 1px solid $dark-blue;
+  background-color: transparent;
+}
+
+.save {
+  border: 1px solid transparent;
+  color: white;
+  background-color: $blue;
+}
+
+.confirm {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -60px;
+    background-image: url('../../img/quest.svg');
+  }
+}
+
+.notice {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -60px;
+    background-image: url('../../img/success.svg');
+  }
+}
+
+.message {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 35px;
+  margin-top: 65px;
+  text-align: center;
+}
+
+.success {
+  display: block;
+  padding: 8px 24px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 4px;
+  color: white;
+  background-color: $blue;
+  border: none;
+  width: 75px;
+  margin: 0 auto;
+}
+
+.close {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-image: url('../../img/close-modal.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 10px;
+}
+
+.textarea {
+  width: 100%;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: $black;
+  border-radius: 4px;
+  outline: none;
+  height: 170px;
+  resize: none;
+  border: 1px solid $silver-shape;
+  transition: border-color .2s ease-in-out;
+  padding: 8px 15px;
+  margin-bottom: 20px;
+
+  &::placeholder {
+    color: $silver-text;
+  }
+
+  &:focus {
+    border-color: $blue;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #00B6F4;
+    border-radius: 10px;
+    height: 27px;
+    cursor: pointer;
+    width: 3px;
+  }
+}
+
+.checkbox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 34px;
+  cursor: pointer;
+  user-select: none;
+
+  &__text {
+    margin-right: 15px;
+    font-weight: 500;
+  }
+
+  &__input {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+
+
+  &__icon {
+    border: 1px solid $gray;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background-color: $red;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity .2s ease-in-out;
+      border-radius: 2px;
+    }
+
+    &.active {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.mod {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 460px;
+  border-radius: 4px;
+  boxShadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  padding: 34px;
+
+  &.active {
+    display: block;
+  }
+}
+
+.configurator {
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    gap: 16px 24px;
+  }
+
+  &__caption {
+    margin-bottom: 17px;
+    font-weight: 500;
+  }
+
+  &__price {
+    color: $blue;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &__sum {
+    font-weight: 600;
+    color: $dark-blue;
+  }
+
+  &__sumtitle {
+    display: inline-block;
+    font-weight: 500;
+    margin-right: 45px;
+    color: $black;
+    text-align: right;
+  }
+}

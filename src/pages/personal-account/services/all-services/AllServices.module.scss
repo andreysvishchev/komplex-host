@@ -1,0 +1,114 @@
+@import "../../../../style/vars";
+
+
+.caption {
+  margin-bottom: 10px;
+}
+
+.items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item {
+  padding: 28px;
+  margin: 14px 16px 24px 0;
+  flex-grow: 1;
+  display: flex;
+  border-radius: 4px;
+
+  &.place {
+    background-color: $orange;
+  }
+
+  &.rack {
+    background-color: $green;
+  }
+
+  &.server {
+    background-color: $dark-blue;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, .3);
+  border-radius: 9px;
+  position: relative;
+  margin-right: 30px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 51px;
+    height: 51px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &.rack {
+    &::before {
+      background-image: url('../../../../img/place.svg');
+    }
+  }
+
+  &.place {
+    &::before {
+      background-image: url('../../../../img/rack.svg');
+    }
+  }
+
+  &.server {
+    &::before {
+      background-image: url('../../../../img/server.svg');
+    }
+  }
+}
+
+.headline {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: $white;
+  margin-bottom: 14px;
+}
+
+.button {
+  font-weight: 500;
+  padding: 3px 24px;
+  background-color: $white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+
+  &.place {
+    color: $orange;
+  }
+
+  &.rack {
+    color: $green;
+  }
+
+  &.server {
+    color: $dark-blue;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  max-height: 320px;
+}
+
+.blocks {
+  display: grid;
+  gap: 16px;
+}

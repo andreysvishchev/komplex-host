@@ -1,0 +1,400 @@
+@import "../../style/vars";
+
+.form {
+  width: 100%;
+  &.registration {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  &__caption {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  &__headline {
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black;
+    margin-bottom: 24px;
+    span {
+      color: $blue;
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__col {
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: $dark-blue;
+    margin-bottom: 22px;
+  }
+
+  &__buttons {
+    display: flex;
+    margin-top: 28px;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__scan {
+    margin-bottom: 22px;
+  }
+}
+
+.agreement {
+  display: flex;
+  margin-top: 12px;
+  &__text {
+    margin-left: 16px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $black;
+
+    a {
+      color: $blue;
+    }
+  }
+}
+
+.fill {
+  padding: 4px 17px;
+  margin-bottom: 24px;
+  font-weight: 500;
+  color: $dark-blue;
+  border-radius: 4px;
+  border: 1px solid $dark-blue;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.recovery {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: $blue;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.recommendation {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: $blue;
+  margin: 8px 0 16px;
+}
+
+.button {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: $white;
+  border-radius: 4px;
+  padding: 8px 24px;
+  background-color: $blue;
+  cursor: pointer;
+  outline: none;
+  border: none;
+
+  &.disabled {
+    background-color: $gray;
+    pointer-events: none;
+  }
+
+  &.light {
+    background-color: transparent;
+    color: $blue;
+    border: 1px solid $blue;
+  }
+}
+
+.input {
+  margin-bottom: 16px;
+  width: 100%;
+
+  &__caption {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+    color: $black;
+  }
+
+  &__password {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 4px;
+    right: 15px;
+    width: 16px;
+    height: 12px;
+    background-image: url('../../img/eye.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+
+    &.hidden {
+      background-image: url('../../img/invisible-pasword.svg');
+    }
+  }
+
+  &__field {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black;
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color .2s ease-in-out;
+
+    &::placeholder {
+      color: $silver-text;
+    }
+
+    &:focus {
+      border-color: $blue;
+    }
+
+    &.error {
+      border-color: $red;
+    }
+  }
+}
+
+
+.select {
+  margin-bottom: 16px;
+
+  &__caption {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.textarea {
+  margin-bottom: 16px;
+
+  &__caption {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
+
+  &__field {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black;
+    width: 100%;
+    resize: none;
+    padding: 8px 16px;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color .2s ease-in-out;
+
+    &::placeholder {
+      color: $silver-text;
+    }
+
+    &:focus {
+      border-color: $blue;
+    }
+
+    &.error {
+      border-color: $red;
+    }
+  }
+}
+
+.file {
+  padding-left: 90px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &.one {
+    &::before {
+      background-image: url('../../img/scan-1.svg');
+    }
+  }
+
+  &.two {
+    &::before {
+      background-image: url('../../img/scan-2.svg');
+    }
+  }
+
+  &__input {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+
+  &__title {
+    color: $silver-text;
+  }
+
+  &__label {
+    cursor: pointer;
+    color: $blue;
+    text-decoration: underline;
+    transition: color .2s ease-in-out;
+
+    &.filled {
+      color: $black;
+      text-decoration: none;
+    }
+  }
+
+  &__clear {
+    background-color: transparent;
+    color: $blue;
+    border: none;
+    margin-left: 15px;
+    display: none;
+    cursor: pointer;
+
+    &.filled {
+      display: inline-block;
+    }
+  }
+}
+
+.checkbox {
+  &__icon {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    border-radius: 2px;
+    border: 1px solid $gray;
+
+    &::after {
+      content: '';
+      position: absolute;
+      background-image: url('../../img/checkbox.svg');
+      width: 15px;
+      height: 14px;
+      top: 50%;
+      right: 50%;
+      transform: translateX(50%) translateY(-50%);
+      opacity: 0;
+      transition: opacity .2s ease-in-out;
+    }
+
+    &.active {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__input {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+}
+
+.radio {
+  display: flex;
+  &__icon {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid $blue;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      right: 50%;
+      background-color: $blue;
+      border-radius: 1px;
+      transform: translateX(50%) translateY(-50%);
+      opacity: 0;
+      transition: opacity .2s ease-in-out;
+    }
+
+    &.active {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+  &__title {
+    margin-left: 15px;
+  }
+
+  &__input {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+}
+
+
+
+
+

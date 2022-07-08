@@ -1,0 +1,354 @@
+@import "../../style/vars";
+
+.inner {
+  display: flex;
+}
+
+.content {
+  padding: 30px 40px 40px 40px;
+  background-color: $bg;
+  width: 100%;
+}
+
+.wrap {
+  background-color: $white;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  border: 1px solid $gray;
+  width: 100%;
+  z-index: 1;
+}
+
+.caption {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  margin-right: 16px;
+  color: $dark-blue;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.col {
+  display: flex;
+  align-items: center;
+}
+
+.tooltip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid $blue;
+  border-radius: 50%;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.button {
+  padding: 3px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+  display: inline-block;
+  border: 1px solid transparent;
+  color: $white;
+  background-color: $blue;
+  text-decoration: none;
+}
+
+.show {
+  min-height: 26px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: $blue;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.notices {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.notice {
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__headline {
+    background-color: $silver-shape;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    &.unread {
+      padding-left: 40px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: $red;
+        top: 20px;
+        left: 18px;
+      }
+    }
+  }
+
+  &__text {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    will-change: max-height;
+    transition: all 0.2s ease-out;
+    box-sizing: content-box;
+
+
+    &.isOpen {
+      opacity: 1;
+      padding: 15px 20px 0 20px;
+    }
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__date {
+    font-weight: 500;
+    color: $silver-text;
+  }
+}
+
+.docs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  &__item {
+    background-color: $silver-shape;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    padding: 28px 60px 28px 28px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__icon {
+    min-width: 80px;
+    height: 80px;
+    background-color: $white;
+    position: relative;
+    margin-right: 28px;
+    border-radius: 9px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 47px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-image: url('./../../img/doc.svg');
+    }
+  }
+
+  &__title {
+    max-width: 410px;
+    text-transform: uppercase;
+  }
+
+  &__link {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-image: url('./../../img/download-blue.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 16px;
+    right: 20px;
+  }
+}
+
+.quest {
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &__title {
+    background-color: $silver-shape;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    position: relative;
+    padding: 14px 60px;
+    cursor: pointer;
+    &.isOpen {
+      &:before {
+        transform:translateY(-50%) rotate(180deg);
+      }
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: '?';
+      background-color: $blue;
+      color: $white;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      left: 16px;
+    }
+
+    &::before {
+      content: '';
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+      background-image: url('../../img/arrow-circle.svg');
+      right: 16px;
+      transition: transform .2s ease-in-out;
+    }
+  }
+  &__text {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    will-change: max-height;
+    transition: all 0.2s ease-out;
+    box-sizing: content-box;
+
+
+    &.isOpen {
+      opacity: 1;
+      padding: 15px 20px 0 20px;
+    }
+  }
+}
+
+.profile {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  &__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 25px;
+    color: $dark-blue;
+  }
+}
+
+.tabs {
+  display: flex;
+  &__list {
+    margin-right: 16px;
+  }
+  &__buttons {
+    max-width: 350px;
+    width: 100%;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    background-color: $white;
+    padding: 20px 0;
+    height: max-content;
+  }
+  &__button {
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    padding: 10px 30px;
+    text-align-last: left;
+    border-left: 4px solid transparent;
+    transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
+    outline: none;
+
+    &.active {
+      background-color: rgba(0, 182, 244, .1);
+      border-left: 4px solid $blue;
+      pointer-events: none;
+    }
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  &__icon {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+    background-image: url('../../img/user.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+  }
+  &__name {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    text-transform: uppercase;
+  }
+}
+
+.contract {
+  flex-shrink: 0;
+  width: 317px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 24px;
+  border-left: 1px solid $gray;
+  &__caption {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: $silver-text;
+    margin-bottom: 7px;
+  }
+  &__number {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

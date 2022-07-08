@@ -1,0 +1,99 @@
+@import "../../../style/vars";
+
+.wrap {
+  background: linear-gradient(154.33deg, #4DB5EE 29.67%, #108BCF 102.85%);
+  padding: 70px 95px 70px 75px;
+  max-width: 580px;
+  color: $white;
+}
+
+.logo {
+  margin-bottom: 65px;
+  display: block;
+}
+
+.title {
+  margin-bottom: 65px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  text-transform: uppercase;
+}
+
+.item {
+  display: flex;
+}
+
+.item+.item {
+  margin-top: 80px;
+}
+
+.icon {
+  min-width: 75px;
+  min-height: 75px;
+  position: relative;
+  margin-right: 20px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .2);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  &.one {
+    &::before {
+      background-image: url('../../../img/aside-icon-1.svg');
+      width: 36px;
+      height: 49px;
+    }
+  }
+
+  &.two {
+    &::before {
+      background-image: url('../../../img/aside-icon-2.svg');
+      width: 26px;
+      height: 36px;
+    }
+  }
+
+  &.three {
+    &::before {
+      background-image: url('../../../img/aside-icon-3.svg');
+      width: 25px;
+      height: 35px;
+    }
+  }
+
+  &.for {
+    &::before {
+      width: 31px;
+      height: 28px;
+      background-image: url('../../../img/aside-icon-4.svg');
+    }
+  }
+}
+
+.caption {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+
+@media (max-width: 1240px) {
+  .wrap {
+    padding: 70px 30px 70px 30px;
+    max-width: 480px;
+  }
+}

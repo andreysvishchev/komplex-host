@@ -1,0 +1,29 @@
+@import "../../../style/vars";
+
+.list {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  min-height: 35px;
+}
+
+.button {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  padding: 9px 8px;
+  margin-right: 22px;
+  outline: none;
+
+  &.active {
+    background-color: $dark-blue;
+    color: $white;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+}

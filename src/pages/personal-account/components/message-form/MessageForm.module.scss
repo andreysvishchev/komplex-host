@@ -1,0 +1,66 @@
+@import "../../../../style/vars";
+
+.form {
+  display: flex;
+align-items: center;
+
+  &__btn {
+    margin-left: 16px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 8px 24px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: $blue;
+    color: $white;
+    max-height: 50px;
+  }
+  &__file {
+    margin-right: 16px;
+    cursor: pointer;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url('../../../../img/send-file.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  &__textarea {
+    height: 40px !important;
+    width: 100%;
+    resize: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    outline: none;
+    border: 1px solid $silver-shape;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: inherit;
+    scrollbar-color: $blue $gray;
+    scrollbar-width: thin;
+    transition: border-color .2s ease-in-out;
+    &::placeholder {
+      font-size: 12px;
+      line-height: 16px;
+      color: $silver-text;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $blue;
+      border-radius: 10px;
+      width: 3px;
+      height: 27px;
+    }
+    &:focus {
+      border-color: $blue;
+    }
+  }
+}
