@@ -27,3 +27,10 @@
     pointer-events: none;
   }
 }
+
+.row {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 16px;
+}
+

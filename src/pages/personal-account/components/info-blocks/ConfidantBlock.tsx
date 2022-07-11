@@ -22,7 +22,6 @@ const ConfidantBlock = () => {
                 <ConfidantMenu />
             </div>
             <ConfidantTable/>
-            <button className={s.show}>Развернуть всех</button>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 @import "custom-select";
+@import "calendar";
 @import "vars";
 
 body {
@@ -37,10 +38,12 @@ p,
 a,
 ul,
 li,
-button {
+button,
+textarea {
   margin: 0;
   padding: 0;
   color: inherit;
+  font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;

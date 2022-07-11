@@ -17,7 +17,6 @@ const EquipBlock = () => {
                 <Search/>
             </div>
             <EquipTable/>
-            <button className={s.show}>Развернуть все оборудование</button>
         </div>
     );
 };

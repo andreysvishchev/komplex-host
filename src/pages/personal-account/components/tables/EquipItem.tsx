@@ -10,8 +10,9 @@ type PropsType = {
 }
 
 const EquipItem = (props: PropsType) => {
+
     const [open, setOpen] = useState<boolean>(false)
-    const openEquipModal = ()=> {
+    const openEquipModal = () => {
         setOpen(true)
     }
 
@@ -19,10 +20,17 @@ const EquipItem = (props: PropsType) => {
         <div className={`${s.row} ${s.equip}`}>
             <div className={s.col}>{props.serialNumber}</div>
             <div className={s.col}>{props.name}</div>
-            <div className={props.comment === '' ? `${s.coll} ${s.notfiled}` :s.coll}>
-                <span> {props.comment === '' ? 'Редактировать' : props.comment}</span>
-                <button onClick={openEquipModal} className={s.edit}/>
-            </div>
+            {props.comment === ''
+
+                ? <div className={s.col}>
+                    <button onClick={openEquipModal} className={s.notfiled}>Редактировать</button>
+                </div>
+                : <div className={`${s.col} ${s.equip}`}>
+                    <div> {props.comment}</div>
+                    <button onClick={openEquipModal} className={s.edit}/>
+                </div>
+            }
+
             <EquipModal id={props.id} title={props.name} comment={props.comment} open={open} setOpen={setOpen}/>
         </div>
     );

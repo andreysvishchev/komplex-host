@@ -11,7 +11,6 @@ import {ModalType} from "../../../reducers/modal-reducer";
 import NoticeModal from "../../modals/NoticeModal";
 
 const Services = () => {
-    const modal = useAppSelector<ModalType>(state => state.modal)
 
     return (
         <>

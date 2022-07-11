@@ -19,25 +19,18 @@ type PropsType = {
 }
 
 const ConfidantModal = (props: PropsType) => {
-
+    const dispatch = useDispatch()
     const handleClose = () => props.setOpen(false);
 
     const [name, setName] = useState<string>(props.name)
     const [passport, setPassport] = useState<string>(props.passport)
     const [tel, setTel] = useState<string>(props.tel)
 
-    const dispatch = useDispatch()
 
-    const nameHandler = (value: string) => {
-        setName(value)
-    }
-    const passportHandler = (value: string) => {
-        setPassport(value)
-    }
+    const nameHandler = (value: string) => setName(value)
+    const passportHandler = (value: string) => setPassport(value)
+    const telHandler = (value: string) => setTel(value)
 
-    const telHandler = (value: string) => {
-        setTel(value)
-    }
 
     const editConfidant = (name: string, passport: string, tel: string) => {
         if (props.id) {
