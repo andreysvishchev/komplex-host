@@ -10,16 +10,15 @@ import Pagination from "../pagination/Pagination";
 
 const ConfidantTable = React.memo(() => {
 
-    const state = useSelector<AppStateType, ConfidantType[]>(state => state.confidant)
+    let data = useSelector<AppStateType, ConfidantType[]>(state => state.confidant)
 
-    const [items, setItems] = useState<ConfidantType[]>(state)
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(4)
-    const itemsAmount = items.length
-    const maxPage = Math.ceil(items.length / itemsPerPage);
+    const itemsAmount = data.length
+    const maxPage = Math.ceil(data.length / itemsPerPage);
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
-    let slicedPages = items.slice(firstItemIndex, lastItemIndex)
+    data = data.slice(firstItemIndex, lastItemIndex)
     const nextPage = () => setCurrentPage(prev => prev + 1)
     const prevPage = () => setCurrentPage(prev => prev - 1)
 
@@ -31,8 +30,8 @@ const ConfidantTable = React.memo(() => {
                     <h6 className={`${s.caption} ${s.confidant}`}>ФИО</h6>
                     <h6 className={`${s.caption} ${s.confidant}`}>Телефон</h6>
                 </div>
-                {state.length !== 0 ?
-                    state.map(el => {
+                {data.length !== 0 ?
+                    data.map(el => {
                         return (
                             <div className={`${s.row} ${s.confidant}`} key={el.id}>
                                 <div className={s.col}>{el.passport}</div>

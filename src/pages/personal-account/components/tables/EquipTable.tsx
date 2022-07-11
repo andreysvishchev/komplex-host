@@ -9,16 +9,14 @@ import Pagination from "../pagination/Pagination";
 
 
 const EquipTable = () => {
-    const table = useSelector<AppStateType, EquipType[]>(state => state.equips)
-
-    const [items, setItems] = useState<EquipType[]>(table)
+    let data = useSelector<AppStateType, EquipType[]>(state => state.equips)
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(4)
-    const itemsAmount = items.length
-    const maxPage = Math.ceil(items.length / itemsPerPage);
+    const itemsAmount = data.length
+    const maxPage = Math.ceil(data.length / itemsPerPage);
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
-    let slicedPages = items.slice(firstItemIndex, lastItemIndex)
+    data = data.slice(firstItemIndex, lastItemIndex)
     const nextPage = () => setCurrentPage(prev => prev + 1)
     const prevPage = () => setCurrentPage(prev => prev - 1)
 
@@ -31,8 +29,8 @@ const EquipTable = () => {
                     <h6 className={s.caption}>Наименование оборудования</h6>
                     <h6 className={s.caption}>Комментарий</h6>
                 </div>
-                {items.length !== 0 ?
-                    slicedPages.map(el => {
+                {data.length !== 0 ?
+                    data.map(el => {
                         return (
                             <EquipItem
                                 key={el.id}
