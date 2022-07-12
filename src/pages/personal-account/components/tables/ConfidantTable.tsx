@@ -51,6 +51,8 @@ const ConfidantTable = React.memo(() => {
                         maxPage={maxPage}
                         nextPage={nextPage}
                         prevPage={prevPage}
+                        lastIndex={lastItemIndex}
+                        firstIndex={firstItemIndex}
             />
         </div>
     );

@@ -20,7 +20,7 @@ function App() {
 
     useEffect(() => {
         if (auth) {
-            navigate('/account/services')
+            navigate('/services')
         } else (
             navigate('/auth')
         )
@@ -33,10 +33,9 @@ function App() {
 
             {/*       {auth ? <Lk/> : <Auth/>}*/}
 
-
             <Routes>
                 <Route path='auth' element={<Auth/>}/>
-                <Route path='account' element={<PersonalAccount/>}>
+                <Route path='/' element={<PersonalAccount/>}>
                     <Route index element={<Services />}/>
                         {/*<Route path='/services' element={<Navigate to={"services"}/>}/>*/}
                     <Route path="services" element={<Services/>}/>

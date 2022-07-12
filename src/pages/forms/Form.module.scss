@@ -126,9 +126,17 @@
   }
 }
 
+.error {
+  font-size: 12px;
+  line-height: 16px;
+  color: $red;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
 .input {
-  margin-bottom: 16px;
   width: 100%;
+  margin-bottom: 16px;
 
   &__caption {
     font-weight: 500;

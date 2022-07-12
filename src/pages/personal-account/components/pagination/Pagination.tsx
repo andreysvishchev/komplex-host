@@ -9,9 +9,11 @@ type PropsType = {
     maxPage: number
     nextPage: () => void
     prevPage: () => void
+    firstIndex: number
+    lastIndex: number
 }
 
-const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, setItemsPerPage, setCurrentPage}: PropsType) => {
+const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, setItemsPerPage, setCurrentPage,  firstIndex, lastIndex}: PropsType) => {
     const [show, setShow] = useState(false)
 
     const showAllItems = () => {
@@ -32,7 +34,7 @@ const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, setI
                     className={s.pagination__toggle}>{show ? 'Скрыть' : 'Показать всё'}</button>
             {show && <div className={s.pagination__block}>
                 <div className={s.pagination__amount}>
-                    <span>1</span> - <span>10</span>, всего <span>{itemsAmount}</span>
+                    <span>{firstIndex + 1}</span> - <span>{lastIndex > itemsAmount ? itemsAmount : lastIndex}</span>, всего <span>{itemsAmount}</span>
                 </div>
                 <div className={s.pagination__buttons}>
                     <span>{currentPage}</span> из <span>{maxPage}</span>

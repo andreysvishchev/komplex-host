@@ -2,14 +2,15 @@ import React from 'react';
 import logo from './../../../img/logo-header.svg'
 import s from './Header.module.scss'
 import {useDispatch} from "react-redux";
-import {setAppInitializedAC} from "../../../reducers/authReducer";
+import {logout, setAppInitialized} from "../../../reducers/authReducer";
 import {Navigate, NavLink} from "react-router-dom";
+import {AppDispatchType} from "../../../store/store";
 
 const Header = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatchType>()
 
-    const logout = ()=> {
-        dispatch(setAppInitializedAC(false))
+    const logoutHandler = ()=> {
+        dispatch(logout())
     }
 
     return (
@@ -25,7 +26,7 @@ const Header = () => {
                         <a href="#" className={`${s.mail} ${s.active}`}></a>
                         <a href="#" className={`${s.notifications} ${s.active}`}></a>
                     </div>
-                    <button type={'button'} onClick={logout} className={s.logout}>Выйти</button>
+                    <button type={'button'} onClick={logoutHandler} className={s.logout}>Выйти</button>
                 </div>
             </div>
         </header>

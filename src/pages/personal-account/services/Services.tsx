@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import s from './Services.module.scss'
 import AllServices from "./all-services/AllServices";
@@ -11,6 +11,8 @@ import {ModalType} from "../../../reducers/modal-reducer";
 import NoticeModal from "../../modals/NoticeModal";
 
 const Services = () => {
+
+
 
     return (
         <>

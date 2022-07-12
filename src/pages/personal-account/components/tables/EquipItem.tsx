@@ -4,7 +4,7 @@ import EquipModal from "../../../modals/EquipModal";
 
 type PropsType = {
     id: string
-    serialNumber: number
+    serialNumber: string
     name: string
     comment: string
 }
