@@ -2,7 +2,8 @@ import React, {ChangeEvent, useState} from 'react';
 import s from "../../Form.module.scss";
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../../../../store/store";
-import {loginError} from "../../../../reducers/authReducer";
+import {captchaError, loginError} from "../../../../reducers/errorReducer";
+
 
 
 type PropsType = {
@@ -26,7 +27,6 @@ const FormInput: React.FC<PropsType> = (props) => {
 
     const dispatch = useDispatch<AppDispatchType>()
 
-
     const togglePassword = () => {
         setHidden(!hidden)
     }
@@ -34,6 +34,7 @@ const FormInput: React.FC<PropsType> = (props) => {
     const onChangeHandler = ( e: React.ChangeEvent<any>)=> {
         if (onChange) {
             onChange(e)
+            dispatch(captchaError(false))
             dispatch(loginError(false))
         }
     }

@@ -1,14 +1,16 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {servicesApi} from "../api/api";
+import {a} from "@react-spring/web";
 
 
 export const initState = []
 
 export const equipReducer = (state: InitStateType = initState, action: ActionsType) => {
     switch (action.type) {
+        case "GET-EQUIPS":
+            return action.items
         case "SAVE-COMMENT":
-            debugger
             return state.map(el => el.id === action.id ? {...el, comment: action.comment} : el)
         default:
             return state
@@ -28,7 +30,7 @@ export const saveCommentAC = (id: string, comment: string) => {
 export const fetchEquips = () => (dispatch: Dispatch) => {
     servicesApi.getEquips()
         .then((res)=> {
-            console.log(res)
+            dispatch(getEquips(res.data))
         })
 }
 
@@ -39,7 +41,7 @@ type ActionsType =
 export type InitStateType = EquipType[]
 export type EquipType = {
     id: string
-    serialNumber: string
+    number: string
     name: string
     comment: string
 }

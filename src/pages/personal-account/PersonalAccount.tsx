@@ -3,23 +3,24 @@ import Nav from "./nav/Nav";
 import Header from "./header/Header";
 import s from './PersonalAccount.module.scss'
 import {Outlet, useNavigate} from "react-router-dom";
-import {useAppSelector} from "../../store/store";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {useDispatch} from "react-redux";
 
 
 
 const PersonalAccount = () => {
 
-    const auth = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+    const status = useAppSelector<string>(state => state.auth.status)
     const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatchType>()
 
-    // useEffect(() => {
-    //     if(auth) {
-    //         debugger
-    //         console.log('ok')
-    //     } else (
-    //         navigate('/auth')
-    //     )
-    // }, [])
+    useEffect(()=> {
+        if(status !== '0') {
+            navigate('/')
+        }
+    })
+
+
 
 
     return (
@@ -29,16 +30,6 @@ const PersonalAccount = () => {
                 <Nav/>
                 <div className={s.content}>
                     <Outlet/>
-                    {/*<Routes>*/}
-                    {/*    <Route path="services" element={<Services/>}/>*/}
-                    {/*    <Route path="union" element={<Union/>}/>*/}
-                    {/*    <Route path="notifications" element={<Notice/>}/>*/}
-                    {/*    <Route path="support" element={<Support/>}/>*/}
-                    {/*    <Route path="docs" element={<Docs/>}/>*/}
-                    {/*    <Route path="profile" element={<Profile/>}/>*/}
-                    {/*    <Route path="faq" element={<Faq/>}/>*/}
-                    {/*</Routes>*/}
-
                 </div>
             </div>
         </div>

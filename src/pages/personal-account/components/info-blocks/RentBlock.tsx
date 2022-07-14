@@ -4,6 +4,7 @@ import s from "./InfoBlock.module.scss";
 import ConfidantMenu from "../contextMenu/ConfidantMenu";
 import Configurator from "../../../modals/Configurator";
 import RentMenu from "../contextMenu/rentMenu";
+import Tooltip from "../tooltip/Tooltip";
 
 type StateType = {
     id: number
@@ -29,9 +30,11 @@ const RentBlock = (props: PropsType) => {
                         <div className={s.wrap} key={el.id}>
                             <span className={s.error}>Услуга заблокирована</span>
                             <div className={s.top}>
-                                <h4 className={s.caption}>{el.title}</h4>
-                                <span className={s.number}>{el.number}</span>
-                                {!props.archive && <a href="#" className={s.link}>?</a>}
+                                <div className={s.col}>
+                                    <div className={s.caption}>{el.title}</div>
+                                    <div className={s.number}>{el.number}</div>
+                                    {!props.archive && <Tooltip/>}
+                                </div>
                                 {!props.archive && <RentMenu/>}
                             </div>
                             <RentTable archive={props.archive}/>

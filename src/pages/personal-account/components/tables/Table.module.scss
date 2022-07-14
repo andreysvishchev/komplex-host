@@ -182,3 +182,17 @@
   }
 }
 
+.sort {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  &:after {
+    content: '';
+    width: 10px;
+    height: 7px;
+    display: block;
+    margin-left: 5px;
+    background-image: url('../../../../img/arrow-sort.svg');
+  }
+}
+

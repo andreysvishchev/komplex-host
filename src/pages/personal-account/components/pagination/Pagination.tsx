@@ -28,8 +28,6 @@ const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, setI
 
     return (
         <div className={s.pagination}>
-
-
             <button onClick={showAllItems}
                     className={s.pagination__toggle}>{show ? 'Скрыть' : 'Показать всё'}</button>
             {show && <div className={s.pagination__block}>
@@ -42,8 +40,6 @@ const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, setI
                     <button onClick={nextPage} disabled={currentPage === maxPage} className={`${s.pagination__btn} ${s.next}`}/>
                 </div>
             </div>}
-
-
         </div>
     );
 };

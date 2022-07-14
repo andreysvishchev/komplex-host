@@ -57,9 +57,15 @@ export const confidantReducer = (state: InitStateType = initState, action: Actio
                 passport: action.passport,
                 tel: action.tel
             } : el)
-        case "ADD-CONFIDANT": {
+        case "ADD-CONFIDANT":
             return [{id: action.id, name: action.name, passport: action.passport, tel: action.tel}, ...state]
+
+        case "SORT-BY-NAME": {
+
+
+            return  [...state.sort((a, b) => a.name < b.name ? -1 : 1)]
         }
+
 
         default :
             return state
@@ -79,10 +85,14 @@ export const editConfidantAC = (id: string, name: string, passport: string, tel:
 export const addConfidantAC = (name: string, passport: string, tel: string) => {
     return {type: 'ADD-CONFIDANT', id: v1(), name, passport, tel} as const
 }
+export const sortByName = () => {
+    return {type: 'SORT-BY-NAME'} as const
+}
 
 export type ActionsType =
     | ReturnType<typeof deleteAllConfidant>
     | ReturnType<typeof deleteConfidantAC>
     | ReturnType<typeof editConfidantAC>
     | ReturnType<typeof addConfidantAC>
+    | ReturnType<typeof sortByName>
 

@@ -10,6 +10,8 @@ import {rentBlockReducer} from "../reducers/rentBlockReducer";
 import {registrationReducer} from "../reducers/registrationReducer";
 import {supportReducer} from "../reducers/supportReducer";
 import thunk, { ThunkDispatch } from "redux-thunk";
+import {errorReducer} from "../reducers/errorReducer";
+import {appReducer} from "../reducers/appReducer";
 
 
 const rootReducer = combineReducers({
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
     modal: modalReducer,
     equips: equipReducer,
     rent: rentBlockReducer,
-    support: supportReducer
+    support: supportReducer,
+    error: errorReducer,
+    app: appReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

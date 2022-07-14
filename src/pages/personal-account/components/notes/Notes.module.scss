@@ -13,9 +13,15 @@
 .top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 24px;
   color: $dark-blue;
   position: relative;
+}
+.col {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .caption {

@@ -101,31 +101,6 @@
   margin: 8px 0 16px;
 }
 
-.button {
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  color: $white;
-  border-radius: 4px;
-  padding: 8px 24px;
-  background-color: $blue;
-  cursor: pointer;
-  outline: none;
-  border: none;
-
-  &.disabled {
-    background-color: $gray;
-    pointer-events: none;
-  }
-
-  &.light {
-    background-color: transparent;
-    color: $blue;
-    border: 1px solid $blue;
-  }
-}
-
 .error {
   font-size: 12px;
   line-height: 16px;

@@ -5,21 +5,21 @@ import Search from "../search/Search";
 import ConfidantMenu from "../contextMenu/ConfidantMenu";
 import {useDispatch} from "react-redux";
 import {deleteAllConfidant} from "../../../../reducers/confidantReducer";
+import Tooltip from "../tooltip/Tooltip";
 
 
 const ConfidantBlock = () => {
 
 
-
     return (
         <div className={s.wrap}>
-            <div className={`${s.top} ${s.grid}`}>
+            <div className={s.top}>
                 <div className={s.col}>
-                    <h4 className={s.caption}>Доверенное лицо</h4>
-                    <a href="#" className={s.link}>?</a>
+                    <div className={s.caption}>Доверенное лицо</div>
+                    <Tooltip/>
+                    <Search/>
                 </div>
-                <Search/>
-                <ConfidantMenu />
+                <ConfidantMenu/>
             </div>
             <ConfidantTable/>
         </div>

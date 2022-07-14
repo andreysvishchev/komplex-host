@@ -3,8 +3,13 @@ import s from './../../../forms/Form.module.scss'
 import FormInput from "../../../forms/components/FormInput/FormInput";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
-import {login, logout} from "../../../../reducers/authReducer";
+import {login} from "../../../../reducers/authReducer";
 import {useFormik} from "formik";
+import {openRecoveryModal} from "../../../../reducers/modal-reducer";
+import RecoveryPasswordModal from "../../../modals/RecoveryPasswordModal";
+import load from '../../../../img/load-btn.svg'
+import Button from "../../../personal-account/components/button/Button";
+import ConfirmPasswordModal from "../../../modals/ConfirmPasswordModal";
 
 
 type FormikErrorType = {
@@ -14,7 +19,10 @@ type FormikErrorType = {
 
 const LogIn = () => {
     const dispatch = useDispatch<AppDispatchType>()
-    const errorStatus = useAppSelector<boolean>(state => state.auth.loginError)
+    const errorStatus = useAppSelector<boolean>(state => state.error.loginError)
+    const openRecoveryModalHandler = () => {
+        dispatch(openRecoveryModal(true))
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -42,35 +50,41 @@ const LogIn = () => {
     })
 
     return (
-        <form className={s.form} onSubmit={formik.handleSubmit}>
-            <FormInput caption={'Электронная почта'}
-                       errorText={formik.errors.email}
-                       error={formik.errors.email &&
-                       formik.touched.email || errorStatus}
-                       {...formik.getFieldProps('email')}
-                       name="email"
-                       onBlur={formik.handleBlur}
-                       onChange={formik.handleChange}
-                       value={formik.values.email}
-                       placeholder={'Введите e-mail'}
-                       type={'email'}/>
-            <FormInput caption={'Пароль'}
-                       {...formik.getFieldProps('password')}
-                       name="password"
-                       placeholder={'Введите пароль'}
-                       onBlur={formik.handleBlur}
-                       onChange={formik.handleChange}
-                       value={formik.values.password}
-                       type={'password'}
-                       password={true}
-                       errorText={formik.errors.password}
-                       error={formik.errors.password &&
-                       formik.touched.password || errorStatus}/>
-            <div className={s.form__row} style={{marginTop: '24px'}}>
-                <button type="submit" className={s.button}>Вход</button>
-                <button type={'button'}  className={s.recovery}>Забыли пароль?</button>
-            </div>
-        </form>
+        <>
+            <form className={s.form} onSubmit={formik.handleSubmit}>
+                <FormInput caption={'Электронная почта'}
+                           errorText={formik.errors.email}
+                           error={formik.errors.email &&
+                           formik.touched.email || errorStatus}
+                           {...formik.getFieldProps('email')}
+                           name="email"
+                           onBlur={formik.handleBlur}
+                           onChange={formik.handleChange}
+                           value={formik.values.email}
+                           placeholder={'Введите e-mail'}
+                           type={'email'}/>
+                <FormInput caption={'Пароль'}
+                           {...formik.getFieldProps('password')}
+                           name="password"
+                           placeholder={'Введите пароль'}
+                           onBlur={formik.handleBlur}
+                           onChange={formik.handleChange}
+                           value={formik.values.password}
+                           type={'password'}
+                           password={true}
+                           errorText={formik.errors.password}
+                           error={formik.errors.password &&
+                           formik.touched.password || errorStatus}/>
+                <div className={s.form__row} style={{marginTop: '24px'}}>
+                    <Button type={'submit'} title={'Вход'}/>
+                    <button type={'button'} onClick={openRecoveryModalHandler} className={s.recovery}>Забыли пароль?
+                    </button>
+                </div>
+            </form>
+            <RecoveryPasswordModal/>
+
+        </>
+
     );
 };
 

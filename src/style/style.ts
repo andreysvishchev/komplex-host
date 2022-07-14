@@ -14,7 +14,8 @@ export const modal = {
     borderRadius: '4px',
     boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.05)',
     backgroundColor: '#fff',
-    padding: '34px'
+    padding: '34px',
+    outline: 'none'
 }
 
 export const theme = createTheme({

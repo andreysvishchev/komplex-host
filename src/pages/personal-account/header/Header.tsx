@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './../../../img/logo-header.svg'
 import s from './Header.module.scss'
 import {useDispatch} from "react-redux";
-import {logout, setAppInitialized} from "../../../reducers/authReducer";
+import {logout, changeUserStatus} from "../../../reducers/authReducer";
 import {Navigate, NavLink} from "react-router-dom";
 import {AppDispatchType} from "../../../store/store";
 

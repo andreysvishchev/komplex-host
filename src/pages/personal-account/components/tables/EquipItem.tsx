@@ -17,7 +17,7 @@ const EquipItem = (props: PropsType) => {
     }
 
     return (
-        <div className={`${s.row} ${s.equip}`}>
+        <div className={`${s.row} ${s.equip}`} id={props.id}>
             <div className={s.col}>{props.serialNumber}</div>
             <div className={s.col}>{props.name}</div>
             {props.comment === ''
@@ -30,7 +30,6 @@ const EquipItem = (props: PropsType) => {
                     <button onClick={openEquipModal} className={s.edit}/>
                 </div>
             }
-
             <EquipModal id={props.id} title={props.name} comment={props.comment} open={open} setOpen={setOpen}/>
         </div>
     );

@@ -4,8 +4,11 @@ import FormInput from "../../../forms/components/FormInput/FormInput";
 import {useDispatch} from "react-redux";
 import {registrationPage} from '../../../../reducers/registrationReducer';
 import {useFormik} from "formik";
-import {login, registration} from "../../../../reducers/authReducer";
+import {getCaptchaUrl, registration} from "../../../../reducers/authReducer";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
+import CaptchaModal from "../../../modals/CaptchaModal";
+import Button from "../../../personal-account/components/button/Button";
+
 
 type FormikErrorType = {
     email?: string
@@ -15,7 +18,8 @@ type FormikErrorType = {
 
 const Registration = () => {
     const dispatch = useDispatch<AppDispatchType>()
-    const errorStatus = useAppSelector<boolean>(state => state.auth.loginError)
+    const errorStatus = useAppSelector<boolean>(state => state.error.loginError)
+
 
     const openRegistrationPage = () => {
         dispatch(registrationPage(true))
@@ -35,8 +39,7 @@ const Registration = () => {
                 errors.email = 'Email указан некорректно';
             }
             if (values.password !== values.password_repeat) {
-                errors.password = 'Пароли не совпадают'
-                errors.password_repeat = 'Пароли не совпадают'
+                errors.password_repeat = 'Пароли должны совпадать'
             }
             if (!values.password) {
                 errors.password = 'Поле обязательно для заполнения';
@@ -45,12 +48,13 @@ const Registration = () => {
             }
             if (!values.password_repeat) {
                 errors.password_repeat = 'Поле обязательно для заполнения';
-            } else if (values.password_repeat.length < 5) {
+            } else if (values.password_repeat.length < 8) {
                 errors.password_repeat = 'Проль должен содержать не меньше 8 символов'
             }
             return errors;
         },
         onSubmit: values => {
+            dispatch(getCaptchaUrl())
             dispatch(registration(values.email, values.password))
             formik.resetForm()
         },
@@ -86,9 +90,9 @@ const Registration = () => {
                            errorText={formik.errors.password}
                            error={formik.errors.password &&
                            formik.touched.password || errorStatus}/>
-                <p className={s.recommendation}>Пароль должен содержать 8 символов. Заглавные, строчные буквы и
+                <p className={s.recommendation}>Пароль должен содержать не менее 8 символов. Заглавные, строчные буквы и
                     цифры</p>
-                <FormInput caption={'Пароль'}
+                <FormInput caption={'Повторите пароль'}
                            placeholder={'Повторите пароль'}
                            type={'password'}
                            password={true}
@@ -101,9 +105,10 @@ const Registration = () => {
                            error={formik.errors.password_repeat &&
                            formik.touched.password_repeat || errorStatus}/>
                 <div className={s.form__row} style={{marginTop: '24px', justifyContent: "flex-end"}}>
-                    <button type='submit' className={s.button}>Далее</button>
+                    <Button type='submit' title={'Далее'}/>
                 </div>
             </form>
+            <CaptchaModal/>
         </>
 
     );
