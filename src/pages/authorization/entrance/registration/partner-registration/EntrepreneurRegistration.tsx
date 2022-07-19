@@ -7,14 +7,16 @@ import Radio from "../../../../forms/components/Radio/Radio";
 import {button} from "../../../../../style/style";
 import RequisitesForm from "../../../../forms/RequisitesForm";
 import ContactsForm from "../../../../forms/ContactsForm";
+import Button from "../../../../personal-account/components/button/Button";
+import {useFormik} from "formik";
 
 
 type PropsType = {
     leaveReg: () => void
+    setHide: (hide: boolean) => void
 }
 
 const EntrepreneurRegistration = (props: PropsType) => {
-
     const [page, setPage] = useState(0)
     const coincidence = ['Да', 'Нет']
     const [value, onChangeOption] = useState(coincidence[0]);
@@ -27,16 +29,25 @@ const EntrepreneurRegistration = (props: PropsType) => {
         setPage((currPage) => currPage - 1)
     }
 
+    const formik = useFormik({
+        initialValues: {
+            coincidence: '',
+        },
+        onSubmit: values => {
+            nextPage()
+        },
+    })
+
 
     const PageDisplay = () => {
         switch (page) {
             case 0:
-                return <EntrepreneurInfoForm leaveReg={props.leaveReg} nextPage={nextPage} registration={true}/>
+                return <EntrepreneurInfoForm leaveReg={props.setHide} nextPage={nextPage} registration={true}/>
             case 1:
                 return <AddressForm prevPage={prevPage} registration={true} lastStep={false} nextPage={nextPage}/>
             case 2:
                 return (<>
-                    <form className={`${form.form} ${form.registration}`}>
+                    <form onSubmit={formik.handleSubmit} className={`${form.form} ${form.registration}`}>
                         <div className={value == 'Да' ? `${s.frame} ${s.not}` : s.frame}>
                             <Radio value={value} name={'coincidence'} options={coincidence}
                                    onChangeOption={onChangeOption}/>
@@ -44,10 +55,8 @@ const EntrepreneurRegistration = (props: PropsType) => {
                         {
                             value == 'Да' &&
                             <div className={form.form__buttons}>
-                                <button onClick={prevPage} type={'button'}
-                                        className={`${form.button} ${form.light}`}>Назад
-                                </button>
-                                <button type={'button'} onClick={nextPage} className={form.button}>Далее</button>
+                                <Button light={true} callBack={prevPage} type={"button"} title={'Назад'}/>
+                                <Button title={'Далее'} type={'submit'}/>
                             </div>
                         }
                     </form>
@@ -72,14 +81,14 @@ const EntrepreneurRegistration = (props: PropsType) => {
                         stepHeadlines.map((el, i) => {
                             return (
                                 <div key={i}
-                                     className={i == page ? `${s.active} ${s.progress__item}` : i < page ? `${s.completed} ${s.progress__item}` : s.progress__item}></div>
+                                     className={i == page ? `${s.active} ${s.progress__item}` : i < page ? `${s.completed} ${s.progress__item}` : s.progress__item}/>
                             )
                         })
                     }
                 </div>
                 <div className={s.caption}>Индивидуальный предприниматель</div>
                 {stepHeadlines[page] !== '' &&
-                    <div className={s.headline}>{stepHeadlines[page]}</div>}
+                <div className={s.headline}>{stepHeadlines[page]}</div>}
                 {PageDisplay()}
 
             </div>

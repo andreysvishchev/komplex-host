@@ -1,27 +1,116 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from "./Form.module.scss";
 import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
+import Button from "../personal-account/components/button/Button";
+import {useDispatch} from "react-redux";
+import {choicePartner} from "../../reducers/registrationReducer";
+import {useFormik} from "formik";
+import {login} from "../../reducers/authReducer";
+import ReactDatePicker from "react-datepicker";
+import ru from "date-fns/locale/ru";
+import {CalendarMonth} from "@mui/icons-material";
+import {AppDispatchType} from "../../store/store";
 
 
 type PropsType = {
     nextPage: () => void
     registration: boolean
-    leaveReg: ()=> void
+    leaveReg: (hide: boolean) => void
+}
+
+type FormikErrorType = {
+    firstName?: string
+    lastName?: string
+    parent?: string
+    dateOfBirth?: string
+    phone?: string
 }
 
 const PersonalInfoForm = (props: PropsType) => {
+    const dispatch = useDispatch<AppDispatchType>()
+    const leaveReg = () => {
+        dispatch(choicePartner(null))
+        props.leaveReg(false)
+    }
+    const formik = useFormik({
+        initialValues: {
+            firstName: '',
+            lastName: '',
+            parent: '',
+            dateOfBirth: '',
+            phone: ''
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.firstName) {
+                errors.firstName = 'Поле обязательно для заполнения';
+            }
+            if (!values.lastName) {
+                errors.lastName = 'Поле обязательно для заполнения';
+            }
+            if (!values.parent) {
+                errors.parent = 'Поле обязательно для заполнения';
+            }
+            if (!values.dateOfBirth) {
+                errors.dateOfBirth = 'Поле обязательно для заполнения';
+            }
+            if (!values.phone) {
+                errors.phone = 'Поле обязательно для заполнения';
+            }
+
+            return errors;
+        },
+        onSubmit: values => {
+            const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(values))))
+            console.log(valueStr)
+            /*console.log(decodeURIComponent(escape(window.atob(valueStr))))*/
+            props.nextPage()
+            formik.resetForm()
+        },
+    })
 
     return (
-        <form className={props.registration ? `${s.registration} ${s.form}` : s.form}>
-            <FormInput caption={'Фамилия'} placeholder={'Введите фамилию'}/>
-            <FormInput caption={'Имя'} placeholder={'Введите имя'}/>
-            <FormInput caption={'Отчество'} placeholder={'Введите отчество'}/>
-            <FormInput caption={'Дата рождения'} placeholder={'ДД.ММ.ГГГГ'} type='number'/>
-            <FormInput caption={'Номер телефона'} placeholder={'Введите телефон'} type='tel'/>
+        <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
+            <FormInput
+                caption={'Фамилия'}
+                placeholder={'Введите фамилию'}
+                {...formik.getFieldProps('firstName')}
+                error={formik.errors.firstName && formik.touched.firstName}
+                errorText={formik.errors.firstName}
+            />
+            <FormInput
+                caption={'Имя'}
+                placeholder={'Введите имя'}
+                {...formik.getFieldProps('lastName')}
+                error={formik.errors.lastName && formik.touched.lastName}
+                errorText={formik.errors.lastName}
+            />
+            <FormInput
+                caption={'Отчество'}
+                placeholder={'Введите отчество'}
+                {...formik.getFieldProps('parent')}
+                error={formik.errors.parent && formik.touched.parent}
+                errorText={formik.errors.parent}
+            />
+            <FormInput
+                caption={'Дата рождения'}
+                placeholder={'ДД.ММ.ГГГГ'}
+                {...formik.getFieldProps('dateOfBirth')}
+                error={formik.errors.dateOfBirth && formik.touched.dateOfBirth}
+                errorText={formik.errors.dateOfBirth}
+            />
+            <FormInput
+                caption={'Номер телефона'}
+                type={'tel'}
+                placeholder={'Введите телефон'}
+                {...formik.getFieldProps('phone')}
+                error={formik.errors.phone && formik.touched.phone}
+                errorText={formik.errors.phone}
+            />
             <div className={s.form__buttons}>
-                <button onClick={props.leaveReg} className={`${s.button} ${s.light}`}>Назад</button>
-                <button onClick={props.nextPage} className={s.button}>Далее</button>
+                <Button light={true} callBack={leaveReg} type={"button"} title={'Назад'}/>
+                <Button title={'Далее'} type={'submit'}/>
             </div>
         </form>
     );

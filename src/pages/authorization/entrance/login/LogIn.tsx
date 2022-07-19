@@ -3,13 +3,14 @@ import s from './../../../forms/Form.module.scss'
 import FormInput from "../../../forms/components/FormInput/FormInput";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
-import {login} from "../../../../reducers/authReducer";
+import {getStatus, login} from "../../../../reducers/authReducer";
 import {useFormik} from "formik";
 import {openRecoveryModal} from "../../../../reducers/modal-reducer";
 import RecoveryPasswordModal from "../../../modals/RecoveryPasswordModal";
 import load from '../../../../img/load-btn.svg'
 import Button from "../../../personal-account/components/button/Button";
 import ConfirmPasswordModal from "../../../modals/ConfirmPasswordModal";
+import {btoa} from "buffer";
 
 
 type FormikErrorType = {
@@ -48,6 +49,7 @@ const LogIn = () => {
             formik.resetForm()
         },
     })
+
 
     return (
         <>

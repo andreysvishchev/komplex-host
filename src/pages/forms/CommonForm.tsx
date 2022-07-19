@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./Form.module.scss";
 import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
+import Button from "../personal-account/components/button/Button";
 
 const CommonForm = () => {
 
@@ -14,12 +15,17 @@ const CommonForm = () => {
             <FormInput caption={'ИНН'} type={'number'}/>
             <FormInput caption={'КПП'} type={'number'}/>
             <div className={s.form__row} style={{alignItems: "end", marginBottom: '16px'}}>
-                <FormInput caption={'Электронная почта'} type={'email'} style={style}/>
-                <button className={`${s.button} ${s.light}`}>Изменить</button>
+                <form>
+                    <FormInput caption={'Электронная почта'} type={'email'} style={style}/>
+                    <Button type={'submit'} title={'Изменить'} light={true}/>
+                </form>
+
             </div>
             <div className={s.form__row} style={{alignItems: "end", marginBottom: '16px'}}>
-                <FormInput caption={'Пароль'} type={'password'} style={style}/>
-                <button className={`${s.button} ${s.light}`}>Изменить</button>
+                <form>
+                    <FormInput caption={'Пароль'} type={'password'} style={style}/>
+                    <Button type={'submit'} title={'Изменить'} light={true}/>
+                </form>
             </div>
         </form>
     );

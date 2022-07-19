@@ -1,20 +1,25 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from '../Support.module.scss'
-import Tooltip from "../../components/tooltip/Tooltip";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../store/store";
-import {ApplicationType, fetchApplications, fetchMessages, MessageType} from "../../../../reducers/supportReducer";
-import Message from "./Message";
-import message from "./Message";
+import {ApplicationType,} from "../../../../reducers/supportReducer";
 import MessageForm from "../../components/message-form/MessageForm";
+import Message from "./Message";
 
-type PropsType = {}
+type PropsType = {
+    applications: ApplicationType[]
+    id: string
+}
 
 const Chat = React.memo((props: PropsType) => {
+
+
     const [end, setEnd] = useState<boolean>(true)
-    const messages = useSelector<AppStateType, MessageType[]>(state => state.support.messages)
+    const messages = useSelector<AppStateType, ApplicationType[]>(state => state.support)
     const list = document.getElementById('messages')
 
+
+    const arr = props.applications.filter(el => el.id === props.id)
 
     useEffect(() => {
         if (list) {
@@ -34,7 +39,7 @@ const Chat = React.memo((props: PropsType) => {
 
     const dispatch = useDispatch<AppDispatchType>()
     useEffect(() => {
-        dispatch(fetchMessages())
+
     }, [])
 
 
@@ -50,7 +55,7 @@ const Chat = React.memo((props: PropsType) => {
             </div>
 
             <div id='messages' className={s.chat__messages}>
-                {messages.map(el => {
+                {arr[0].messages.map(el => {
                     return (
                         <Message data={el} key={el.id}/>
                     )

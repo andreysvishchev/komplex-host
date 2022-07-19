@@ -7,6 +7,7 @@ import AddressForm from "../../../../forms/AddressForm";
 
 type PropsType = {
     leaveReg: () => void
+    setHide: (hide: boolean)=> void
 }
 
 
@@ -24,7 +25,7 @@ const PrivateRegistration = (props: PropsType) => {
     const PageDisplay = () => {
         switch (page) {
             case 0:
-                return <PersonalInfoForm leaveReg={props.leaveReg} nextPage={nextPage} registration={true}/>
+                return <PersonalInfoForm leaveReg={props.setHide} nextPage={nextPage} registration={true}/>
             case 1:
                 return <PassportDataForm nextPage={nextPage} prevPage={prevPage} registration={true}/>
             case 2:
@@ -40,7 +41,8 @@ const PrivateRegistration = (props: PropsType) => {
                     {
                         stepHeadlines.map((el, i) => {
                             return (
-                                <div key={i} className={i == page ? `${s.active} ${s.progress__item}` : i < page ? `${s.completed} ${s.progress__item}` : s.progress__item}></div>
+                                <div key={i}
+                                     className={i == page ? `${s.active} ${s.progress__item}` : i < page ? `${s.completed} ${s.progress__item}` : s.progress__item}/>
                             )
                         })
                     }

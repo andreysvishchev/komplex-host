@@ -1,5 +1,5 @@
 let initialState: InitialStateType = {
-    registrationPage: false,
+    registrationPage: true,
     partners: null
 }
 

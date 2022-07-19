@@ -12,7 +12,7 @@ const instance = axios.create({
 
 export const supportApi = {
     getApplications() {
-        return axios.get('http://localhost:3004/dialogs')
+        return axios.get('http://localhost:3004/applications')
     },
     getMessages() {
         return axios.get('http://localhost:3004/messages')

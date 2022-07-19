@@ -21,6 +21,7 @@ function App() {
 
 
     useEffect(() => {
+        console.log(status)
         if (status === '0') {
             navigate('/account/services')
         }

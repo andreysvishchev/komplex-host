@@ -53,9 +53,9 @@ const PartnerRegistration = () => {
                 </button>
             </div>
 
-            {partners === 'private' && <PrivateRegistration leaveReg={leaveReg}/>}
-            {partners === 'entrepreneur' && <EntrepreneurRegistration leaveReg={leaveReg}/>}
-            {partners === 'company' && <CompanyRegistration leaveReg={leaveReg}/>}
+            {partners === 'private' && <PrivateRegistration setHide={setHide} leaveReg={leaveReg}/>}
+            {partners === 'entrepreneur' && <EntrepreneurRegistration setHide={setHide} leaveReg={leaveReg}/>}
+            {partners === 'company' && <CompanyRegistration setHide={setHide} leaveReg={leaveReg}/>}
 
 
         </div>

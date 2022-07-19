@@ -10,7 +10,6 @@
   color: $white;
   border-radius: 4px;
   padding: 8px 24px;
-  height: 40px;
   background-color: $blue;
   cursor: pointer;
   outline: none;
@@ -28,6 +27,11 @@
     background-image: url('../../../../img/load-btn.svg');
     opacity: 0;
   }
+  &:disabled {
+    color: $white;
+    background-color: $gray;
+    pointer-events: none;
+  }
 
   &.loading {
     color: transparent;
@@ -35,5 +39,10 @@
     &:before {
       opacity: 1;
     }
+  }
+  &.light {
+    background-color: transparent;
+    border: 1px solid $blue;
+    color: $blue;
   }
 }

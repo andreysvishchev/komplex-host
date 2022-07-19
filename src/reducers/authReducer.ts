@@ -16,13 +16,15 @@ import {setLoading} from "./appReducer";
 
 let initialState = {
     isLoggedIn: false,
-    status: '1'
+    status: '1',
+
 }
 
 export const authReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case "CHANGE-STATUS":
             return {...state, status: action.value}
+
         default:
             return state
     }
@@ -34,10 +36,11 @@ export const changeUserStatus = (value: string) => {
 }
 
 // thunk
-export const getStatus = () => () => {
+export const getStatus = () => (dispatch: AppDispatchType) => {
     authApi.getStatus()
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
+
         })
 }
 
@@ -49,7 +52,6 @@ export const login = (values: LoginParamsType) => (dispatch: AppDispatchType) =>
                 dispatch(loginError(false))
                 dispatch(changeUserStatus('0'))
             } else {
-                console.log(res)
                 if (res.data.result === '100') {
                     dispatch(loginError(true))
                     dispatch(showLoginError('Введен неверный логин или пароль'))

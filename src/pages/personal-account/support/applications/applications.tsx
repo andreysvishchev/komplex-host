@@ -1,24 +1,23 @@
-import React, {MutableRefObject, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from '../Support.module.scss'
 import Tooltip from "../../components/tooltip/Tooltip";
-import Search from "../../components/search/Search";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../store/store";
-import {ApplicationType, fetchApplications} from "../../../../reducers/supportReducer";
+import {ApplicationType} from "../../../../reducers/supportReducer";
 import Application from "./application";
 import ChatSearch from "../chat-search/ChatSearch";
-import axios from 'axios';
 
 type PropsType = {
-
+    applications: ApplicationType[]
+    setId: (id: string) => void
 }
 
-const Applications = React.memo( (props: PropsType) => {
-    const applications = useSelector<AppStateType, ApplicationType[]>(state => state.support.applications)
+const Applications = React.memo((props: PropsType) => {
+
     const dispatch = useDispatch<AppDispatchType>()
 
     useEffect(() => {
-        dispatch(fetchApplications())
+
     }, [])
 
 
@@ -52,9 +51,11 @@ const Applications = React.memo( (props: PropsType) => {
             </div>
 
             <div className={s.applications__list} id='scroll'>
-                {applications.map(el => {
+                {props.applications.map(el => {
                     return (
-                        <Application key={el.id}
+                        <Application
+                            setId={props.setId}
+                            key={el.id}
                                      data={el}/>
                     )
                 })}
