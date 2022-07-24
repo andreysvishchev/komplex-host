@@ -4,7 +4,10 @@ const initialState = {
     message: '',
     openCaptchaModal: false,
     openRecoverModal: false,
-    openConfirmRecoveryModal: false
+    openConfirmRecoveryModal: false,
+    openEditorModal: false,
+    url: ''
+
 }
 
 
@@ -20,6 +23,8 @@ export const modalReducer = (state: ModalType = initialState, action: ActionType
             return {...state, openRecoverModal: action.isOpen}
         case "OPEN-CONFIRM-RECOVERY":
             return {...state, openConfirmRecoveryModal: action.isOpen}
+        case "OPEN-EDITOR":
+            return {...state, openEditorModal: action.isOpen, url: action.url}
         default:
             return state
     }
@@ -40,6 +45,9 @@ export const openRecoveryModal = (isOpen: boolean) => {
 export const openConfirmRecoveryModal = (isOpen: boolean) => {
     return {type: 'OPEN-CONFIRM-RECOVERY', isOpen} as const
 }
+export const openEditorModal = (isOpen: boolean, url: any) => {
+    return {type: 'OPEN-EDITOR', isOpen, url} as const
+}
 
 export type ActionType =
     | ReturnType<typeof openModalAC>
@@ -47,4 +55,5 @@ export type ActionType =
     | ReturnType<typeof openCaptchaModal>
     | ReturnType<typeof openRecoveryModal>
     | ReturnType<typeof openConfirmRecoveryModal>
+    | ReturnType<typeof openEditorModal>
 export type ModalType = typeof initialState

@@ -5,9 +5,11 @@ import {button} from "../../style/style";
 import {useFormik} from "formik";
 import Button from "../personal-account/components/button/Button";
 import Textarea from "./components/Textarea/Textarea";
-import Input from "@mui/material/Input";
-import styled from "@mui/material/styles/styled";
-import InputFile from "./components/InputFile/InputFile";
+import {useDispatch} from "react-redux";
+import EditorModal from "../modals/EditorModal";
+import * as faceapi from "face-api.js";
+import maskSrc from '../../img/mask.png'
+
 
 type PropsType = {
     prevPage: () => void
@@ -26,6 +28,11 @@ type FormikErrorType = {
 }
 
 const PassportDataForm = (props: PropsType) => {
+
+
+    const dispatch = useDispatch();
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -76,14 +83,50 @@ const PassportDataForm = (props: PropsType) => {
     const [name, setName] = useState('Добавить')
     const [nameTwo, setNameTwo] = useState('Добавить')
 
-    const changeMainScan = async (e: ChangeEvent<HTMLInputElement>) => {
+    faceapi.nets.tinyFaceDetector.loadFromUri('./models')
+
+    async function changeMainScan(e: ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files.length) {
             setName(e.target.files[0].name)
-            let file = e.target.files[0];
-            const base64 = await convertBase64(file)
-            await formik.setFieldValue("scan_main", base64);
+            let imgFile = e.target.files[0];
+            const base64 = await convertBase64(imgFile)
+            const img = await faceapi.bufferToImage(imgFile)
+            const displaySize = {width: img.width, height: img.height}
+            const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+            faceapi.matchDimensions(canvas, displaySize)
+            const options = new faceapi.TinyFaceDetectorOptions({inputSize: 512})
+            const detections = await faceapi.detectAllFaces(img, options)
+            const resizedDetections = faceapi.resizeResults(detections, displaySize)
+            const ctx = await canvas.getContext('2d')
+
+            if (ctx) {
+                const image = new Image();
+                const mask = new Image();
+                const x = detections[0].box.x
+                const y = detections[0].box.y
+                const boxWidth = detections[0].box.width
+                const boxHeight = detections[0].box.height
+                if (typeof base64 === "string") {
+                    image.src = base64
+                }
+                mask.src = `${maskSrc}`
+                ctx.drawImage(image, 0, 0)
+                mask.onload = () => {
+                    faceapi.draw.drawDetections(canvas, resizedDetections)
+                    ctx.fillStyle = 'white'
+                    ctx.fillRect(x - 5, y - 5, boxWidth + 10, boxHeight + 10);
+                    for (let w = 0; w < canvas.width; w += mask.width) {
+                        for (let h = 0; h < canvas.height; h += mask.height) {
+                            ctx!.drawImage(mask, w, h);
+                        }
+                    }
+                }
+            }
+            const result = canvas.toDataURL()
+            await formik.setFieldValue("scan_main", result);
         }
     }
+
     const changeRegistrationScan = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             setNameTwo(e.target.files[0].name)
@@ -92,6 +135,7 @@ const PassportDataForm = (props: PropsType) => {
             await formik.setFieldValue("scan_reg", base64);
         }
     }
+
     const convertBase64 = (file: any) => {
         return new Promise(resolve => {
             const fileReader = new FileReader()
@@ -152,6 +196,7 @@ const PassportDataForm = (props: PropsType) => {
                 </label>
                 {formik.errors.scan_main && formik.touched.scan_main &&
                 <div className={s.input__error}>{formik.errors.scan_main}</div>}
+                <canvas style={{display: "none"}} id={'canvas'}/>
             </div>
             <div className={s.form__scan}>
                 <label className={`${s.file} ${s.two}`}>
@@ -168,7 +213,7 @@ const PassportDataForm = (props: PropsType) => {
                 <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>
             </div>
-
+{/*    <EditorModal/>*/}
         </form>
     );
 };

@@ -2,7 +2,7 @@
   "name": "komplex-host",
   "version": "0.1.0",
   "private": true,
-  "homepage": "assets",
+  "homepage": "",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -28,6 +28,7 @@
     "@types/uuid": "^8.3.4",
     "axios": "^0.27.2",
     "date-fns": "^2.0.0-alpha.23",
+    "face-api.js": "^0.22.2",
     "formik": "^2.2.9",
     "react": "^18.1.0",
     "react-calendar": "^3.7.0",

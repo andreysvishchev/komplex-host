@@ -45,7 +45,6 @@ const LogIn = () => {
             return errors;
         },
         onSubmit: values => {
-            console.log(values)
             dispatch(login(values))
             formik.resetForm()
         },

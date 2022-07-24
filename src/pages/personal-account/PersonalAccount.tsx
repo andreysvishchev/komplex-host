@@ -15,7 +15,7 @@ const PersonalAccount = () => {
     const dispatch = useDispatch<AppDispatchType>()
 
     useEffect(()=> {
-        if(status !== '0') {
+        if(status === '1') {
             navigate('/')
         }
     })

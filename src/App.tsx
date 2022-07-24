@@ -22,7 +22,7 @@ function App() {
 
     useEffect(() => {
         console.log(status)
-        if (status === '0') {
+        if (status === '2') {
             navigate('/account/services')
         }
     }, [status])

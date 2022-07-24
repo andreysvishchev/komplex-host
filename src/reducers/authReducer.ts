@@ -39,8 +39,8 @@ export const changeUserStatus = (value: string) => {
 export const getStatus = () => (dispatch: AppDispatchType) => {
     authApi.getStatus()
         .then((res) => {
-            console.log(res.data)
 
+            dispatch(changeUserStatus(res.data.result))
         })
 }
 
@@ -50,7 +50,8 @@ export const login = (values: LoginParamsType) => (dispatch: AppDispatchType) =>
         .then((res) => {
             if (res.data.result === '0') {
                 dispatch(loginError(false))
-                dispatch(changeUserStatus('0'))
+                //  dispatch(changeUserStatus('0'))
+                dispatch(getStatus())
             } else {
                 if (res.data.result === '100') {
                     dispatch(loginError(true))
@@ -106,7 +107,7 @@ export const registration = (email: string, password: string) => (dispatch: AppD
         .catch((err: AxiosError) => {
             console.log(err)
         })
-        .finally(()=> {
+        .finally(() => {
             dispatch(setLoading(false))
         })
 }
@@ -132,7 +133,7 @@ export const sendCaptcha = (values: string) => (dispatch: AppDispatchType) => {
                 }
             }
         }))
-        .finally(()=> {
+        .finally(() => {
             dispatch(setLoading(false))
         })
 }
