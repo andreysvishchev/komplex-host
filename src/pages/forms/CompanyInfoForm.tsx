@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from "./Form.module.scss";
 import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
 import Button from "../personal-account/components/button/Button";
 import {useDispatch} from "react-redux";
-import {AppDispatchType} from "../../store/store";
-import {choicePartner} from "../../reducers/registrationReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {addPrivateData, choicePartner, RegistrationDataType} from "../../reducers/registrationReducer";
 import {useFormik} from "formik";
 
 type PropsType = {
@@ -15,21 +15,23 @@ type PropsType = {
 }
 type FormikErrorType = {
     inn?: string
-    nameOrg?: string
+    company_name?: string
     kpp?: string
 }
 
 const CompanyInfoForm = (props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
+    const data = useAppSelector<RegistrationDataType>(state => state.registration.registrationData)
     const leaveReg = () => {
         dispatch(choicePartner(null))
         props.leaveReg(false)
     }
     const formik = useFormik({
         initialValues: {
-            inn: '',
-            nameOrg: '',
-            kpp: ''
+            inn: data.inn,
+            company_name: data.company_name,
+            kpp: data.kpp,
+            partner: '3'
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -38,8 +40,8 @@ const CompanyInfoForm = (props: PropsType) => {
             } else if (!/^\d+$/i.test(values.inn)) {
                 errors.inn = 'Поле может содержать только цифры';
             }
-            if (!values.nameOrg) {
-                errors.nameOrg = 'Поле обязательно для заполнения';
+            if (!values.company_name) {
+                errors.company_name = 'Поле обязательно для заполнения';
             }
             if (!values.kpp) {
                 errors.kpp = 'Поле обязательно для заполнения';
@@ -49,13 +51,17 @@ const CompanyInfoForm = (props: PropsType) => {
             return errors;
         },
         onSubmit: values => {
+            dispatch(addPrivateData(Object.assign(data, values)))
+            console.log(data)
+            // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
+            //console.log(decodeURIComponent(escape(window.atob(valueStr))))
             props.nextPage()
-            console.log(values)
-            formik.resetForm()
+
         },
     })
     return (
         <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
+            <input disabled={true} className={s.hidden} {...formik.getFieldProps('partner')} />
             <FormInput
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
@@ -68,9 +74,9 @@ const CompanyInfoForm = (props: PropsType) => {
             <FormInput
                 caption={'Наименование Органищации'}
                 placeholder={'Введите название'}
-                {...formik.getFieldProps('nameOrg')}
-                error={formik.errors.nameOrg && formik.touched.nameOrg}
-                errorText={formik.errors.nameOrg}
+                {...formik.getFieldProps('company_name')}
+                error={formik.errors.company_name && formik.touched.company_name}
+                errorText={formik.errors.company_name}
             />
             <FormInput caption={'КПП'}
                        placeholder={' Номер КПП'}

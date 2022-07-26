@@ -2,9 +2,9 @@ import React from 'react';
 import s from "./Form.module.scss";
 import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
-import {choicePartner} from "../../reducers/registrationReducer";
+import {addPrivateData, choicePartner} from "../../reducers/registrationReducer";
 import {useDispatch} from "react-redux";
-import {AppDispatchType} from "../../store/store";
+import {AppDispatchType, useAppSelector} from "../../store/store";
 import Button from "../personal-account/components/button/Button";
 import {useFormik} from "formik";
 
@@ -15,13 +15,14 @@ type PropsType = {
 }
 type FormikErrorType = {
     inn?: string
-    nameIp?: string
-    firstName?: string
-    lastName?: string
+    ip_name?: string
+    first_name?: string
+    last_name?: string
     parent?: string
 }
 
 const EntrepreneurInfoForm = (props: PropsType) => {
+    const data = useAppSelector(state=> state.registration.registrationData)
     const dispatch = useDispatch<AppDispatchType>()
     const leaveReg = () => {
         dispatch(choicePartner(null))
@@ -29,11 +30,12 @@ const EntrepreneurInfoForm = (props: PropsType) => {
     }
     const formik = useFormik({
         initialValues: {
-            inn: '',
-            nameIp: '',
-            firstName: '',
-            lastName: '',
-            parent: '',
+            inn: data.inn,
+            ip_name: data.ip_name,
+            last_name: data.last_name,
+            first_name: data.first_name,
+            parent: data.parent,
+            partner: 2
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -42,14 +44,14 @@ const EntrepreneurInfoForm = (props: PropsType) => {
             }else if (!/^\d+$/i.test(values.inn)) {
                 errors.inn = 'Поле может содержать только цифры';
             }
-            if (!values.nameIp) {
-                errors.nameIp = 'Поле обязательно для заполнения';
+            if (!values.ip_name) {
+                errors.ip_name = 'Поле обязательно для заполнения';
             }
-            if (!values.firstName) {
-                errors.firstName = 'Поле обязательно для заполнения';
+            if (!values.first_name) {
+                errors.first_name = 'Поле обязательно для заполнения';
             }
-            if (!values.lastName) {
-                errors.lastName = 'Поле обязательно для заполнения';
+            if (!values.last_name) {
+                errors.last_name = 'Поле обязательно для заполнения';
             }
             if (!values.parent) {
                 errors.parent = 'Поле обязательно для заполнения';
@@ -57,13 +59,16 @@ const EntrepreneurInfoForm = (props: PropsType) => {
             return errors;
         },
         onSubmit: values => {
+            dispatch(addPrivateData(Object.assign(data, values)))
+            console.log(data)
             props.nextPage()
-            console.log(values)
-            formik.resetForm()
+            // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
+            //console.log(decodeURIComponent(escape(window.atob(valueStr))))
         },
     })
     return (
         <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
+            <input disabled={true} className={s.hidden} {...formik.getFieldProps('partner')} />
             <FormInput
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
@@ -76,23 +81,23 @@ const EntrepreneurInfoForm = (props: PropsType) => {
             <FormInput
                 caption={'Наименование ИП'}
                 placeholder={'Введите название'}
-                {...formik.getFieldProps('nameIp')}
-                error={formik.errors.nameIp && formik.touched.nameIp}
-                errorText={formik.errors.nameIp}
+                {...formik.getFieldProps('ip_name')}
+                error={formik.errors.ip_name && formik.touched.ip_name}
+                errorText={formik.errors.ip_name}
             />
             <FormInput
                 caption={'Фамилия'}
                 placeholder={'Введите фамилию'}
-                {...formik.getFieldProps('firstName')}
-                error={formik.errors.firstName && formik.touched.firstName}
-                errorText={formik.errors.firstName}
+                {...formik.getFieldProps('last_name')}
+                error={formik.errors.last_name && formik.touched.last_name}
+                errorText={formik.errors.last_name}
             />
             <FormInput
                 caption={'Имя'}
                 placeholder={'Введите имя'}
-                {...formik.getFieldProps('lastName')}
-                error={formik.errors.lastName && formik.touched.lastName}
-                errorText={formik.errors.lastName}
+                {...formik.getFieldProps('first_name')}
+                error={formik.errors.first_name && formik.touched.first_name}
+                errorText={formik.errors.first_name}
             />
             <FormInput
                 caption={'Отчество'}

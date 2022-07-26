@@ -9,14 +9,13 @@ import {useDispatch} from "react-redux";
 import * as faceapi from "face-api.js";
 import maskSrc from '../../img/mask.png'
 import {useAppSelector} from "../../store/store";
-import {addPrivateData} from "../../reducers/registrationReducer";
+import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 
 
 type PropsType = {
     prevPage: () => void
     nextPage: () => void
     registration: boolean
-
     fileName: string
     fileNameTwo: string
     setFileName: (name: string) => void
@@ -26,25 +25,23 @@ type PropsType = {
 type FormikErrorType = {
     series?: string
     number?: string
-    placeOfIssue?: string
-    dateOfIssue?: string
+    place_issue?: string
+    date_issue?: string
     inn?: string
     scan_main?: string
     scan_reg?: string
 }
 
 const PassportDataForm = (props: PropsType) => {
-
-
     const dispatch = useDispatch();
-    const data = useAppSelector(state => state.registration.privateData)
+    const data = useAppSelector<RegistrationDataType>(state => state.registration.registrationData)
 
     const formik = useFormik({
         initialValues: {
             series: data.series,
             number: data.number,
-            placeOfIssue: data.placeOfIssue,
-            dateOfIssue: data.dateOfIssue,
+            place_issue: data.place_issue,
+            date_issue: data.date_issue,
             inn: data.inn,
             scan_main: data.scan_main,
             scan_reg: data.scan_reg
@@ -57,11 +54,11 @@ const PassportDataForm = (props: PropsType) => {
             if (!values.number) {
                 errors.number = 'Поле обязательно для заполнения';
             }
-            if (!values.placeOfIssue) {
-                errors.placeOfIssue = 'Поле обязательно для заполнения';
+            if (!values.place_issue) {
+                errors.place_issue = 'Поле обязательно для заполнения';
             }
-            if (!values.dateOfIssue) {
-                errors.dateOfIssue = 'Поле обязательно для заполнения';
+            if (!values.date_issue) {
+                errors.date_issue = 'Поле обязательно для заполнения';
             }
             if (!values.inn) {
                 errors.inn = 'Поле обязательно для заполнения';
@@ -77,16 +74,11 @@ const PassportDataForm = (props: PropsType) => {
         onSubmit: values => {
             dispatch(addPrivateData(Object.assign(data, values)))
             console.log(data)
+            // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
+            //console.log(decodeURIComponent(escape(window.atob(valueStr))))
             props.nextPage()
-            /*  let valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(values))))*/
-            /* console.log(valueStr)
-             console.log(decodeURIComponent(escape(window.atob(valueStr))))
-             console.log(values)*/
-
-
         },
     })
-
 
     faceapi.nets.tinyFaceDetector.loadFromUri('/assets/models')
 
@@ -173,16 +165,16 @@ const PassportDataForm = (props: PropsType) => {
             <Textarea
                 placeholder={'Введите кем выдан паспорт'}
                 caption={'Кем выдан'}
-                error={formik.errors.placeOfIssue && formik.touched.placeOfIssue}
-                errorText={formik.errors.placeOfIssue}
-                {...formik.getFieldProps('placeOfIssue')}
+                error={formik.errors.place_issue && formik.touched.place_issue}
+                errorText={formik.errors.place_issue}
+                {...formik.getFieldProps('place_issue')}
             />
             <FormInput
                 caption={'Дата выдачи'}
                 placeholder={'ДД.ММ.ГГГГ'}
-                {...formik.getFieldProps('dateOfIssue')}
-                error={formik.errors.dateOfIssue && formik.touched.dateOfIssue}
-                errorText={formik.errors.dateOfIssue}/>
+                {...formik.getFieldProps('date_issue')}
+                error={formik.errors.date_issue && formik.touched.date_issue}
+                errorText={formik.errors.date_issue}/>
             <FormInput
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
@@ -218,7 +210,6 @@ const PassportDataForm = (props: PropsType) => {
                 <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>
             </div>
-            {/*    <EditorModal/>*/}
         </form>
     );
 };

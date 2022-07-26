@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import s from "../PersonalAccount.module.scss";
-import AddressForm from '../../forms/AddressForm';
+import MailAddressForm from '../../forms/MailAddressForm';
 import ContactsForm from "../../forms/ContactsForm";
 import RequisitesForm from "../../forms/RequisitesForm";
 import CommonForm from "../../forms/CommonForm";
@@ -29,11 +29,11 @@ export const Profile = () => {
                         </TabPanel>
                         <TabPanel>
                             <div className={s.profile__title}>Юридический адрес</div>
-                            <AddressForm/>
+                            <MailAddressForm/>
                         </TabPanel>
                         <TabPanel>
                             <div className={s.profile__title}>Почтовый адрес</div>
-                            <AddressForm/>
+                            <MailAddressForm/>
                         </TabPanel>
                         <TabPanel>
                             <div className={s.profile__title}>Банковские реквизиты</div>

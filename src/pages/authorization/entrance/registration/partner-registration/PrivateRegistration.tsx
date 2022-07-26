@@ -2,15 +2,13 @@ import React, {useState} from 'react';
 import s from './PartnerRegistration.module.scss'
 import PersonalInfoForm from "../../../../forms/PersonalInfoForm";
 import PassportDataForm from "../../../../forms/PassportDataForm";
-import AddressForm from "../../../../forms/AddressForm";
+import MailAddressForm from "../../../../forms/MailAddressForm";
 
 
 type PropsType = {
     leaveReg: () => void
     setHide: (hide: boolean) => void
 }
-
-
 
 
 const PrivateRegistration = (props: PropsType) => {
@@ -29,23 +27,23 @@ const PrivateRegistration = (props: PropsType) => {
         switch (page) {
             case 0:
                 return <PersonalInfoForm
-                                         leaveReg={props.setHide}
-                                         nextPage={nextPage}
-                                         registration={true}/>
+                    leaveReg={props.setHide}
+                    nextPage={nextPage}
+                    registration={true}/>
             case 1:
                 return <PassportDataForm
-                                         fileName={fileName}
-                                         fileNameTwo={fileNameTwo}
-                                         setFileName={setFileName}
-                                         setFileNameTwo={setFileNameTwo}
-                                         nextPage={nextPage}
-                                         prevPage={prevPage}
-                                         registration={true}/>
+                    fileName={fileName}
+                    fileNameTwo={fileNameTwo}
+                    setFileName={setFileName}
+                    setFileNameTwo={setFileNameTwo}
+                    nextPage={nextPage}
+                    prevPage={prevPage}
+                    registration={true}/>
             case 2:
-                return <AddressForm
-                                    prevPage={prevPage}
-                                    registration={true}
-                                    lastStep={true}/>
+                return <MailAddressForm
+                    prevPage={prevPage}
+                    registration={true}
+                    lastStep={true}/>
         }
     }
 

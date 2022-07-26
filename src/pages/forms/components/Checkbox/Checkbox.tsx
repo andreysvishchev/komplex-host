@@ -15,7 +15,7 @@ const Checkbox = (props: PropsType) => {
     return (
         <label className={s.checkbox}>
             <input onChange={onChangeCallback} className={s.checkbox__input} type="checkbox"/>
-            <span className={props.checked ? `${s.checkbox__icon} ${s.active}` : s.checkbox__icon }></span>
+            <span className={props.checked ? `${s.checkbox__icon} ${s.active}` : s.checkbox__icon}/>
         </label>
     );
 };

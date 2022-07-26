@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import AddressForm from "../../../../forms/AddressForm";
+import MailAddressForm from "../../../../forms/MailAddressForm";
 import form from '../../../../forms/Form.module.scss'
 import s from "./PartnerRegistration.module.scss";
 import EntrepreneurInfoForm from "../../../../forms/EntrepreneurInfoForm";
@@ -9,6 +9,7 @@ import RequisitesForm from "../../../../forms/RequisitesForm";
 import ContactsForm from "../../../../forms/ContactsForm";
 import Button from "../../../../personal-account/components/button/Button";
 import {useFormik} from "formik";
+import BusinessAddressForm from "../../../../forms/BusinessAddressForm";
 
 
 type PropsType = {
@@ -44,7 +45,7 @@ const EntrepreneurRegistration = (props: PropsType) => {
             case 0:
                 return <EntrepreneurInfoForm leaveReg={props.setHide} nextPage={nextPage} registration={true}/>
             case 1:
-                return <AddressForm prevPage={prevPage} registration={true} lastStep={false} nextPage={nextPage}/>
+                return <MailAddressForm prevPage={prevPage} registration={true} lastStep={false} nextPage={nextPage}/>
             case 2:
                 return (<>
                     <form onSubmit={formik.handleSubmit} className={`${form.form} ${form.registration}`}>
@@ -62,7 +63,7 @@ const EntrepreneurRegistration = (props: PropsType) => {
                     </form>
                     {
                         value === 'Нет' &&
-                        <AddressForm prevPage={prevPage} nextPage={nextPage} lastStep={false} registration={true}/>
+                        <BusinessAddressForm prevPage={prevPage} nextPage={nextPage} registration={true}/>
                     }
                 </>)
             case 3:

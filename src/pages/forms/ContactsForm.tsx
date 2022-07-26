@@ -7,6 +7,8 @@ import {openModalAC} from "../../reducers/modal-reducer";
 import {button} from "../../style/style";
 import Button from "../personal-account/components/button/Button";
 import {useFormik} from "formik";
+import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
+import {useAppSelector} from "../../store/store";
 
 type PropsType = {
     registration?: boolean
@@ -15,82 +17,86 @@ type PropsType = {
 }
 
 type FormikErrorType = {
-    firstNameTech?: string
-    lastNameTech?: string
-    parentTech?: string
-    emailTech?: string
-    phoneTech?: string
-    firstNameFinance?: string
-    lastNameFinance?: string
-    parentFinance?: string
-    emailFinance?: string
-    phoneFinance?: string
+    tech_last_name?: string
+    tech_first_name?: string
+    tech_parent?: string
+    tech_email?: string
+    tech_phone?: string
+    finance_last_name?: string
+    finance_first_name?: string
+    finance_parent?: string
+    finance_email?: string
+    finance_phone?: string
 }
 
 const ContactsForm = (props: PropsType) => {
     const dispatch = useDispatch()
+    const data = useAppSelector<RegistrationDataType>(state => state.registration.registrationData)
     const [checked, setChecked] = useState<boolean>(false);
     const formik = useFormik({
         initialValues: {
-            firstNameTech: '',
-            lastNameTech: '',
-            parentTech: '',
-            emailTech: '',
-            phoneTech: '',
-            firstNameFinance: '',
-            lastNameFinance: '',
-            parentFinance: '',
-            emailFinance: '',
-            phoneFinance: '',
+            tech_first_name: data.tech_first_name,
+            tech_last_name: data.tech_last_name,
+            tech_parent: data.tech_parent,
+            tech_email: data.tech_email,
+            tech_phone: data.tech_phone,
+            finance_first_name: data.finance_first_name,
+            finance_last_name: data.finance_last_name,
+            finance_parent: data.finance_parent,
+            finance_email: data.finance_email,
+            finance_phone: data.finance_phone,
+            create_application: true
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.firstNameTech) {
-                errors.firstNameTech = 'Поле обязательно для заполнения';
+            if (!values.tech_first_name) {
+                errors.tech_first_name = 'Поле обязательно для заполнения';
             }
-            if (!values.lastNameTech) {
-                errors.lastNameTech = 'Поле обязательно для заполнения';
+            if (!values.tech_last_name) {
+                errors.tech_last_name = 'Поле обязательно для заполнения';
             }
-            if (!values.parentTech) {
-                errors.parentTech = 'Поле обязательно для заполнения';
+            if (!values.tech_parent) {
+                errors.tech_parent = 'Поле обязательно для заполнения';
             }
-            if (!values.emailTech) {
-                errors.emailTech = 'Поле обязательно для заполнения';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.emailTech)) {
-                errors.emailTech = 'Email указан некорректно';
+            if (!values.tech_email) {
+                errors.tech_email = 'Поле обязательно для заполнения';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.tech_email)) {
+                errors.tech_email = 'Email указан некорректно';
             }
-            if (!values.phoneTech) {
-                errors.phoneTech = 'Поле обязательно для заполнения';
+            if (!values.tech_phone) {
+                errors.tech_phone = 'Поле обязательно для заполнения';
             }
-            if (!values.firstNameFinance) {
-                errors.firstNameFinance = 'Поле обязательно для заполнения';
+            if (!values.finance_first_name) {
+                errors.finance_first_name = 'Поле обязательно для заполнения';
             }
-            if (!values.lastNameFinance) {
-                errors.lastNameFinance = 'Поле обязательно для заполнения';
+            if (!values.finance_last_name) {
+                errors.finance_last_name = 'Поле обязательно для заполнения';
             }
-            if (!values.parentFinance) {
-                errors.parentFinance= 'Поле обязательно для заполнения';
+            if (!values.finance_parent) {
+                errors.finance_parent = 'Поле обязательно для заполнения';
             }
-            if (!values.emailFinance) {
-                errors.emailFinance = 'Поле обязательно для заполнения';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.emailFinance)) {
-                errors.emailFinance = 'Email указан некорректно';
+            if (!values.finance_email) {
+                errors.finance_email = 'Поле обязательно для заполнения';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.finance_email)) {
+                errors.finance_email = 'Email указан некорректно';
             }
-            if (!values.phoneFinance) {
-                errors.phoneFinance = 'Поле обязательно для заполнения';
+            if (!values.finance_phone) {
+                errors.finance_phone = 'Поле обязательно для заполнения';
             }
 
             return errors;
         },
         onSubmit: values => {
+            dispatch(addPrivateData(Object.assign(data, values)))
+            console.log(data)
+            // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
+            //console.log(decodeURIComponent(escape(window.atob(valueStr))))
             dispatch(openModalAC(true, true, 'Запрос на создание контрагента отправлен в техподдержку'))
-            console.log(values)
-            formik.resetForm()
         },
     })
 
     return (
-        <form onSubmit={formik.handleSubmit}  className={s.form}>
+        <form onSubmit={formik.handleSubmit} className={s.form}>
             {
                 props.registration
                     ?
@@ -103,39 +109,37 @@ const ContactsForm = (props: PropsType) => {
                 <FormInput
                     caption={'Фамилия'}
                     placeholder={'Введите фамилию'}
-                    {...formik.getFieldProps('firstNameTech')}
-                    error={formik.errors.firstNameTech && formik.touched.firstNameTech}
-                    errorText={formik.errors.firstNameTech}
+                    {...formik.getFieldProps('tech_last_name')}
+                    error={formik.errors.tech_last_name && formik.touched.tech_last_name}
+                    errorText={formik.errors.tech_last_name}
                 />
                 <FormInput
                     caption={'Имя'}
                     placeholder={'Введите имя'}
-                    {...formik.getFieldProps('lastNameTech')}
-                    error={formik.errors.lastNameTech && formik.touched.lastNameTech}
-                    errorText={formik.errors.lastNameTech}
+                    {...formik.getFieldProps('tech_first_name')}
+                    error={formik.errors.tech_first_name && formik.touched.tech_first_name}
+                    errorText={formik.errors.tech_first_name}
                 />
                 <FormInput
                     caption={'Отчество'}
                     placeholder={'Введите отчество'}
-                    {...formik.getFieldProps('parentTech')}
-                    error={formik.errors.parentTech && formik.touched.parentTech}
-                    errorText={formik.errors.parentTech}
+                    {...formik.getFieldProps('tech_parent')}
+                    error={formik.errors.tech_parent && formik.touched.tech_parent}
+                    errorText={formik.errors.tech_parent}
                 />
                 <FormInput
                     caption={'Электронная почта'}
-                    type={'tel'}
                     placeholder={'Введите email'}
-                    {...formik.getFieldProps('emailTech')}
-                    error={formik.errors.emailTech && formik.touched.emailTech}
-                    errorText={formik.errors.emailTech}
+                    {...formik.getFieldProps('tech_email')}
+                    error={formik.errors.tech_email && formik.touched.tech_email}
+                    errorText={formik.errors.tech_email}
                 />
                 <FormInput
                     caption={'Номер телефона'}
-                    type={'tel'}
                     placeholder={'Введите телефон'}
-                    {...formik.getFieldProps('phoneTech')}
-                    error={formik.errors.phoneTech && formik.touched.phoneTech}
-                    errorText={formik.errors.phoneTech}
+                    {...formik.getFieldProps('tech_phone')}
+                    error={formik.errors.tech_phone && formik.touched.tech_phone}
+                    errorText={formik.errors.tech_phone}
                 />
             </div>
             {
@@ -151,45 +155,47 @@ const ContactsForm = (props: PropsType) => {
                 <FormInput
                     caption={'Фамилия'}
                     placeholder={'Введите фамилию'}
-                    {...formik.getFieldProps('firstNameFinance')}
-                    error={formik.errors.firstNameFinance && formik.touched.firstNameFinance}
-                    errorText={formik.errors.firstNameFinance}
+                    {...formik.getFieldProps('finance_last_name')}
+                    error={formik.errors.finance_last_name && formik.touched.finance_last_name}
+                    errorText={formik.errors.finance_last_name}
                 />
                 <FormInput
                     caption={'Имя'}
                     placeholder={'Введите имя'}
-                    {...formik.getFieldProps('lastNameFinance')}
-                    error={formik.errors.lastNameFinance && formik.touched.lastNameFinance}
-                    errorText={formik.errors.lastNameFinance}
+                    {...formik.getFieldProps('finance_first_name')}
+                    error={formik.errors.finance_first_name && formik.touched.finance_first_name}
+                    errorText={formik.errors.finance_first_name}
                 />
                 <FormInput
                     caption={'Отчество'}
                     placeholder={'Введите отчество'}
-                    {...formik.getFieldProps('parentFinance')}
-                    error={formik.errors.parentFinance && formik.touched.parentFinance}
-                    errorText={formik.errors.parentFinance}
+                    {...formik.getFieldProps('finance_parent')}
+                    error={formik.errors.finance_parent && formik.touched.finance_parent}
+                    errorText={formik.errors.finance_parent}
                 />
                 <FormInput
                     caption={'Электронная почта'}
                     type={'tel'}
                     placeholder={'Введите email'}
-                    {...formik.getFieldProps('emailFinance')}
-                    error={formik.errors.emailFinance && formik.touched.emailFinance}
-                    errorText={formik.errors.emailFinance}
+                    {...formik.getFieldProps('finance_email')}
+                    error={formik.errors.finance_email && formik.touched.finance_email}
+                    errorText={formik.errors.finance_email}
                 />
                 <FormInput
                     caption={'Номер телефона'}
                     type={'tel'}
                     placeholder={'Введите телефон'}
-                    {...formik.getFieldProps('phoneFinance')}
-                    error={formik.errors.phoneFinance && formik.touched.phoneFinance}
-                    errorText={formik.errors.phoneFinance}
+                    {...formik.getFieldProps('finance_phone')}
+                    error={formik.errors.finance_phone && formik.touched.finance_phone}
+                    errorText={formik.errors.finance_phone}
                 />
                 {
                     props.registration
                         ?
                         <>
                             <div style={{marginTop: '28px'}} className={s.agreement}>
+                                <input disabled={true}
+                                       className={s.hidden} {...formik.getFieldProps('create_application')}/>
                                 <Checkbox checked={checked} onChangeChecked={setChecked}/>
                                 <div className={s.agreement__text}>
                                     Я принимаю условия <a href="/"> Пользовательского соглашения</a> и даю своё согласие

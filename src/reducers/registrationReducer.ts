@@ -1,31 +1,62 @@
-
-
 let initialState: InitialStateType = {
     registrationPage: true,
     partners: null,
-    privateData: {
-        firstName: '',
-        lastName: '',
+    registrationData: {
+        partner: null,
+        first_name: '',
+        last_name: '',
         parent: '',
-        dateOfBirth: '',
+        date_birth: '',
         phone: '',
         series: '',
         number: '',
-        placeOfIssue: '',
-        dateOfIssue: '',
-        inn: '',
+        place_issue: '',
+        date_issue: '',
         scan_main: '',
         scan_reg: '',
-        index: '',
-        country: '',
-        area: '',
-        district: '',
-        locality: '',
-        street: '',
-        home: '',
-        flat: '',
+        inn: '',
+        ip_name: '',
+        company_name: '',
+        kpp: '',
+        mail_index: '',
+        mail_country: '',
+        mail_area: '',
+        mail_district: '',
+        mail_locality: '',
+        mail_street: '',
+        mail_home: '',
+        mail_flat: '',
+        business_index: '',
+        business_country: '',
+        business_area: '',
+        business_district: '',
+        business_locality: '',
+        business_street: '',
+        business_home: '',
+        business_flat: '',
+        bank: '',
+        payment_score: '',
+        correspondent_score: '',
+        bank_index: '',
+        bank_country: '',
+        bank_area: '',
+        bank_district: '',
+        bank_locality: '',
+        bank_street: '',
+        bank_home: '',
+        bank_office: '',
+        tech_first_name: '',
+        tech_last_name: '',
+        tech_parent: '',
+        tech_email: '',
+        tech_phone: '',
+        finance_first_name: '',
+        finance_last_name: '',
+        finance_parent: '',
+        finance_email: '',
+        finance_phone: '',
+        create_application: false
     }
-
 }
 
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -34,8 +65,8 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
             return {...state, registrationPage: action.value}
         case "CHOICE-PARTNER":
             return {...state, partners: action.partner}
-        case "ADD-PRIVATE-DATA":
-            return {...state, privateData: action.data}
+        case "ADD-DATA-REG":
+            return {...state, registrationData: action.data}
         default:
             return state
     }
@@ -49,38 +80,71 @@ export const choicePartner = (partner: PartnersType) => {
     return {type: 'CHOICE-PARTNER', partner} as const
 }
 
-export const addPrivateData = (data: DataType) => {
-    return {type: 'ADD-PRIVATE-DATA', data} as const
+export const addPrivateData = (data: RegistrationDataType) => {
+    return {type: 'ADD-DATA-REG', data} as const
 }
 
 export type  PartnersType = 'private' | 'entrepreneur' | 'company' | null
 export type InitialStateType = {
     registrationPage: boolean
     partners: PartnersType
-    privateData: DataType
+    registrationData: RegistrationDataType
 }
-
-export type DataType = {
-    firstName: string
-    lastName: string
+export type RegistrationDataType = {
+    partner: '1' | '2' | '3' | null
+    first_name: string
+    last_name: string
     parent: string
-    dateOfBirth: string
+    date_birth: string
     phone: string
     series: string
     number: string
-    placeOfIssue: string
-    dateOfIssue: string
-    inn: string
+    place_issue: string
+    date_issue: string
     scan_main: string
     scan_reg: string
-    index: string
-    country: string
-    area: string
-    district: string
-    locality: string
-    street: string
-    home: string
-    flat: string
+    inn: string
+    ip_name: string
+    company_name: string
+    kpp: string
+    mail_index: string
+    mail_country: string
+    mail_area: string
+    mail_district: string
+    mail_locality: string
+    mail_street: string
+    mail_home: string
+    mail_flat: string
+    business_index: string
+    business_country: string
+    business_area: string
+    business_district: string
+    business_locality: string
+    business_street: string
+    business_home: string
+    business_flat: string
+    bank: string
+    payment_score: string
+    correspondent_score: string
+    bank_index: string
+    bank_country: string
+    bank_area: string
+    bank_district: string
+    bank_locality: string
+    bank_street: string
+    bank_home: string
+    bank_office: string
+    tech_first_name: string
+    tech_last_name: string
+    tech_parent: string
+    tech_email: string
+    tech_phone: string
+    finance_first_name: string
+    finance_last_name: string
+    finance_parent: string
+    finance_email: string
+    finance_phone: string
+    create_application: boolean
 }
 export type ActionsType =
     | ReturnType<typeof registrationPage>

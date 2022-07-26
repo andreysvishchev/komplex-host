@@ -8,67 +8,68 @@ import Checkbox from "./components/Checkbox/Checkbox";
 import {useFormik} from "formik";
 import Button from "../personal-account/components/button/Button";
 import {useAppSelector} from "../../store/store";
-import {addPrivateData} from "../../reducers/registrationReducer";
+import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 
 type PropsType = {
     prevPage?: () => void
     nextPage?: () => void
     registration?: boolean
     lastStep?: boolean
-
 }
 
 type FormikErrorType = {
-    index?: string
-    country?: string
-    area?: string
-    district?: string
-    locality?: string
-    street?: string
-    home?: string
-    flat?: string
+    mail_index?: string
+    mail_country?: string
+    mail_area?: string
+    mail_district?: string
+    mail_locality?: string
+    mail_street?: string
+    mail_home?: string
+    mail_flat?: string
 }
 
-const AddressForm = (props: PropsType) => {
+const MailAddressForm = (props: PropsType) => {
     const dispatch = useDispatch()
     const [checked, setChecked] = useState<boolean>(false);
-    const data = useAppSelector(state => state.registration.privateData)
+    const data = useAppSelector<RegistrationDataType>(state => state.registration.registrationData)
     const formik = useFormik({
         initialValues: {
-            index: '',
-            country: '',
-            area: '',
-            district: '',
-            locality: '',
-            street: '',
-            home: '',
-            flat: ''
+            mail_index: data.mail_index,
+            mail_country: data.mail_country,
+            mail_area: data.mail_area,
+            mail_district: data.mail_district,
+            mail_locality: data.mail_locality,
+            mail_street: data.mail_street,
+            mail_home: data.mail_home,
+            mail_flat: data.mail_flat,
+            create_application: true
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.index) {
-                errors.index = 'Поле обязательно для заполнения';
-            } else if (!/^\d+$/i.test(values.index)) {
-                errors.index = 'Поле может содержать только цифры';
+            if (!values.mail_index) {
+                errors.mail_index = 'Поле обязательно для заполнения';
+            } else if (!/^\d+$/i.test(values.mail_index)) {
+                errors.mail_index = 'Поле может содержать только цифры';
             }
-            if (!values.country) {
-                errors.country = 'Поле обязательно для заполнения';
+            if (!values.mail_country) {
+                errors.mail_country = 'Поле обязательно для заполнения';
             }
-            if (!values.area) {
-                errors.area = 'Поле обязательно для заполнения';
+            if (!values.mail_area) {
+                errors.mail_area = 'Поле обязательно для заполнения';
             }
-            if (!values.district) {
-                errors.district = 'Поле обязательно для заполнения';
+            if (!values.mail_district) {
+                errors.mail_district = 'Поле обязательно для заполнения';
             }
-            if (!values.locality) {
-                errors.locality = 'Поле обязательно для заполнения';
+            if (!values.mail_locality) {
+                errors.mail_locality = 'Поле обязательно для заполнения';
             }
             return errors;
         },
         onSubmit: values => {
-
             dispatch(addPrivateData(Object.assign(data, values)))
             console.log(data)
+            // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
+            //console.log(decodeURIComponent(escape(window.atob(valueStr))))
             if (props.lastStep) {
                 dispatch(openModalAC(true, true, 'Запрос на создание контрагента отправлен в техподдержку'))
             } else {
@@ -76,7 +77,6 @@ const AddressForm = (props: PropsType) => {
                     props.nextPage()
                 }
             }
-            formik.resetForm()
         },
     })
 
@@ -86,60 +86,57 @@ const AddressForm = (props: PropsType) => {
                 <FormInput
                     caption={'Индекс'}
                     placeholder={'_ _ _ _ _ _'}
-                    {...formik.getFieldProps('index')}
-                    error={formik.errors.index && formik.touched.index}
-                    errorText={formik.errors.index}
+                    {...formik.getFieldProps('mail_index')}
+                    error={formik.errors.mail_index && formik.touched.mail_index}
+                    errorText={formik.errors.mail_index}
                 />
                 <FormInput
                     caption={'Страна'}
                     placeholder={'Введите страну'}
-                    {...formik.getFieldProps('country')}
-                    error={formik.errors.country && formik.touched.country}
-                    errorText={formik.errors.country}
+                    {...formik.getFieldProps('mail_country')}
+                    error={formik.errors.mail_country && formik.touched.mail_country}
+                    errorText={formik.errors.mail_country}
                 />
             </div>
             <FormInput
                 caption={'Область'}
                 placeholder={'Введите область'}
-                {...formik.getFieldProps('area')}
-                error={formik.errors.area && formik.touched.area}
-                errorText={formik.errors.area}
+                {...formik.getFieldProps('mail_area')}
+                error={formik.errors.mail_area && formik.touched.mail_area}
+                errorText={formik.errors.mail_area}
             />
             <FormInput
                 caption={'Район/Округ'}
                 placeholder={'Введите район или округ'}
-                {...formik.getFieldProps('district')}
-                error={formik.errors.district && formik.touched.district}
-                errorText={formik.errors.district}
+                {...formik.getFieldProps('mail_district')}
+                error={formik.errors.mail_district && formik.touched.mail_district}
+                errorText={formik.errors.mail_district}
             />
             <FormInput
                 caption={'Населенный пункт'}
                 placeholder={'Введите населенный пункт'}
-                {...formik.getFieldProps('locality')}
-                error={formik.errors.locality && formik.touched.locality}
-                errorText={formik.errors.locality}
+                {...formik.getFieldProps('mail_locality')}
+                error={formik.errors.mail_locality && formik.touched.mail_locality}
+                errorText={formik.errors.mail_locality}
             />
             <FormInput
                 caption={'Улица'}
                 placeholder={'Введите улицу'}
-                {...formik.getFieldProps('street')}
-                name="street"
-                value={formik.values.street}
+                {...formik.getFieldProps('mail_street')}
+                value={formik.values.mail_street}
             />
             <div className={s.form__row}>
                 <FormInput
                     caption={'Дом'}
                     placeholder={'Номер дома'}
-                    {...formik.getFieldProps('home')}
-                    name="home"
-                    value={formik.values.home}
+                    {...formik.getFieldProps('mail_home')}
+                    value={formik.values.mail_home}
                 />
                 <FormInput
                     caption={props.lastStep ? 'Квартира' : 'Квартира/офис'}
                     placeholder={props.lastStep ? 'Номер квартиры' : 'Номер квартиры/офиса'}
-                    {...formik.getFieldProps('flat')}
-                    name="flat"
-                    value={formik.values.flat}
+                    {...formik.getFieldProps('mail_flat')}
+                    value={formik.values.mail_flat}
                 />
             </div>
 
@@ -149,7 +146,10 @@ const AddressForm = (props: PropsType) => {
                     ?
                     <>
                         <div className={s.agreement}>
-                            <Checkbox checked={checked} onChangeChecked={setChecked}/>
+                            <input disabled={true} className={s.hidden} {...formik.getFieldProps('create_application')}/>
+                            <Checkbox
+                                checked={checked}
+                                onChangeChecked={setChecked}/>
                             <div className={s.agreement__text}>
                                 Я принимаю условия <a href="/"> Пользовательского соглашения</a> и даю своё согласие
                                 Komplex-Host на обработку моей персональной информации на условиях, определенных
@@ -177,4 +177,4 @@ const AddressForm = (props: PropsType) => {
     );
 };
 
-export default AddressForm;
+export default MailAddressForm;
