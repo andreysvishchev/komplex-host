@@ -1,6 +1,4 @@
-import axios, {AxiosResponse} from "axios";
-import {ApplicationType, MessageType} from "../reducers/supportReducer";
-import {EquipType} from "../reducers/equipReducer";
+import axios from "axios";
 import {LoginParamsType} from "../reducers/authReducer";
 
 const instance = axios.create({

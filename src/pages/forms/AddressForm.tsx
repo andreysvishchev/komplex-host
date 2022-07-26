@@ -1,20 +1,21 @@
 import s from './Form.module.scss'
 import FormInput from "./components/FormInput/FormInput";
-import {button, theme} from "../../style/style";
-
+import {button} from "../../style/style";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {openModalAC} from "../../reducers/modal-reducer";
 import Checkbox from "./components/Checkbox/Checkbox";
 import {useFormik} from "formik";
-import {login} from "../../reducers/authReducer";
 import Button from "../personal-account/components/button/Button";
+import {useAppSelector} from "../../store/store";
+import {addPrivateData} from "../../reducers/registrationReducer";
 
 type PropsType = {
     prevPage?: () => void
     nextPage?: () => void
     registration?: boolean
     lastStep?: boolean
+
 }
 
 type FormikErrorType = {
@@ -31,7 +32,7 @@ type FormikErrorType = {
 const AddressForm = (props: PropsType) => {
     const dispatch = useDispatch()
     const [checked, setChecked] = useState<boolean>(false);
-
+    const data = useAppSelector(state => state.registration.privateData)
     const formik = useFormik({
         initialValues: {
             index: '',
@@ -65,7 +66,9 @@ const AddressForm = (props: PropsType) => {
             return errors;
         },
         onSubmit: values => {
-            console.log(values)
+
+            dispatch(addPrivateData(Object.assign(data, values)))
+            console.log(data)
             if (props.lastStep) {
                 dispatch(openModalAC(true, true, 'Запрос на создание контрагента отправлен в техподдержку'))
             } else {

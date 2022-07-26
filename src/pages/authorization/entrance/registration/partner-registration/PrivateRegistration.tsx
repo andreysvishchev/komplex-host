@@ -7,14 +7,17 @@ import AddressForm from "../../../../forms/AddressForm";
 
 type PropsType = {
     leaveReg: () => void
-    setHide: (hide: boolean)=> void
+    setHide: (hide: boolean) => void
 }
 
 
-const PrivateRegistration = (props: PropsType) => {
 
+
+const PrivateRegistration = (props: PropsType) => {
     const [page, setPage] = useState(0)
     const stepHeadlines = ['Введите информацию о себе', 'Введите паспортные данные', 'Введите адрес регистрации']
+    const [fileName, setFileName] = useState('Добавить')
+    const [fileNameTwo, setFileNameTwo] = useState('Добавить')
 
     const nextPage = () => {
         setPage((currPage) => currPage + 1)
@@ -25,11 +28,24 @@ const PrivateRegistration = (props: PropsType) => {
     const PageDisplay = () => {
         switch (page) {
             case 0:
-                return <PersonalInfoForm leaveReg={props.setHide} nextPage={nextPage} registration={true}/>
+                return <PersonalInfoForm
+                                         leaveReg={props.setHide}
+                                         nextPage={nextPage}
+                                         registration={true}/>
             case 1:
-                return <PassportDataForm nextPage={nextPage} prevPage={prevPage} registration={true}/>
+                return <PassportDataForm
+                                         fileName={fileName}
+                                         fileNameTwo={fileNameTwo}
+                                         setFileName={setFileName}
+                                         setFileNameTwo={setFileNameTwo}
+                                         nextPage={nextPage}
+                                         prevPage={prevPage}
+                                         registration={true}/>
             case 2:
-                return <AddressForm prevPage={prevPage} registration={true} lastStep={true}/>
+                return <AddressForm
+                                    prevPage={prevPage}
+                                    registration={true}
+                                    lastStep={true}/>
         }
     }
 

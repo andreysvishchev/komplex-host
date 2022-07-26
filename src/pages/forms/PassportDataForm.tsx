@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from "./Form.module.scss";
 import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
@@ -6,15 +6,21 @@ import {useFormik} from "formik";
 import Button from "../personal-account/components/button/Button";
 import Textarea from "./components/Textarea/Textarea";
 import {useDispatch} from "react-redux";
-import EditorModal from "../modals/EditorModal";
 import * as faceapi from "face-api.js";
 import maskSrc from '../../img/mask.png'
+import {useAppSelector} from "../../store/store";
+import {addPrivateData} from "../../reducers/registrationReducer";
 
 
 type PropsType = {
     prevPage: () => void
     nextPage: () => void
     registration: boolean
+
+    fileName: string
+    fileNameTwo: string
+    setFileName: (name: string) => void
+    setFileNameTwo: (name: string) => void
 }
 
 type FormikErrorType = {
@@ -31,18 +37,17 @@ const PassportDataForm = (props: PropsType) => {
 
 
     const dispatch = useDispatch();
-
-
+    const data = useAppSelector(state => state.registration.privateData)
 
     const formik = useFormik({
         initialValues: {
-            series: '',
-            number: '',
-            placeOfIssue: '',
-            dateOfIssue: '',
-            inn: '',
-            scan_main: '',
-            scan_reg: ''
+            series: data.series,
+            number: data.number,
+            placeOfIssue: data.placeOfIssue,
+            dateOfIssue: data.dateOfIssue,
+            inn: data.inn,
+            scan_main: data.scan_main,
+            scan_reg: data.scan_reg
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -70,24 +75,24 @@ const PassportDataForm = (props: PropsType) => {
             return errors;
         },
         onSubmit: values => {
+            dispatch(addPrivateData(Object.assign(data, values)))
+            console.log(data)
             props.nextPage()
-            let valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(values))))
-            console.log(valueStr)
-            console.log(decodeURIComponent(escape(window.atob(valueStr))))
-            console.log(values)
-            formik.resetForm()
+            /*  let valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(values))))*/
+            /* console.log(valueStr)
+             console.log(decodeURIComponent(escape(window.atob(valueStr))))
+             console.log(values)*/
+
 
         },
     })
 
-    const [name, setName] = useState('Добавить')
-    const [nameTwo, setNameTwo] = useState('Добавить')
 
-    faceapi.nets.tinyFaceDetector.loadFromUri('./models')
+    faceapi.nets.tinyFaceDetector.loadFromUri('/assets/models')
 
     async function changeMainScan(e: ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files.length) {
-            setName(e.target.files[0].name)
+            props.setFileName(e.target.files[0].name)
             let imgFile = e.target.files[0];
             const base64 = await convertBase64(imgFile)
             const img = await faceapi.bufferToImage(imgFile)
@@ -112,14 +117,14 @@ const PassportDataForm = (props: PropsType) => {
                 mask.src = `${maskSrc}`
                 ctx.drawImage(image, 0, 0)
                 mask.onload = () => {
-                    faceapi.draw.drawDetections(canvas, resizedDetections)
-                    ctx.fillStyle = 'white'
-                    ctx.fillRect(x - 5, y - 5, boxWidth + 10, boxHeight + 10);
                     for (let w = 0; w < canvas.width; w += mask.width) {
                         for (let h = 0; h < canvas.height; h += mask.height) {
                             ctx!.drawImage(mask, w, h);
                         }
                     }
+                    faceapi.draw.drawDetections(canvas, resizedDetections)
+                    ctx.fillStyle = 'white'
+                    ctx.fillRect(x - 5, y - 5, boxWidth + 10, boxHeight + 10);
                 }
             }
             const result = canvas.toDataURL()
@@ -129,7 +134,7 @@ const PassportDataForm = (props: PropsType) => {
 
     const changeRegistrationScan = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
-            setNameTwo(e.target.files[0].name)
+            props.setFileNameTwo(e.target.files[0].name)
             let file = e.target.files[0];
             const base64 = await convertBase64(file)
             await formik.setFieldValue("scan_reg", base64);
@@ -192,7 +197,7 @@ const PassportDataForm = (props: PropsType) => {
                     <div className={s.file__title}>Скан разворота</div>
                     <input onChange={changeMainScan} className={s.file__input} accept='image/jpeg, image/png'
                            type="file"/>
-                    <span className={s.file__label}>{name}</span>
+                    <span className={s.file__label}>{props.fileName}</span>
                 </label>
                 {formik.errors.scan_main && formik.touched.scan_main &&
                 <div className={s.input__error}>{formik.errors.scan_main}</div>}
@@ -203,7 +208,7 @@ const PassportDataForm = (props: PropsType) => {
                     <div className={s.file__title}>Скан прописки</div>
                     <input onChange={changeRegistrationScan} className={s.file__input} accept='image/jpeg, image/png'
                            type="file"/>
-                    <span className={s.file__label}>{nameTwo}</span>
+                    <span className={s.file__label}>{props.fileNameTwo}</span>
                 </label>
                 {formik.errors.scan_reg && formik.touched.scan_reg &&
                 <div className={s.input__error}>{formik.errors.scan_reg}</div>}
@@ -213,7 +218,7 @@ const PassportDataForm = (props: PropsType) => {
                 <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>
             </div>
-{/*    <EditorModal/>*/}
+            {/*    <EditorModal/>*/}
         </form>
     );
 };

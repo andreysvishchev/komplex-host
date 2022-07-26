@@ -1,16 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "./Form.module.scss";
 import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
 import Button from "../personal-account/components/button/Button";
 import {useDispatch} from "react-redux";
-import {choicePartner} from "../../reducers/registrationReducer";
+import {addPrivateData, choicePartner} from "../../reducers/registrationReducer";
 import {useFormik} from "formik";
-import {login} from "../../reducers/authReducer";
-import ReactDatePicker from "react-datepicker";
-import ru from "date-fns/locale/ru";
-import {CalendarMonth} from "@mui/icons-material";
-import {AppDispatchType} from "../../store/store";
+import {AppDispatchType, useAppSelector} from "../../store/store";
 
 
 type PropsType = {
@@ -28,6 +24,7 @@ type FormikErrorType = {
 }
 
 const PersonalInfoForm = (props: PropsType) => {
+    const data = useAppSelector(state => state.registration.privateData)
     const dispatch = useDispatch<AppDispatchType>()
     const leaveReg = () => {
         dispatch(choicePartner(null))
@@ -35,11 +32,11 @@ const PersonalInfoForm = (props: PropsType) => {
     }
     const formik = useFormik({
         initialValues: {
-            firstName: '',
-            lastName: '',
-            parent: '',
-            dateOfBirth: '',
-            phone: ''
+            firstName: data.firstName,
+            lastName: data.lastName,
+            parent: data.parent,
+            dateOfBirth: data.dateOfBirth,
+            phone: data.phone
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -62,11 +59,13 @@ const PersonalInfoForm = (props: PropsType) => {
             return errors;
         },
         onSubmit: values => {
-            const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(values))))
-            console.log(valueStr)
+            /*      const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(values))))*/
+       dispatch(addPrivateData(Object.assign(data, values)))
+
+            console.log(data)
             /*console.log(decodeURIComponent(escape(window.atob(valueStr))))*/
             props.nextPage()
-            formik.resetForm()
+
         },
     })
 
