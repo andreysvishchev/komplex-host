@@ -3,25 +3,31 @@ import s from './PartnerRegistration.module.scss'
 import PersonalInfoForm from "../../../../forms/PersonalInfoForm";
 import PassportDataForm from "../../../../forms/PassportDataForm";
 import MailAddressForm from "../../../../forms/MailAddressForm";
-
+import {useDispatch} from "react-redux";
+import {nextPageAC, prevPageAC} from "../../../../../reducers/registrationReducer";
+import {useAppSelector} from "../../../../../store/store";
 
 type PropsType = {
     leaveReg: () => void
     setHide: (hide: boolean) => void
 }
 
-
 const PrivateRegistration = (props: PropsType) => {
-    const [page, setPage] = useState(0)
+    //const [page, setPage] = useState(0)
     const stepHeadlines = ['Введите информацию о себе', 'Введите паспортные данные', 'Введите адрес регистрации']
     const [fileName, setFileName] = useState('Добавить')
     const [fileNameTwo, setFileNameTwo] = useState('Добавить')
-
+    const dispatch = useDispatch()
+    const page = useAppSelector(state => state.registration.step)
     const nextPage = () => {
-        setPage((currPage) => currPage + 1)
+
+        dispatch(nextPageAC())
+        //setPage((currPage) => currPage + 1)
+
     }
     const prevPage = () => {
-        setPage((currPage) => currPage - 1)
+        dispatch(prevPageAC())
+        // setPage((currPage) => currPage - 1)
     }
     const PageDisplay = () => {
         switch (page) {

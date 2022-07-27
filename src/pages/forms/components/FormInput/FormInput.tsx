@@ -17,6 +17,7 @@ type PropsType = {
     error?: any
     errorText?: string
     maxLength?: number
+    minLength?: number
 }
 
 const FormInput: React.FC<PropsType> = (props) => {
@@ -65,6 +66,7 @@ const FormInput: React.FC<PropsType> = (props) => {
                        autoComplete={'off'}
                        placeholder={placeholder}
                        maxLength={props.maxLength ? props.maxLength : 200}
+                       minLength={props.minLength}
                 />
             }
             {props.error &&

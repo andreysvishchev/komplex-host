@@ -2,6 +2,7 @@ let initialState: InitialStateType = {
     registrationPage: true,
     partners: null,
     registrationData: {
+        bad_scan: false,
         partner: null,
         first_name: '',
         last_name: '',
@@ -56,7 +57,8 @@ let initialState: InitialStateType = {
         finance_email: '',
         finance_phone: '',
         create_application: false
-    }
+    },
+    step: 0
 }
 
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -67,6 +69,10 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
             return {...state, partners: action.partner}
         case "ADD-DATA-REG":
             return {...state, registrationData: action.data}
+        case "NEXT-PAGE":
+            return {...state, step: state.step + 1}
+        case "PREV-PAGE":
+            return {...state, step: state.step - 1}
         default:
             return state
     }
@@ -84,14 +90,23 @@ export const addPrivateData = (data: RegistrationDataType) => {
     return {type: 'ADD-DATA-REG', data} as const
 }
 
+export const nextPageAC = () => {
+    return {type: 'NEXT-PAGE'} as const
+}
+export const prevPageAC = () => {
+    return {type: 'PREV-PAGE'} as const
+}
+
 export type  PartnersType = 'private' | 'entrepreneur' | 'company' | null
 export type InitialStateType = {
     registrationPage: boolean
     partners: PartnersType
     registrationData: RegistrationDataType
+    step: number
 }
 export type RegistrationDataType = {
     partner: '1' | '2' | '3' | null
+    bad_scan: boolean
     first_name: string
     last_name: string
     parent: string
@@ -150,4 +165,5 @@ export type ActionsType =
     | ReturnType<typeof registrationPage>
     | ReturnType<typeof choicePartner>
     | ReturnType<typeof addPrivateData>
-
+    | ReturnType<typeof nextPageAC>
+    | ReturnType<typeof prevPageAC>

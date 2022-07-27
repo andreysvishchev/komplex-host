@@ -80,7 +80,7 @@ const PassportDataForm = (props: PropsType) => {
         },
     })
 
-    faceapi.nets.tinyFaceDetector.loadFromUri('/assets/models')
+    faceapi.nets.tinyFaceDetector.loadFromUri('./models')
 
     async function changeMainScan(e: ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files.length) {
@@ -89,34 +89,35 @@ const PassportDataForm = (props: PropsType) => {
             const base64 = await convertBase64(imgFile)
             const img = await faceapi.bufferToImage(imgFile)
             const displaySize = {width: img.width, height: img.height}
-            const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+            const canvas = document.getElementById('scan_main') as HTMLCanvasElement;
             faceapi.matchDimensions(canvas, displaySize)
             const options = new faceapi.TinyFaceDetectorOptions({inputSize: 512})
             const detections = await faceapi.detectAllFaces(img, options)
             const resizedDetections = faceapi.resizeResults(detections, displaySize)
             const ctx = await canvas.getContext('2d')
-
-            if (ctx) {
-                const image = new Image();
-                const mask = new Image();
+            const image = new Image();
+            if (typeof base64 === "string") {
+                image.src = base64
+            }
+            ctx!.drawImage(image, 0, 0)
+            if (detections.length !== 0) {
                 const x = detections[0].box.x
                 const y = detections[0].box.y
                 const boxWidth = detections[0].box.width
                 const boxHeight = detections[0].box.height
-                if (typeof base64 === "string") {
-                    image.src = base64
-                }
-                mask.src = `${maskSrc}`
-                ctx.drawImage(image, 0, 0)
-                mask.onload = () => {
-                    for (let w = 0; w < canvas.width; w += mask.width) {
-                        for (let h = 0; h < canvas.height; h += mask.height) {
-                            ctx!.drawImage(mask, w, h);
-                        }
+                faceapi.draw.drawDetections(canvas, resizedDetections)
+                ctx!.fillStyle = 'white'
+                ctx!.fillRect(x - 5, y - 5, boxWidth + 10, boxHeight + 10);
+            } else {
+                data.bad_scan = true
+            }
+            const mask = new Image();
+            mask.src = `${maskSrc}`
+            mask.onload = () => {
+                for (let w = 0; w < canvas.width; w += mask.width) {
+                    for (let h = 0; h < canvas.height; h += mask.height) {
+                        ctx!.drawImage(mask, w, h);
                     }
-                    faceapi.draw.drawDetections(canvas, resizedDetections)
-                    ctx.fillStyle = 'white'
-                    ctx.fillRect(x - 5, y - 5, boxWidth + 10, boxHeight + 10);
                 }
             }
             const result = canvas.toDataURL()
@@ -129,6 +130,26 @@ const PassportDataForm = (props: PropsType) => {
             props.setFileNameTwo(e.target.files[0].name)
             let file = e.target.files[0];
             const base64 = await convertBase64(file)
+            const canvas = document.getElementById('scan_reg') as HTMLCanvasElement;
+            const ctx = await canvas.getContext('2d')
+            const image = new Image();
+            if (typeof base64 === "string") {
+                image.src = base64
+            }
+            const mask = new Image();
+            mask.src = `${maskSrc}`
+            image.onload = ()=> {
+                canvas.width = image.width
+                canvas.height = image.height
+                ctx!.drawImage(image, 0, 0, image.width, image.height)
+            }
+            mask.onload = () => {
+                for (let w = 0; w < canvas.width; w += mask.width) {
+                    for (let h = 0; h < canvas.height; h += mask.height) {
+                        ctx!.drawImage(mask, w, h);
+                    }
+                }
+            }
             await formik.setFieldValue("scan_reg", base64);
         }
     }
@@ -193,7 +214,7 @@ const PassportDataForm = (props: PropsType) => {
                 </label>
                 {formik.errors.scan_main && formik.touched.scan_main &&
                 <div className={s.input__error}>{formik.errors.scan_main}</div>}
-                <canvas style={{display: "none"}} id={'canvas'}/>
+                <canvas style={{display: 'none'}} id={'scan_main'}/>
             </div>
             <div className={s.form__scan}>
                 <label className={`${s.file} ${s.two}`}>
@@ -204,8 +225,8 @@ const PassportDataForm = (props: PropsType) => {
                 </label>
                 {formik.errors.scan_reg && formik.touched.scan_reg &&
                 <div className={s.input__error}>{formik.errors.scan_reg}</div>}
+                <canvas style={{display: 'none'}} id={'scan_reg'}/>
             </div>
-
             <div className={s.form__buttons}>
                 <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>
