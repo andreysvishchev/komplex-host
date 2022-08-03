@@ -7,7 +7,7 @@ import {ConfidantType, deleteAllConfidant, deleteConfidantAC} from "../../reduce
 import NoticeModal from "./NoticeModal";
 import {useDispatch} from "react-redux";
 import {deleteAllNotes, deleteNoteAC} from "../../reducers/notesReducer";
-import {openModalAC} from "../../reducers/modal-reducer";
+import {openModalAC} from "../../reducers/modalReducer";
 
 type PropsType = {
     messages: string

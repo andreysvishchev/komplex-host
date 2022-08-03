@@ -4,7 +4,7 @@ import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {useAppSelector} from "../../store/store";
-import {openEditorModal} from "../../reducers/modal-reducer";
+import {openEditorModal} from "../../reducers/modalReducer";
 import {log} from "util";
 
 const EditorModal = () => {
@@ -18,11 +18,7 @@ const EditorModal = () => {
     useEffect(() => {
         if (open) {
             onWindowLoad()
-
-
         }
-
-
     })
 
     function onWindowLoad(): any {

@@ -7,7 +7,7 @@ import FormSelect from "../forms/components/FormSelect/FormSelect";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
 import {ConfiguratorType} from "../../reducers/rentBlockReducer";
-import {openModalAC} from "../../reducers/modal-reducer";
+import {openModalAC} from "../../reducers/modalReducer";
 
 
 type PropsType = {

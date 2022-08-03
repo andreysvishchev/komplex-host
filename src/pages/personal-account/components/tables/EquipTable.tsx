@@ -10,13 +10,13 @@ import Pagination from "../pagination/Pagination";
 
 const EquipTable = () => {
 
+    useEffect(() => {
+       // dispatch(fetchEquips())
+    }, [])
+
     let data = useSelector<AppStateType, EquipType[]>(state => state.equips)
-
     const dispatch = useDispatch<AppDispatchType>()
-    useEffect(()=> {
-        dispatch(fetchEquips())
-    },[])
-
+    const [show, setShow] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(4)
     const itemsAmount = data.length
@@ -24,9 +24,18 @@ const EquipTable = () => {
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     data = data.slice(firstItemIndex, lastItemIndex)
+
     const nextPage = () => setCurrentPage(prev => prev + 1)
     const prevPage = () => setCurrentPage(prev => prev - 1)
-
+    const showPagination = () => {
+        setShow(!show)
+        if (show) {
+            setCurrentPage(1)
+            setItemsPerPage(4)
+        } else {
+            setItemsPerPage(10)
+        }
+    }
 
     return (
         <>
@@ -52,9 +61,9 @@ const EquipTable = () => {
                 }
             </div>
             <Pagination currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
+                        show={show}
                         itemsAmount={itemsAmount}
-                        setItemsPerPage={setItemsPerPage}
+                        showPagination={showPagination}
                         maxPage={maxPage}
                         nextPage={nextPage}
                         prevPage={prevPage}

@@ -4,7 +4,6 @@ import {LoginParamsType} from "../reducers/authReducer";
 const instance = axios.create({
     baseURL: 'https://192.168.254.26/api/',
     withCredentials: true,
-
 })
 
 

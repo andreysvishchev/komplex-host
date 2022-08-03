@@ -5,7 +5,7 @@ import s from "./Modal.module.scss";
 import FormInput from "../forms/components/FormInput/FormInput";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
-import {openCaptchaModal} from "../../reducers/modal-reducer";
+import {openCaptchaModal} from "../../reducers/modalReducer";
 import {useFormik} from "formik";
 import {getCaptchaUrl, sendCaptcha} from "../../reducers/authReducer";
 import {resetCaptcha} from "../../reducers/errorReducer";

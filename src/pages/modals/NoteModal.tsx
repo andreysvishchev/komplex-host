@@ -54,10 +54,10 @@ const NoteModal = (props: PropsType) => {
                 <Box sx={modal}>
                     <button onClick={handleClose} className={s.close}/>
                     <div className={s.caption}>{props.date}</div>
-                    <textarea onChange={onChangeHandler} className={s.textarea} value={value}></textarea>
+                    <textarea onChange={onChangeHandler} className={s.textarea} value={value}/>
                     <label className={s.checkbox}>
                         <div className={s.checkbox__text}>Отметить важность</div>
-                        <span className={check ? `${s.checkbox__icon} ${s.active}` : s.checkbox__icon}></span>
+                        <span className={check ? `${s.checkbox__icon} ${s.active}` : s.checkbox__icon}/>
                         <input onChange={onCheckHandler} className={s.checkbox__input} type="checkbox" checked={check}/>
                     </label>
                     <div className={s.row}>

@@ -312,3 +312,71 @@
   height: 1px;
   clip: rect(0 0 0 0);
 }
+
+.pay {
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  &__col {
+    display: flex;
+  }
+  &__label {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border: 1px solid $blue;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 24px;
+      height: 24px;
+      background-image: url('../../img/calendar.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+  &__input {
+    width: 125px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black;
+    padding: 8px 16px;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color .2s ease-in-out;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    &::placeholder {
+      color: $silver-text;
+    }
+
+    &:focus {
+      border-color: $blue;
+    }
+  }
+  &__hyp {
+    width: 16px;
+    height: 1px;
+    background-color: $black;
+  }
+  &__buttons {
+    margin-top: 34px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

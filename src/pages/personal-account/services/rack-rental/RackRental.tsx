@@ -15,9 +15,11 @@ const RackRental = () => {
             <RentBlock/>
             <div className={s.row}>
                 <ReactDatePicker
-                    selected={startDate} onChange={(date: Date) => setStartDate(date)}
+                    selected={startDate}
+                    onChange={(date: Date) => setStartDate(date)}
                     locale={ru}
                     inline
+                    calendarClassName="calendar-inline"
                 />
                 <Notes/>
             </div>

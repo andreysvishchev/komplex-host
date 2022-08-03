@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
 import {getStatus, login} from "../../../../reducers/authReducer";
 import {useFormik} from "formik";
-import {openRecoveryModal} from "../../../../reducers/modal-reducer";
+import {openRecoveryModal} from "../../../../reducers/modalReducer";
 import RecoveryPasswordModal from "../../../modals/RecoveryPasswordModal";
 import load from '../../../../img/load-btn.svg'
 import Button from "../../../personal-account/components/button/Button";

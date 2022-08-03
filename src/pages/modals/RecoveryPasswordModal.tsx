@@ -4,7 +4,7 @@ import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
 import FormInput from "../forms/components/FormInput/FormInput";
 import {AppDispatchType, useAppSelector} from "../../store/store";
-import {openCaptchaModal, openRecoveryModal} from "../../reducers/modal-reducer";
+import {openCaptchaModal, openRecoveryModal} from "../../reducers/modalReducer";
 import {useFormik} from "formik";
 import {recoveryPassword, sendCaptcha} from "../../reducers/authReducer";
 import {useDispatch} from "react-redux";

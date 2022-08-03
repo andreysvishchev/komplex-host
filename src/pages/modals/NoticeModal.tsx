@@ -4,7 +4,7 @@ import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {useAppSelector} from "../../store/store";
-import {closeModalAC, ModalType} from "../../reducers/modal-reducer";
+import {closeModalAC, ModalType} from "../../reducers/modalReducer";
 
 
 

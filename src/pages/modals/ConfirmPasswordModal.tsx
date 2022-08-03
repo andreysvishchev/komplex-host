@@ -5,7 +5,7 @@ import s from "./Modal.module.scss";
 import FormInput from "../forms/components/FormInput/FormInput";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
-import {openConfirmRecoveryModal, openRecoveryModal} from "../../reducers/modal-reducer";
+import {openConfirmRecoveryModal, openRecoveryModal} from "../../reducers/modalReducer";
 import {useFormik} from "formik";
 import {confirmRecoveryPassword, recoveryPassword} from "../../reducers/authReducer";
 import Button from "../personal-account/components/button/Button";

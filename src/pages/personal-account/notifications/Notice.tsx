@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../store/store";
 import {NoticeType, readNoticeAC} from "../../../reducers/noticeReducer";
 import NoticeAccordion from "../components/accordions/NoticeAccordion";
+import Button from "../components/button/Button";
 
 const Notice = () => {
 
@@ -25,11 +26,10 @@ const Notice = () => {
                     <div className={s.caption}>Уведомления</div>
                     <button className={s.tooltip}>?</button>
                 </div>
-                <button className={s.button}>Прочитать всё</button>
+             <Button type={'button'} title={'Прочитать всё'}/>
             </div>
             <div className={s.notices}>
                 {
-
                         notice.map((el, i) => {
                             return (
                                 <NoticeAccordion key={el.id}
@@ -42,7 +42,6 @@ const Notice = () => {
                             )
                         })
                 }
-
             </div>
             <button className={s.show}>Развернуть все уведомления</button>
         </div>

@@ -7,7 +7,7 @@ import ServerRental from "./server-rental/ServerRental";
 import ServiceArchive from "./service-archive/ServiceArchive";
 import RackRental from "./rack-rental/RackRental";
 import {useAppSelector} from "../../../store/store";
-import {ModalType} from "../../../reducers/modal-reducer";
+import {ModalType} from "../../../reducers/modalReducer";
 import NoticeModal from "../../modals/NoticeModal";
 
 const Services = () => {

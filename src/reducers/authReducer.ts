@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {authApi} from "../api/api";
 import {AxiosError} from "axios";
-import {openCaptchaModal, openConfirmRecoveryModal, openModalAC, openRecoveryModal} from "./modal-reducer";
+import {openCaptchaModal, openConfirmRecoveryModal, openModalAC, openRecoveryModal} from "./modalReducer";
 import {AppDispatchType} from "../store/store";
 import {
     captchaError,

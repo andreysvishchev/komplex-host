@@ -3,7 +3,7 @@ import FormInput from "./components/FormInput/FormInput";
 import {button} from "../../style/style";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {openModalAC} from "../../reducers/modal-reducer";
+import {openModalAC} from "../../reducers/modalReducer";
 import Checkbox from "./components/Checkbox/Checkbox";
 import {useFormik} from "formik";
 import Button from "../personal-account/components/button/Button";

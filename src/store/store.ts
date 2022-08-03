@@ -4,7 +4,7 @@ import {confidantReducer} from "../reducers/confidantReducer";
 import {noticeReducer} from "../reducers/noticeReducer";
 import {authReducer} from "../reducers/authReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {modalReducer} from "../reducers/modal-reducer";
+import {modalReducer} from "../reducers/modalReducer";
 import {equipReducer} from "../reducers/equipReducer";
 import {rentBlockReducer} from "../reducers/rentBlockReducer";
 import {registrationReducer} from "../reducers/registrationReducer";
@@ -12,9 +12,11 @@ import {supportReducer} from "../reducers/supportReducer";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import {errorReducer} from "../reducers/errorReducer";
 import {appReducer} from "../reducers/appReducer";
+import {unionReducer} from "../reducers/unionReducer";
 
 
 const rootReducer = combineReducers({
+    union: unionReducer,
     registration: registrationReducer,
     notes: notesReducer,
     confidant: confidantReducer,

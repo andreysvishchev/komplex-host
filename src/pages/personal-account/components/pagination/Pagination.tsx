@@ -1,34 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './Pagination.module.scss'
 
 type PropsType = {
     itemsAmount: number
-    setItemsPerPage: (itemsPerPage: number) => void
-    setCurrentPage: (currentPage: number)=> void
     currentPage: number
     maxPage: number
     nextPage: () => void
     prevPage: () => void
     firstIndex: number
     lastIndex: number
+    showPagination: ()=> void
+    show: boolean
 }
 
-const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, setItemsPerPage, setCurrentPage,  firstIndex, lastIndex}: PropsType) => {
-    const [show, setShow] = useState(false)
-
-    const showAllItems = () => {
-        setShow(!show)
-        if (show) {
-            setCurrentPage(1)
-            setItemsPerPage(4)
-        } else {
-            setItemsPerPage(10)
-        }
-    }
+const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, show,  firstIndex, lastIndex, showPagination}: PropsType) => {
 
     return (
         <div className={s.pagination}>
-            <button onClick={showAllItems}
+            <button onClick={showPagination}
                     className={s.pagination__toggle}>{show ? 'Скрыть' : 'Показать всё'}</button>
             {show && <div className={s.pagination__block}>
                 <div className={s.pagination__amount}>

@@ -6,8 +6,8 @@ const initialState = {
     openRecoverModal: false,
     openConfirmRecoveryModal: false,
     openEditorModal: false,
+    payModal: false,
     url: ''
-
 }
 
 
@@ -25,6 +25,8 @@ export const modalReducer = (state: ModalType = initialState, action: ActionType
             return {...state, openConfirmRecoveryModal: action.isOpen}
         case "OPEN-EDITOR":
             return {...state, openEditorModal: action.isOpen, url: action.url}
+        case "PAY-MODAL":
+            return {...state, payModal: action.isOpen}
         default:
             return state
     }
@@ -48,6 +50,9 @@ export const openConfirmRecoveryModal = (isOpen: boolean) => {
 export const openEditorModal = (isOpen: boolean, url: any) => {
     return {type: 'OPEN-EDITOR', isOpen, url} as const
 }
+export const togglePayModal = (isOpen: boolean) => {
+    return {type: 'PAY-MODAL', isOpen} as const
+}
 
 export type ActionType =
     | ReturnType<typeof openModalAC>
@@ -56,4 +61,5 @@ export type ActionType =
     | ReturnType<typeof openRecoveryModal>
     | ReturnType<typeof openConfirmRecoveryModal>
     | ReturnType<typeof openEditorModal>
+    | ReturnType<typeof togglePayModal>
 export type ModalType = typeof initialState

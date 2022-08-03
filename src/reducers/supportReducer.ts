@@ -309,7 +309,6 @@ let initialState = [
             },
         ]
     },
-
 ]
 
 export const supportReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {

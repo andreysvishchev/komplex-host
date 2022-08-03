@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../store/store";
 import {loginError} from "../../../reducers/errorReducer";
 import ConfirmPasswordModal from "../../modals/ConfirmPasswordModal";
-import {openConfirmRecoveryModal} from "../../../reducers/modal-reducer";
+import {openConfirmRecoveryModal} from "../../../reducers/modalReducer";
 
 
 const Entrance = () => {
