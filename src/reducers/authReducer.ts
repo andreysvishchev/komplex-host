@@ -1,7 +1,12 @@
 import {Dispatch} from "redux";
 import {authApi} from "../api/api";
 import {AxiosError} from "axios";
-import {openCaptchaModal, openConfirmRecoveryModal, openModalAC, openRecoveryModal} from "./modalReducer";
+import {
+    openCaptchaModal,
+    openConfirmRecoveryModal,
+    openNoticeModal,
+    openRecoveryModal
+} from "./modalReducer";
 import {AppDispatchType} from "../store/store";
 import {
     captchaError,
@@ -39,7 +44,6 @@ export const changeUserStatus = (value: string) => {
 export const getStatus = () => (dispatch: AppDispatchType) => {
     authApi.getStatus()
         .then((res) => {
-
             dispatch(changeUserStatus(res.data.result))
         })
 }
@@ -50,7 +54,6 @@ export const login = (values: LoginParamsType) => (dispatch: AppDispatchType) =>
         .then((res) => {
             if (res.data.result === '0') {
                 dispatch(loginError(false))
-                //  dispatch(changeUserStatus('0'))
                 dispatch(getStatus())
             } else {
                 if (res.data.result === '100') {
@@ -123,7 +126,11 @@ export const sendCaptcha = (values: string) => (dispatch: AppDispatchType) => {
         .then((res => {
             if (res.data.result === '0') {
                 dispatch(openCaptchaModal(false))
-                dispatch(openModalAC(true, true, 'Письмо с подтверждением регистрации отправлено на почту'))
+                dispatch(openNoticeModal({
+                    open: true,
+                    success: true,
+                    message: 'Письмо с подтверждением регистрации отправлено на почту'
+                }))
             } else {
                 if (res.data.result === '107') {
                     dispatch(getCaptchaUrl())
@@ -142,7 +149,11 @@ export const recoveryPassword = (email: string) => (dispatch: AppDispatchType) =
         .then((res) => {
             if (res.data.result === '0') {
                 dispatch(openRecoveryModal(false))
-                dispatch(openModalAC(true, true, 'Письмо с инструкцией по смене пароля отправлено на почту'))
+                dispatch(openNoticeModal({
+                    open: true,
+                    success: true,
+                    message: 'Письмо с инструкцией по смене пароля отправлено на почту'
+                }))
             } else {
                 if (res.data.result === '103') {
                     dispatch(recoveryError(true))
@@ -157,7 +168,11 @@ export const confirmRecoveryPassword = (guid: string, password: string) => (disp
         .then((res) => {
             if (res.data.result === '0') {
                 dispatch(openConfirmRecoveryModal(false))
-                dispatch(openModalAC(true, true, 'Пароль успешно изменён'))
+                dispatch(openNoticeModal({
+                    open: true,
+                    success: true,
+                    message: 'Пароль успешно изменён'
+                }))
             } else {
                 if (res.data.result === '103') {
                     dispatch(recoveryError(true))

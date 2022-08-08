@@ -28,7 +28,6 @@ const NoteModal = (props: PropsType) => {
         setValue(e.currentTarget.value)
     }
     const addNote = () => {
-        debugger
         if (value !== '') {
             dispatch(addNoteAC(props.date, value, check))
             setValue('')
@@ -36,7 +35,6 @@ const NoteModal = (props: PropsType) => {
         }
     }
     const editNote = () => {
-        debugger
         if(props.id) {
             dispatch(editNoteAC(props.id, value, check))
             props.setOpen(false)

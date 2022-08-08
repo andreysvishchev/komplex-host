@@ -20,9 +20,6 @@ const PersonalAccount = () => {
         }
     })
 
-
-
-
     return (
         <div className={s.main}>
             <Header/>

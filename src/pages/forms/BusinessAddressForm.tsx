@@ -1,12 +1,9 @@
 import s from './Form.module.scss'
-import FormInput from "./components/FormInput/FormInput";
-import {button} from "../../style/style";
-import React, {useState} from "react";
+import Input from "../components/Input/Input";
+import React from "react";
 import {useDispatch} from "react-redux";
-import {openModalAC} from "../../reducers/modalReducer";
-import Checkbox from "./components/Checkbox/Checkbox";
 import {useFormik} from "formik";
-import Button from "../personal-account/components/button/Button";
+import Button from "../components/button/Button";
 import {useAppSelector} from "../../store/store";
 import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 
@@ -76,14 +73,14 @@ const BusinessAddressForm = (props: PropsType) => {
     return (
         <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <div className={s.form__row}>
-                <FormInput
+                <Input
                     caption={'Индекс'}
                     placeholder={'_ _ _ _ _ _'}
                     {...formik.getFieldProps('business_index')}
                     error={formik.errors.business_index && formik.touched.business_index}
                     errorText={formik.errors.business_index}
                 />
-                <FormInput
+                <Input
                     caption={'Страна'}
                     placeholder={'Введите страну'}
                     {...formik.getFieldProps('business_country')}
@@ -91,41 +88,41 @@ const BusinessAddressForm = (props: PropsType) => {
                     errorText={formik.errors.business_country}
                 />
             </div>
-            <FormInput
+            <Input
                 caption={'Область'}
                 placeholder={'Введите область'}
                 {...formik.getFieldProps('business_area')}
                 error={formik.errors.business_area && formik.touched.business_area}
                 errorText={formik.errors.business_area}
             />
-            <FormInput
+            <Input
                 caption={'Район/Округ'}
                 placeholder={'Введите район или округ'}
                 {...formik.getFieldProps('business_district')}
                 error={formik.errors.business_district && formik.touched.business_district}
                 errorText={formik.errors.business_district}
             />
-            <FormInput
+            <Input
                 caption={'Населенный пункт'}
                 placeholder={'Введите населенный пункт'}
                 {...formik.getFieldProps('business_locality')}
                 error={formik.errors.business_locality && formik.touched.business_locality}
                 errorText={formik.errors.business_locality}
             />
-            <FormInput
+            <Input
                 caption={'Улица'}
                 placeholder={'Введите улицу'}
                 {...formik.getFieldProps('business_street')}
                 value={formik.values.business_street}
             />
             <div className={s.form__row}>
-                <FormInput
+                <Input
                     caption={'Дом'}
                     placeholder={'Номер дома'}
                     {...formik.getFieldProps('business_home')}
                     value={formik.values.business_home}
                 />
-                <FormInput
+                <Input
                     caption={'Квартира/офис'}
                     placeholder={'Номер квартиры/офиса'}
                     {...formik.getFieldProps('business_flat')}

@@ -27,7 +27,6 @@ export const unionReducer = (state: InitStateType = initState, actions: ActionsT
     }
 }
 
-
 export type UnionType = {
     id: number
     check: string

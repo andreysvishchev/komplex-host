@@ -1,9 +1,8 @@
 import React from 'react';
 import s from "./Form.module.scss";
-import FormInput from "./components/FormInput/FormInput";
-import {button} from "../../style/style";
+import Input from "../components/Input/Input";
 import {useFormik} from "formik";
-import Button from "../personal-account/components/button/Button";
+import Button from "../components/button/Button";
 import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../store/store";
@@ -94,14 +93,14 @@ const RequisitesForm = (props: PropsType) => {
         <div>
             <form onSubmit={formik.handleSubmit}
                   className={props.registration ? `${s.registration} ${s.form}` : s.form}>
-                <FormInput
+                <Input
                     caption={'Наименование банка'}
                     placeholder={'Введите название'}
                     {...formik.getFieldProps('bank')}
                     error={formik.errors.bank && formik.touched.bank}
                     errorText={formik.errors.bank}
                 />
-                <FormInput
+                <Input
                     caption={'Расчетный счет'}
                     placeholder={'Номер рас/сч'}
                     maxLength={20}
@@ -109,7 +108,7 @@ const RequisitesForm = (props: PropsType) => {
                     error={formik.errors.payment_score && formik.touched.payment_score}
                     errorText={formik.errors.payment_score}
                 />
-                <FormInput
+                <Input
                     caption={'Корреспондентский счет'}
                     placeholder={'Номер кор/сч'}
                     maxLength={20}
@@ -118,14 +117,14 @@ const RequisitesForm = (props: PropsType) => {
                     errorText={formik.errors.correspondent_score}
                 />
                 <div className={s.form__row}>
-                    <FormInput
+                    <Input
                         caption={'Индекс'}
                         placeholder={'_ _ _ _ _ _'}
                         {...formik.getFieldProps('bank_index')}
                         error={formik.errors.bank_index && formik.touched.bank_index}
                         errorText={formik.errors.bank_index}
                     />
-                    <FormInput
+                    <Input
                         caption={'Страна'}
                         placeholder={'Введите страну'}
                         {...formik.getFieldProps('bank_country')}
@@ -133,41 +132,41 @@ const RequisitesForm = (props: PropsType) => {
                         errorText={formik.errors.bank_country}
                     />
                 </div>
-                <FormInput
+                <Input
                     caption={'Область'}
                     placeholder={'Введите область'}
                     {...formik.getFieldProps('bank_area')}
                     error={formik.errors.bank_area && formik.touched.bank_area}
                     errorText={formik.errors.bank_area}
                 />
-                <FormInput
+                <Input
                     caption={'Район/Округ'}
                     placeholder={'Введите район или округ'}
                     {...formik.getFieldProps('bank_district')}
                     error={formik.errors.bank_district && formik.touched.bank_district}
                     errorText={formik.errors.bank_district}
                 />
-                <FormInput
+                <Input
                     caption={'Населенный пункт'}
                     placeholder={'Введите населенный пункт'}
                     {...formik.getFieldProps('bank_locality')}
                     error={formik.errors.bank_locality && formik.touched.bank_locality}
                     errorText={formik.errors.bank_locality}
                 />
-                <FormInput
+                <Input
                     caption={'Улица'}
                     placeholder={'Введите улицу'}
                     {...formik.getFieldProps('bank_street')}
                     value={formik.values.bank_street}
                 />
                 <div className={s.form__row}>
-                    <FormInput
+                    <Input
                         caption={'Дом'}
                         placeholder={'Номер дома'}
                         {...formik.getFieldProps('bank_home')}
                         value={formik.values.bank_home}
                     />
-                    <FormInput
+                    <Input
                         caption={'Корпус/офис'}
                         placeholder={'Номер корпуса/офиса'}
                         {...formik.getFieldProps('bank_office')}

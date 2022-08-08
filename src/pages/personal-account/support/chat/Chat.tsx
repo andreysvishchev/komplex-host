@@ -3,7 +3,7 @@ import s from '../Support.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../store/store";
 import {ApplicationType,} from "../../../../reducers/supportReducer";
-import MessageForm from "../../components/message-form/MessageForm";
+import MessageForm from "../assets/message-form/MessageForm";
 import Message from "./Message";
 
 type PropsType = {
@@ -48,7 +48,7 @@ const Chat = React.memo((props: PropsType) => {
 
             <div className={s.chat__top}>
                 <div className={end ? `${s.chat__head} ${s.end}` : s.chat__head}>
-                    <div className={s.chat__title}>Заявка №2452 Как оплатить аренду стойки</div>
+                    <div className={s.chat__title}>Заявка №2452 Как оплатить аренду стойки Как оплатить аренду стойки Как оплатить аренду стойки Как оплатить аренду стойки Как оплатить аренду стойки</div>
                     <div className={s.chat__status}>Открыта</div>
                     <div className={s.chat__date}>24 августа</div>
                 </div>

@@ -1,0 +1,207 @@
+@import "../../../../../style/vars";
+
+.wrap {
+  border-radius: 4px;
+  border: 1px solid $gray;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.captions {
+  padding: 8px 19px;
+  background-color: $silver-shape;
+  border-bottom: 1px solid $gray;
+  border-radius: 4px 4px 0px 0px;
+  display: grid;
+  gap: 15px;
+
+  &.confidant {
+    grid-template-columns: 30% 30% 20% 100px;
+  }
+
+  &.equip {
+    grid-template-columns: 30% 30% 40%;
+  }
+
+  &.ip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &.rent {
+    grid-template-columns: 50% 15% 15% 20%;
+
+    &.archive {
+      grid-template-columns: 70% 30%;
+    }
+  }
+
+  &.union {
+    grid-template-columns: 1fr 25% 15% 70px;
+  }
+}
+
+
+.row {
+  padding: 8px 19px;
+  display: grid;
+  gap: 15px;
+
+  &.confidant {
+    grid-template-columns: 30% 30% 20% 100px;
+    position: relative;
+  }
+
+  &.equip {
+    grid-template-columns: 30% 30% 40%;
+  }
+
+  &.ip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &.rent {
+    grid-template-columns: 50% 15% 15% 20%;
+
+    &.archive {
+      grid-template-columns: 70% 30%;
+    }
+  }
+
+  &.union {
+    grid-template-columns: 1fr 25% 15% 70px;
+  }
+}
+
+.col {
+  &.price {
+    font-weight: 500;
+  }
+
+  &.sum {
+    font-weight: 600;
+    color: $dark-blue;
+  }
+
+  &.name {
+    span {
+      display: inline-block;
+      margin-left: 5px;
+      color: $blue;
+    }
+  }
+
+  &.equip {
+    display: flex;
+    align-items: center;
+    margin-right: 25px;
+
+    div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.notfiled {
+  border: none;
+  cursor: pointer;
+  color: $gray;
+  background-color: transparent;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    margin-left: 10px;
+    width: 14px;
+    height: 14px;
+    mask-image: url('../../../../../img/pencil.svg');
+    background-color: $gray;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    transition: background-color .2s ease-in-out;
+  }
+
+  &:hover {
+    &:after {
+      background-color: $blue;
+    }
+  }
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.empty {
+  padding: 8px 19px;
+}
+
+.edit {
+  box-sizing: content-box;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  background-color: $gray;
+  margin-left: 5px;
+  padding: 0 5px;
+  mask-image: url('../../../../../img/pencil.svg');
+  mask-position: center;
+  mask-repeat: no-repeat;
+  transition: background-color .2s ease-in-out;
+
+  &:hover {
+    background-color: $blue;
+  }
+}
+
+.download {
+  display: flex;
+  justify-content: center;
+
+  &::before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    mask-image: url('../../../../../img/download.svg');
+    background-color: $gray;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: background-color .2s ease-in-out;
+  }
+
+  &:hover {
+    &::before {
+      background-color: $blue;
+    }
+  }
+}
+
+.sort {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  &.desc {
+    &:after {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:after {
+    content: '';
+    width: 10px;
+    height: 7px;
+    display: block;
+    margin-left: 5px;
+    background-image: url('../../../../../img/arrow-sort.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform .1s ease-in-out;
+  }
+}
+

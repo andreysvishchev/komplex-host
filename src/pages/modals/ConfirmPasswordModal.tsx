@@ -2,14 +2,14 @@ import React from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
-import FormInput from "../forms/components/FormInput/FormInput";
+import Input from "../components/Input/Input";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
-import {openConfirmRecoveryModal, openRecoveryModal} from "../../reducers/modalReducer";
+import {openConfirmRecoveryModal} from "../../reducers/modalReducer";
 import {useFormik} from "formik";
-import {confirmRecoveryPassword, recoveryPassword} from "../../reducers/authReducer";
-import Button from "../personal-account/components/button/Button";
-import {useParams, useSearchParams} from 'react-router-dom';
+import {confirmRecoveryPassword} from "../../reducers/authReducer";
+import Button from "../components/button/Button";
+import {useSearchParams} from 'react-router-dom';
 
 
 type FormikErrorType = {
@@ -24,10 +24,11 @@ type PropsType = {
 
 const ConfirmPasswordModal = (props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
-    const open = useAppSelector<boolean>(state => state.modal.openConfirmRecoveryModal)
+    const open = useAppSelector<boolean>(state => state.modal.confirmRecoveryModal)
     const errorStatus = useAppSelector<boolean>(state => state.error.recoveryError)
     const errorMessage = useAppSelector<string>(state => state.error.recoveryErrorMessage)
     const [searchParams, setSearchParams] = useSearchParams();
+
     const handleClose = () => {
         dispatch(openConfirmRecoveryModal(false))
     }
@@ -77,27 +78,27 @@ const ConfirmPasswordModal = (props: PropsType) => {
                            name='guid'
                            value={formik.values.guid}
                     />
-                    <FormInput caption={'Новый пароль'}
-                               {...formik.getFieldProps('password')}
-                               name="password"
-                               placeholder={'Введите новый пароль'}
-                               onBlur={formik.handleBlur}
-                               onChange={formik.handleChange}
-                               value={formik.values.password}
-                               password={true}
-                               errorText={formik.errors.password}
-                               error={formik.errors.password &&
+                    <Input caption={'Новый пароль'}
+                           {...formik.getFieldProps('password')}
+                           name="password"
+                           placeholder={'Введите новый пароль'}
+                           onBlur={formik.handleBlur}
+                           onChange={formik.handleChange}
+                           value={formik.values.password}
+                           password={true}
+                           errorText={formik.errors.password}
+                           error={formik.errors.password &&
                                formik.touched.password || errorStatus}/>
-                    <FormInput caption={'Подтвердите новый пароль'}
-                               placeholder={'Введите новый пароль'}
-                               password={true}
-                               {...formik.getFieldProps('password_repeat')}
-                               name="password_repeat"
-                               onBlur={formik.handleBlur}
-                               onChange={formik.handleChange}
-                               value={formik.values.password_repeat}
-                               errorText={formik.errors.password_repeat}
-                               error={formik.errors.password_repeat &&
+                    <Input caption={'Подтвердите новый пароль'}
+                           placeholder={'Введите новый пароль'}
+                           password={true}
+                           {...formik.getFieldProps('password_repeat')}
+                           name="password_repeat"
+                           onBlur={formik.handleBlur}
+                           onChange={formik.handleChange}
+                           value={formik.values.password_repeat}
+                           errorText={formik.errors.password_repeat}
+                           error={formik.errors.password_repeat &&
                                formik.touched.password_repeat || errorStatus}/>
                     <Button title={'Сменить пароль'} type='submit'/>
                 </form>

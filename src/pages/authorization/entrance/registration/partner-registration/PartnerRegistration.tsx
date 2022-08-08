@@ -13,22 +13,18 @@ const PartnerRegistration = () => {
     const dispatch = useDispatch()
     let partners = useSelector<AppStateType, PartnersType>(state => state.registration.partners)
 
-
     const openPrivateReg = () => {
         setHide(true)
         dispatch(choicePartner('private'))
     }
-
     const openCompanyReg = () => {
         setHide(true)
         dispatch(choicePartner('company'))
     }
-
     const entrepreneurReg = () => {
         setHide(true)
         dispatch(choicePartner('entrepreneur'))
     }
-
     const leaveReg = () => {
         dispatch(registrationPage(false))
         setHide(false)

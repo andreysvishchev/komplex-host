@@ -4,8 +4,8 @@ import PersonalInfoForm from "../../../../forms/PersonalInfoForm";
 import PassportDataForm from "../../../../forms/PassportDataForm";
 import MailAddressForm from "../../../../forms/MailAddressForm";
 import {useDispatch} from "react-redux";
-import {nextPageAC, prevPageAC} from "../../../../../reducers/registrationReducer";
-import {useAppSelector} from "../../../../../store/store";
+import {nextPage, prevPage} from "../../../../../reducers/registrationReducer";
+import {AppDispatchType, useAppSelector} from "../../../../../store/store";
 
 type PropsType = {
     leaveReg: () => void
@@ -13,28 +13,23 @@ type PropsType = {
 }
 
 const PrivateRegistration = (props: PropsType) => {
-    //const [page, setPage] = useState(0)
     const stepHeadlines = ['Введите информацию о себе', 'Введите паспортные данные', 'Введите адрес регистрации']
     const [fileName, setFileName] = useState('Добавить')
     const [fileNameTwo, setFileNameTwo] = useState('Добавить')
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatchType>()
     const page = useAppSelector(state => state.registration.step)
-    const nextPage = () => {
-
-        dispatch(nextPageAC())
-        //setPage((currPage) => currPage + 1)
-
+    const nextPageHandler = () => {
+        dispatch(nextPage())
     }
-    const prevPage = () => {
-        dispatch(prevPageAC())
-        // setPage((currPage) => currPage - 1)
+    const prevPageHandler = () => {
+        dispatch(prevPage())
     }
     const PageDisplay = () => {
         switch (page) {
             case 0:
                 return <PersonalInfoForm
                     leaveReg={props.setHide}
-                    nextPage={nextPage}
+                    nextPage={nextPageHandler}
                     registration={true}/>
             case 1:
                 return <PassportDataForm
@@ -42,17 +37,16 @@ const PrivateRegistration = (props: PropsType) => {
                     fileNameTwo={fileNameTwo}
                     setFileName={setFileName}
                     setFileNameTwo={setFileNameTwo}
-                    nextPage={nextPage}
-                    prevPage={prevPage}
+                    nextPage={nextPageHandler}
+                    prevPage={prevPageHandler}
                     registration={true}/>
             case 2:
                 return <MailAddressForm
-                    prevPage={prevPage}
+                    prevPage={prevPageHandler}
                     registration={true}
                     lastStep={true}/>
         }
     }
-
 
     return (
         <div className={s.wrap}>

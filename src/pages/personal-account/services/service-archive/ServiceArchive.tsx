@@ -1,6 +1,6 @@
 import React from 'react';
-import RentBlock from "../../components/info-blocks/RentBlock";
-import ServerBlock from "../../components/info-blocks/ServerBlock";
+import RentBlock from "../assets/info-blocks/RentBlock";
+import ServerBlock from "../assets/info-blocks/ServerBlock";
 
 const ServiceArchive = () => {
     return (

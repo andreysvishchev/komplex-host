@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "../PersonalAccount.module.scss";
 
-import FaqAccordion from "../components/accordions/FaqAccordion";
+import FaqAccordion from "../../components/accordions/FaqAccordion";
 
 const Faq = () => {
     const state = [

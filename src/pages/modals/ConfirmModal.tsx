@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
-import EditableInput from "../forms/components/EditInput/EditableInput";
-import {ConfidantType, deleteAllConfidant, deleteConfidantAC} from "../../reducers/confidantReducer";
-import NoticeModal from "./NoticeModal";
+import {deleteAllConfidant, deleteConfidant} from "../../reducers/confidantReducer";
 import {useDispatch} from "react-redux";
-import {deleteAllNotes, deleteNoteAC} from "../../reducers/notesReducer";
-import {openModalAC} from "../../reducers/modalReducer";
+import {deleteAllNotes} from "../../reducers/notesReducer";
+import {openNoticeModal} from "../../reducers/modalReducer";
 
 type PropsType = {
     messages: string
@@ -30,29 +28,49 @@ const ConfirmModal = (props: PropsType) => {
     const deleteConfidantsHandler = () => {
         props.setOpen(false);
         dispatch(deleteAllConfidant())
-        dispatch(openModalAC(true, true, 'Все записи из таблицы “Доверенное лицо” удалены'))
+        dispatch(openNoticeModal({
+            open: true,
+            success: true,
+            message: 'Все записи из таблицы “Доверенное лицо” удалены'
+        }))
     }
     const deleteNotesHandler = () => {
         props.setOpen(false);
         dispatch(deleteAllNotes())
-        dispatch(openModalAC(true, true,'Все заметки удалены'))
+        dispatch(openNoticeModal({
+            open: true,
+            success: true,
+            message: 'Все заметки удалены'
+        }))
     }
     const deleteNoteHandler = () => {
         if (props.noteId) {
             props.setOpen(false)
-            dispatch(openModalAC(true, true,`Запись ${props.noteCaption} удалена`))
+            dispatch(openNoticeModal({
+                open: true,
+                success: true,
+                message: `Запись ${props.noteCaption} удалена`
+            }))
         }
     }
     const deleteConfidantHandler = () => {
         if (props.confidantId) {
             props.setOpen(false)
-            dispatch(deleteConfidantAC(props.confidantId))
-            dispatch(openModalAC(true, true,`Доверенное лицо ${props.confidantCaption} удалено из таблицы`))
+            dispatch(deleteConfidant(props.confidantId))
+            dispatch(openNoticeModal({
+                open: true,
+                success: true,
+                message: `Доверенное лицо ${props.confidantCaption} удалено из таблицы`
+            }))
         }
     }
     const offRentHandler = () => {
         props.setOpen(false)
-        dispatch(openModalAC(true, true, 'Запрос на отключение услуги Аренда места отправлен'))
+        dispatch(openNoticeModal({
+            open: true,
+            success: true,
+            message: 'Запрос на отключение услуги Аренда места отправлен'
+        }))
     }
 
     return (
@@ -67,16 +85,19 @@ const ConfirmModal = (props: PropsType) => {
                     <div className={s.confirm}>
                         <div className={s.message}>{props.messages}</div>
                         <div className={s.row}>
-                            <button onClick={handleClose} className={s.cancel}>Отмена</button>
+                            <button onClick={handleClose} className={s.cancel}>Отмена
+                            </button>
                             {props.confidant &&
-                                <button onClick={props.deleteAll ? deleteConfidantsHandler : deleteConfidantHandler}
-                                        className={s.save}>Ок</button>}
+                            <button
+                                onClick={props.deleteAll ? deleteConfidantsHandler : deleteConfidantHandler}
+                                className={s.save}>Ок</button>}
                             {props.notes &&
-                                <button onClick={props.deleteAll ? deleteNotesHandler : deleteNoteHandler}
-                                        className={s.save}>Ок</button>}
+                            <button
+                                onClick={props.deleteAll ? deleteNotesHandler : deleteNoteHandler}
+                                className={s.save}>Ок</button>}
                             {props.rent &&
-                                <button onClick={offRentHandler}
-                                        className={s.save}>Ок</button>}
+                            <button onClick={offRentHandler}
+                                    className={s.save}>Ок</button>}
                         </div>
                     </div>
                 </Box>

@@ -2,7 +2,6 @@ let initialState: InitialStateType = {
     registrationPage: true,
     partners: null,
     registrationData: {
-        bad_scan: false,
         partner: null,
         first_name: '',
         last_name: '',
@@ -16,7 +15,6 @@ let initialState: InitialStateType = {
         scan_main: '',
         scan_reg: '',
         inn: '',
-        ip_name: '',
         company_name: '',
         kpp: '',
         mail_index: '',
@@ -90,10 +88,10 @@ export const addPrivateData = (data: RegistrationDataType) => {
     return {type: 'ADD-DATA-REG', data} as const
 }
 
-export const nextPageAC = () => {
+export const nextPage = () => {
     return {type: 'NEXT-PAGE'} as const
 }
-export const prevPageAC = () => {
+export const prevPage = () => {
     return {type: 'PREV-PAGE'} as const
 }
 
@@ -106,7 +104,6 @@ export type InitialStateType = {
 }
 export type RegistrationDataType = {
     partner: '1' | '2' | '3' | null
-    bad_scan: boolean
     first_name: string
     last_name: string
     parent: string
@@ -119,7 +116,6 @@ export type RegistrationDataType = {
     scan_main: string
     scan_reg: string
     inn: string
-    ip_name: string
     company_name: string
     kpp: string
     mail_index: string
@@ -165,5 +161,5 @@ export type ActionsType =
     | ReturnType<typeof registrationPage>
     | ReturnType<typeof choicePartner>
     | ReturnType<typeof addPrivateData>
-    | ReturnType<typeof nextPageAC>
-    | ReturnType<typeof prevPageAC>
+    | ReturnType<typeof nextPage>
+    | ReturnType<typeof prevPage>

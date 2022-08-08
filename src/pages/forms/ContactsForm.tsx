@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import s from "./Form.module.scss";
-import FormInput from "./components/FormInput/FormInput";
-import Checkbox from "./components/Checkbox/Checkbox";
+import Input from "../components/Input/Input";
+import Checkbox from "../components/checkbox/Checkbox";
 import {useDispatch} from "react-redux";
-import {openModalAC} from "../../reducers/modalReducer";
-import {button} from "../../style/style";
-import Button from "../personal-account/components/button/Button";
+import {openNoticeModal} from "../../reducers/modalReducer";
+import Button from "../components/button/Button";
 import {useFormik} from "formik";
 import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 import {useAppSelector} from "../../store/store";
 
 type PropsType = {
     registration?: boolean
-    nextPage?: () => void
     prevPage?: () => void
 }
 
@@ -91,7 +89,11 @@ const ContactsForm = (props: PropsType) => {
             console.log(data)
             // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
             //console.log(decodeURIComponent(escape(window.atob(valueStr))))
-            dispatch(openModalAC(true, true, 'Запрос на создание контрагента отправлен в техподдержку'))
+            dispatch(openNoticeModal({
+                open: true,
+                success: true,
+                message: 'Запрос на создание контрагента отправлен в техподдержку'
+            }))
         },
     })
 
@@ -103,38 +105,39 @@ const ContactsForm = (props: PropsType) => {
                     <div className={s.form__headline}>Введите контактное лицо <span>по техническим вопросам</span>
                     </div>
                     :
-                    <div className={s.form__title}>Контактное лицо по техническим вопросам</div>
+                    <div className={s.form__title}>Контактное лицо по техническим
+                        вопросам</div>
             }
             <div className={props.registration ? ` ${s.registration} ${s.form}` : ''}>
-                <FormInput
+                <Input
                     caption={'Фамилия'}
                     placeholder={'Введите фамилию'}
                     {...formik.getFieldProps('tech_last_name')}
                     error={formik.errors.tech_last_name && formik.touched.tech_last_name}
                     errorText={formik.errors.tech_last_name}
                 />
-                <FormInput
+                <Input
                     caption={'Имя'}
                     placeholder={'Введите имя'}
                     {...formik.getFieldProps('tech_first_name')}
                     error={formik.errors.tech_first_name && formik.touched.tech_first_name}
                     errorText={formik.errors.tech_first_name}
                 />
-                <FormInput
+                <Input
                     caption={'Отчество'}
                     placeholder={'Введите отчество'}
                     {...formik.getFieldProps('tech_parent')}
                     error={formik.errors.tech_parent && formik.touched.tech_parent}
                     errorText={formik.errors.tech_parent}
                 />
-                <FormInput
+                <Input
                     caption={'Электронная почта'}
                     placeholder={'Введите email'}
                     {...formik.getFieldProps('tech_email')}
                     error={formik.errors.tech_email && formik.touched.tech_email}
                     errorText={formik.errors.tech_email}
                 />
-                <FormInput
+                <Input
                     caption={'Номер телефона'}
                     placeholder={'Введите телефон'}
                     {...formik.getFieldProps('tech_phone')}
@@ -145,35 +148,37 @@ const ContactsForm = (props: PropsType) => {
             {
                 props.registration
                     ?
-                    <div style={{marginTop: '32px'}} className={s.form__headline}>Введите контактное лицо <span>по финансовым вопросам</span>
+                    <div style={{marginTop: '32px'}} className={s.form__headline}>Введите
+                        контактное лицо <span>по финансовым вопросам</span>
                     </div>
                     :
-                    <div style={{marginTop: '32px'}} className={s.form__title}>Контактное лицо по финансовым
+                    <div style={{marginTop: '32px'}} className={s.form__title}>Контактное
+                        лицо по финансовым
                         вопросам</div>
             }
             <div className={props.registration ? ` ${s.registration} ${s.form}` : ''}>
-                <FormInput
+                <Input
                     caption={'Фамилия'}
                     placeholder={'Введите фамилию'}
                     {...formik.getFieldProps('finance_last_name')}
                     error={formik.errors.finance_last_name && formik.touched.finance_last_name}
                     errorText={formik.errors.finance_last_name}
                 />
-                <FormInput
+                <Input
                     caption={'Имя'}
                     placeholder={'Введите имя'}
                     {...formik.getFieldProps('finance_first_name')}
                     error={formik.errors.finance_first_name && formik.touched.finance_first_name}
                     errorText={formik.errors.finance_first_name}
                 />
-                <FormInput
+                <Input
                     caption={'Отчество'}
                     placeholder={'Введите отчество'}
                     {...formik.getFieldProps('finance_parent')}
                     error={formik.errors.finance_parent && formik.touched.finance_parent}
                     errorText={formik.errors.finance_parent}
                 />
-                <FormInput
+                <Input
                     caption={'Электронная почта'}
                     type={'tel'}
                     placeholder={'Введите email'}
@@ -181,7 +186,7 @@ const ContactsForm = (props: PropsType) => {
                     error={formik.errors.finance_email && formik.touched.finance_email}
                     errorText={formik.errors.finance_email}
                 />
-                <FormInput
+                <Input
                     caption={'Номер телефона'}
                     type={'tel'}
                     placeholder={'Введите телефон'}
@@ -198,14 +203,18 @@ const ContactsForm = (props: PropsType) => {
                                        className={s.hidden} {...formik.getFieldProps('create_application')}/>
                                 <Checkbox checked={checked} onChangeChecked={setChecked}/>
                                 <div className={s.agreement__text}>
-                                    Я принимаю условия <a href="/"> Пользовательского соглашения</a> и даю своё согласие
-                                    Komplex-Host на обработку моей персональной информации на условиях, определенных
+                                    Я принимаю условия <a href="/"> Пользовательского
+                                    соглашения</a> и даю своё согласие
+                                    Komplex-Host на обработку моей персональной информации
+                                    на условиях, определенных
                                     <a href="/"> Политикой конфиденциальности.</a>
                                 </div>
                             </div>
                             <div className={s.form__buttons}>
-                                <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
-                                <Button title={'Завершить регистрацию'} type={'submit'} disabled={!checked}/>
+                                <Button light={true} callBack={props.prevPage}
+                                        type={"button"} title={'Назад'}/>
+                                <Button title={'Завершить регистрацию'} type={'submit'}
+                                        disabled={!checked}/>
                             </div>
                         </>
                         :

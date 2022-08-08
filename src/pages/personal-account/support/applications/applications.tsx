@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import s from '../Support.module.scss'
-import Tooltip from "../../components/tooltip/Tooltip";
+import Tooltip from "../../../components/tooltip/Tooltip";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../store/store";
 import {ApplicationType} from "../../../../reducers/supportReducer";
 import Application from "./application";
-import ChatSearch from "../chat-search/ChatSearch";
+import ChatSearch from "../assets/chat-search/ChatSearch";
 
 type PropsType = {
     applications: ApplicationType[]

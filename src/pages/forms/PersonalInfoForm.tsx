@@ -1,8 +1,7 @@
 import React from 'react';
 import s from "./Form.module.scss";
-import FormInput from "./components/FormInput/FormInput";
-import {button} from "../../style/style";
-import Button from "../personal-account/components/button/Button";
+import Input from "../components/Input/Input";
+import Button from "../components/button/Button";
 import {useDispatch} from "react-redux";
 import {addPrivateData, choicePartner, RegistrationDataType} from "../../reducers/registrationReducer";
 import {useFormik} from "formik";
@@ -71,35 +70,35 @@ const PersonalInfoForm = (props: PropsType) => {
     return (
         <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <input disabled={true} className={s.hidden} {...formik.getFieldProps('partner')} />
-            <FormInput
+            <Input
                 caption={'Фамилия'}
                 placeholder={'Введите фамилию'}
                 {...formik.getFieldProps('last_name')}
                 error={formik.errors.last_name && formik.touched.last_name}
                 errorText={formik.errors.last_name}
             />
-            <FormInput
+            <Input
                 caption={'Имя'}
                 placeholder={'Введите имя'}
                 {...formik.getFieldProps('first_name')}
                 error={formik.errors.first_name && formik.touched.first_name}
                 errorText={formik.errors.first_name}
             />
-            <FormInput
+            <Input
                 caption={'Отчество'}
                 placeholder={'Введите отчество'}
                 {...formik.getFieldProps('parent')}
                 error={formik.errors.parent && formik.touched.parent}
                 errorText={formik.errors.parent}
             />
-            <FormInput
+            <Input
                 caption={'Дата рождения'}
                 placeholder={'ДД.ММ.ГГГГ'}
                 {...formik.getFieldProps('date_birth')}
                 error={formik.errors.date_birth && formik.touched.date_birth}
                 errorText={formik.errors.date_birth}
             />
-            <FormInput
+            <Input
                 caption={'Номер телефона'}
                 type={'tel'}
                 placeholder={'Введите телефон'}

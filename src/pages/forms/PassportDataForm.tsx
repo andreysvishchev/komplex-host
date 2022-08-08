@@ -1,13 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import s from "./Form.module.scss";
-import FormInput from "./components/FormInput/FormInput";
-import {button} from "../../style/style";
+import Input from "../components/Input/Input";
 import {useFormik} from "formik";
-import Button from "../personal-account/components/button/Button";
-import Textarea from "./components/Textarea/Textarea";
+import Button from "../components/button/Button";
+import Textarea from "../components/textarea/Textarea";
 import {useDispatch} from "react-redux";
 import * as faceapi from "face-api.js";
 import maskSrc from '../../img/mask.png'
+import errorSrc from '../../img/error.jpg'
 import {useAppSelector} from "../../store/store";
 import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 
@@ -107,17 +107,21 @@ const PassportDataForm = (props: PropsType) => {
                 const boxHeight = detections[0].box.height
                 faceapi.draw.drawDetections(canvas, resizedDetections)
                 ctx!.fillStyle = 'white'
-                ctx!.fillRect(x - 5, y - 5, boxWidth + 10, boxHeight + 10);
-            } else {
-                data.bad_scan = true
-            }
-            const mask = new Image();
-            mask.src = `${maskSrc}`
-            mask.onload = () => {
-                for (let w = 0; w < canvas.width; w += mask.width) {
-                    for (let h = 0; h < canvas.height; h += mask.height) {
-                        ctx!.drawImage(mask, w, h);
+                ctx!.fillRect(x - 5, y - 30, boxWidth + 10, boxHeight + 35);
+                const mask = new Image();
+                mask.src = `${maskSrc}`
+                mask.onload = () => {
+                    for (let w = 0; w < canvas.width; w += mask.width) {
+                        for (let h = 0; h < canvas.height; h += mask.height) {
+                            ctx!.drawImage(mask, w, h);
+                        }
                     }
+                }
+            } else {
+                const error = new Image()
+                error.src = `${errorSrc}`
+                error.onload = () => {
+                    ctx!.drawImage(error, 0, 0, image.naturalWidth, image.naturalHeight);
                 }
             }
             const result = canvas.toDataURL()
@@ -138,7 +142,7 @@ const PassportDataForm = (props: PropsType) => {
             }
             const mask = new Image();
             mask.src = `${maskSrc}`
-            image.onload = ()=> {
+            image.onload = () => {
                 canvas.width = image.width
                 canvas.height = image.height
                 ctx!.drawImage(image, 0, 0, image.width, image.height)
@@ -168,14 +172,14 @@ const PassportDataForm = (props: PropsType) => {
         <form onSubmit={formik.handleSubmit}
               className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <div className={s.form__row}>
-                <FormInput
+                <Input
                     maxLength={4}
                     caption={'Серия'}
                     placeholder={'_ _ _ _'}
                     {...formik.getFieldProps('series')}
                     error={formik.errors.series && formik.touched.series}
                     errorText={formik.errors.series}/>
-                <FormInput
+                <Input
                     caption={'Номер'}
                     placeholder={'_ _ _ _ _ _'}
                     maxLength={6}
@@ -190,13 +194,13 @@ const PassportDataForm = (props: PropsType) => {
                 errorText={formik.errors.place_issue}
                 {...formik.getFieldProps('place_issue')}
             />
-            <FormInput
+            <Input
                 caption={'Дата выдачи'}
                 placeholder={'ДД.ММ.ГГГГ'}
                 {...formik.getFieldProps('date_issue')}
                 error={formik.errors.date_issue && formik.touched.date_issue}
                 errorText={formik.errors.date_issue}/>
-            <FormInput
+            <Input
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
                 maxLength={12}
@@ -208,27 +212,30 @@ const PassportDataForm = (props: PropsType) => {
             <div className={s.form__scan}>
                 <label className={`${s.file} ${s.one}`}>
                     <div className={s.file__title}>Скан разворота</div>
-                    <input onChange={changeMainScan} className={s.file__input} accept='image/jpeg, image/png'
+                    <input onChange={changeMainScan} className={s.file__input}
+                           accept='image/jpeg, image/png'
                            type="file"/>
                     <span className={s.file__label}>{props.fileName}</span>
                 </label>
                 {formik.errors.scan_main && formik.touched.scan_main &&
                 <div className={s.input__error}>{formik.errors.scan_main}</div>}
-                <canvas style={{display: 'none'}} id={'scan_main'}/>
+                <canvas style={{display: "none"}} id={'scan_main'}/>
             </div>
             <div className={s.form__scan}>
                 <label className={`${s.file} ${s.two}`}>
                     <div className={s.file__title}>Скан прописки</div>
-                    <input onChange={changeRegistrationScan} className={s.file__input} accept='image/jpeg, image/png'
+                    <input onChange={changeRegistrationScan} className={s.file__input}
+                           accept='image/jpeg, image/png'
                            type="file"/>
                     <span className={s.file__label}>{props.fileNameTwo}</span>
                 </label>
                 {formik.errors.scan_reg && formik.touched.scan_reg &&
                 <div className={s.input__error}>{formik.errors.scan_reg}</div>}
-                <canvas style={{display: 'none'}} id={'scan_reg'}/>
+                <canvas style={{display: "none"}} id={'scan_reg'}/>
             </div>
             <div className={s.form__buttons}>
-                <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
+                <Button light={true} callBack={props.prevPage} type={"button"}
+                        title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>
             </div>
         </form>

@@ -1,28 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from '../PersonalAccount.module.scss'
-import UnionTable from "../components/tables/UnionTable";
-import Button from "../components/button/Button";
-import {AppDispatchType, useAppSelector} from "../../../store/store";
+import UnionTable from "../services/assets/tables/UnionTable";
+import Button from "../../components/button/Button";
 import PayModal from "../../modals/PayModal";
-import {useDispatch} from "react-redux";
-import {togglePayModal} from "../../../reducers/modalReducer";
+import Tooltip from "../../components/tooltip/Tooltip";
 
 const Union = () => {
-    const dispatch = useDispatch<AppDispatchType>()
-    const openPayModal = () => dispatch(togglePayModal(true))
+    const [open, setOpen] = useState(false)
+    const openModal = () => {
+        setOpen(true)
+    }
+
     return (
         <>
             <div className={s.wrap}>
                 <div className={s.top}>
                     <div className={s.col}>
                         <div className={s.caption}>Все платежи</div>
-                        <button className={s.tooltip}>?</button>
+                        <Tooltip/>
                     </div>
-                    <Button callBack={openPayModal} type={'button'} title={'Сформировать акт сверки'}/>
+                    <Button callBack={openModal} type={'button'}
+                            title={'Сформировать акт сверки'}/>
                 </div>
                 <UnionTable/>
             </div>
-            <PayModal/>
+            <PayModal open={open} setOpen={setOpen}/>
         </>
 
     );

@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "./Form.module.scss";
-import FormInput from "./components/FormInput/FormInput";
-import {button} from "../../style/style";
-import Button from "../personal-account/components/button/Button";
+import Input from "../components/Input/Input";
+import Button from "../components/button/Button";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {addPrivateData, choicePartner, RegistrationDataType} from "../../reducers/registrationReducer";
@@ -62,7 +61,7 @@ const CompanyInfoForm = (props: PropsType) => {
     return (
         <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <input disabled={true} className={s.hidden} {...formik.getFieldProps('partner')} />
-            <FormInput
+            <Input
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
                 maxLength={12}
@@ -71,19 +70,19 @@ const CompanyInfoForm = (props: PropsType) => {
                 errorText={formik.errors.inn}
             />
             <button type={'button'} className={s.fill}>Заполнить по ИНН</button>
-            <FormInput
+            <Input
                 caption={'Наименование Органищации'}
                 placeholder={'Введите название'}
                 {...formik.getFieldProps('company_name')}
                 error={formik.errors.company_name && formik.touched.company_name}
                 errorText={formik.errors.company_name}
             />
-            <FormInput caption={'КПП'}
-                       placeholder={' Номер КПП'}
-                       maxLength={9}
-                       {...formik.getFieldProps('kpp')}
-                       error={formik.errors.kpp && formik.touched.kpp}
-                       errorText={formik.errors.kpp}
+            <Input caption={'КПП'}
+                   placeholder={' Номер КПП'}
+                   maxLength={9}
+                   {...formik.getFieldProps('kpp')}
+                   error={formik.errors.kpp && formik.touched.kpp}
+                   errorText={formik.errors.kpp}
             />
             <div className={s.form__buttons}>
                 <Button light={true} callBack={leaveReg} type={"button"} title={'Назад'}/>

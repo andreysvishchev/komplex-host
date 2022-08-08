@@ -2,30 +2,32 @@ import React, {useState} from 'react';
 import MailAddressForm from "../../../../forms/MailAddressForm";
 import form from "../../../../forms/Form.module.scss";
 import s from "./PartnerRegistration.module.scss";
-import Radio from "../../../../forms/components/Radio/Radio";
-import {button} from "../../../../../style/style";
+import Radio from "../../../../components/radio/Radio";
 import RequisitesForm from "../../../../forms/RequisitesForm";
 import ContactsForm from "../../../../forms/ContactsForm";
 import CompanyInfoForm from "../../../../forms/CompanyInfoForm";
 import {useFormik} from "formik";
-import Button from "../../../../personal-account/components/button/Button";
+import Button from "../../../../components/button/Button";
 import BusinessAddressForm from "../../../../forms/BusinessAddressForm";
+import {useDispatch} from "react-redux";
+import {AppDispatchType, useAppSelector} from "../../../../../store/store";
+import {nextPage, prevPage} from "../../../../../reducers/registrationReducer";
 
 type PropsType = {
     leaveReg: () => void
     setHide: (hide: boolean) => void
 }
 const CompanyRegistration = (props: PropsType) => {
-    const [page, setPage] = useState(0)
     const coincidence = ['Да', 'Нет']
     const [value, onChangeOption] = useState(coincidence[0]);
     const stepHeadlines = ['Введите информацию об организации', 'Введите юридический адрес', 'Почтовый адрес совпадает с юридическим?', 'Введите реквизиты', '']
-
-    const nextPage = () => {
-        setPage((currPage) => currPage + 1)
+    const dispatch = useDispatch<AppDispatchType>()
+    const page = useAppSelector(state => state.registration.step)
+    const nextPageHandler = () => {
+        dispatch(nextPage())
     }
-    const prevPage = () => {
-        setPage((currPage) => currPage - 1)
+    const prevPageHandler = () => {
+        dispatch(prevPage())
     }
 
     const formik = useFormik({
@@ -33,7 +35,7 @@ const CompanyRegistration = (props: PropsType) => {
             coincidence: '',
         },
         onSubmit: values => {
-            nextPage()
+            nextPageHandler()
         },
     })
 
@@ -41,9 +43,9 @@ const CompanyRegistration = (props: PropsType) => {
     const PageDisplay = () => {
         switch (page) {
             case 0:
-                return <CompanyInfoForm leaveReg={props.leaveReg} nextPage={nextPage} registration={true}/>
+                return <CompanyInfoForm leaveReg={props.leaveReg} nextPage={nextPageHandler} registration={true}/>
             case 1:
-                return <MailAddressForm prevPage={prevPage} registration={true} lastStep={false} nextPage={nextPage}/>
+                return <MailAddressForm prevPage={prevPageHandler} registration={true} lastStep={false} nextPage={nextPageHandler}/>
             case 2:
                 return (<>
                     <form onSubmit={formik.handleSubmit} className={`${form.form} ${form.registration}`}>
@@ -54,20 +56,20 @@ const CompanyRegistration = (props: PropsType) => {
                         {
                             value == 'Да' &&
                             <div className={form.form__buttons}>
-                                <Button light={true} callBack={prevPage} type={"button"} title={'Назад'}/>
+                                <Button light={true} callBack={prevPageHandler} type={"button"} title={'Назад'}/>
                                 <Button title={'Далее'} type={'submit'}/>
                             </div>
                         }
                     </form>
                     {
                         value === 'Нет' &&
-                        <BusinessAddressForm prevPage={prevPage}  registration={true} nextPage={nextPage}/>
+                        <BusinessAddressForm prevPage={prevPageHandler}  registration={true} nextPage={nextPageHandler}/>
                     }
                 </>)
             case 3:
-                return <RequisitesForm registration={true} prevPage={prevPage} nextPage={nextPage}/>
+                return <RequisitesForm registration={true} prevPage={prevPageHandler} nextPage={nextPageHandler}/>
             case 4:
-                return <ContactsForm registration={true} prevPage={prevPage} nextPage={nextPage}/>
+                return <ContactsForm registration={true} prevPage={prevPageHandler} />
 
 
         }

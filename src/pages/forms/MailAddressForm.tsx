@@ -1,12 +1,11 @@
 import s from './Form.module.scss'
-import FormInput from "./components/FormInput/FormInput";
-import {button} from "../../style/style";
+import Input from "../components/Input/Input";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {openModalAC} from "../../reducers/modalReducer";
-import Checkbox from "./components/Checkbox/Checkbox";
+import {openNoticeModal} from "../../reducers/modalReducer";
+import Checkbox from "../components/checkbox/Checkbox";
 import {useFormik} from "formik";
-import Button from "../personal-account/components/button/Button";
+import Button from "../components/button/Button";
 import {useAppSelector} from "../../store/store";
 import {addPrivateData, RegistrationDataType} from "../../reducers/registrationReducer";
 
@@ -71,7 +70,11 @@ const MailAddressForm = (props: PropsType) => {
             // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
             //console.log(decodeURIComponent(escape(window.atob(valueStr))))
             if (props.lastStep) {
-                dispatch(openModalAC(true, true, 'Запрос на создание контрагента отправлен в техподдержку'))
+                dispatch(openNoticeModal({
+                    open: true,
+                    success: true,
+                    message: 'Запрос на создание контрагента отправлен в техподдержку'
+                }))
             } else {
                 if (props.nextPage) {
                     props.nextPage()
@@ -81,16 +84,17 @@ const MailAddressForm = (props: PropsType) => {
     })
 
     return (
-        <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
+        <form onSubmit={formik.handleSubmit}
+              className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <div className={s.form__row}>
-                <FormInput
+                <Input
                     caption={'Индекс'}
                     placeholder={'_ _ _ _ _ _'}
                     {...formik.getFieldProps('mail_index')}
                     error={formik.errors.mail_index && formik.touched.mail_index}
                     errorText={formik.errors.mail_index}
                 />
-                <FormInput
+                <Input
                     caption={'Страна'}
                     placeholder={'Введите страну'}
                     {...formik.getFieldProps('mail_country')}
@@ -98,41 +102,41 @@ const MailAddressForm = (props: PropsType) => {
                     errorText={formik.errors.mail_country}
                 />
             </div>
-            <FormInput
+            <Input
                 caption={'Область'}
                 placeholder={'Введите область'}
                 {...formik.getFieldProps('mail_area')}
                 error={formik.errors.mail_area && formik.touched.mail_area}
                 errorText={formik.errors.mail_area}
             />
-            <FormInput
+            <Input
                 caption={'Район/Округ'}
                 placeholder={'Введите район или округ'}
                 {...formik.getFieldProps('mail_district')}
                 error={formik.errors.mail_district && formik.touched.mail_district}
                 errorText={formik.errors.mail_district}
             />
-            <FormInput
+            <Input
                 caption={'Населенный пункт'}
                 placeholder={'Введите населенный пункт'}
                 {...formik.getFieldProps('mail_locality')}
                 error={formik.errors.mail_locality && formik.touched.mail_locality}
                 errorText={formik.errors.mail_locality}
             />
-            <FormInput
+            <Input
                 caption={'Улица'}
                 placeholder={'Введите улицу'}
                 {...formik.getFieldProps('mail_street')}
                 value={formik.values.mail_street}
             />
             <div className={s.form__row}>
-                <FormInput
+                <Input
                     caption={'Дом'}
                     placeholder={'Номер дома'}
                     {...formik.getFieldProps('mail_home')}
                     value={formik.values.mail_home}
                 />
-                <FormInput
+                <Input
                     caption={props.lastStep ? 'Квартира' : 'Квартира/офис'}
                     placeholder={props.lastStep ? 'Номер квартиры' : 'Номер квартиры/офиса'}
                     {...formik.getFieldProps('mail_flat')}
@@ -146,24 +150,30 @@ const MailAddressForm = (props: PropsType) => {
                     ?
                     <>
                         <div className={s.agreement}>
-                            <input disabled={true} className={s.hidden} {...formik.getFieldProps('create_application')}/>
+                            <input disabled={true}
+                                   className={s.hidden} {...formik.getFieldProps('create_application')}/>
                             <Checkbox
                                 checked={checked}
                                 onChangeChecked={setChecked}/>
                             <div className={s.agreement__text}>
-                                Я принимаю условия <a href="/"> Пользовательского соглашения</a> и даю своё согласие
-                                Komplex-Host на обработку моей персональной информации на условиях, определенных
+                                Я принимаю условия <a href="/"> Пользовательского
+                                соглашения</a> и даю своё согласие
+                                Komplex-Host на обработку моей персональной информации на
+                                условиях, определенных
                                 <a href="/"> Политикой конфиденциальности.</a>
                             </div>
                         </div>
                         <div className={s.form__buttons}>
-                            <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
-                            <Button title={'Завершить регистрацию'} type={'submit'} disabled={!checked}/>
+                            <Button light={true} callBack={props.prevPage} type={"button"}
+                                    title={'Назад'}/>
+                            <Button title={'Завершить регистрацию'} type={'submit'}
+                                    disabled={!checked}/>
                         </div>
                     </>
                     :
                     <div style={{marginTop: '12px'}} className={s.form__buttons}>
-                        <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
+                        <Button light={true} callBack={props.prevPage} type={"button"}
+                                title={'Назад'}/>
                         <Button title={'Далее'} type={'submit'}/>
                     </div>
                 :

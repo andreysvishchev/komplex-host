@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import RentBlock from "../../components/info-blocks/RentBlock";
+import RentBlock from "../assets/info-blocks/RentBlock";
 import s from './AllServices.module.scss'
 
 const AllServices = () => {

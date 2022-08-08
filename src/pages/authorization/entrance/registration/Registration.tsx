@@ -1,13 +1,13 @@
 import React from 'react';
 import s from "../../../forms/Form.module.scss";
-import FormInput from "../../../forms/components/FormInput/FormInput";
+import Input from "../../../components/Input/Input";
 import {useDispatch} from "react-redux";
 import {registrationPage} from '../../../../reducers/registrationReducer';
 import {useFormik} from "formik";
 import {getCaptchaUrl, registration} from "../../../../reducers/authReducer";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
 import CaptchaModal from "../../../modals/CaptchaModal";
-import Button from "../../../personal-account/components/button/Button";
+import Button from "../../../components/button/Button";
 
 
 type FormikErrorType = {
@@ -66,43 +66,43 @@ const Registration = () => {
     return (
         <>
             <form className={s.form} onSubmit={formik.handleSubmit}>
-                <FormInput caption={'Электронная почта'}
-                           errorText={formik.errors.email}
-                           error={formik.errors.email &&
+                <Input caption={'Электронная почта'}
+                       errorText={formik.errors.email}
+                       error={formik.errors.email &&
                            formik.touched.email || errorStatus}
-                           {...formik.getFieldProps('email')}
-                           name="email"
-                           onBlur={formik.handleBlur}
-                           onChange={formik.handleChange}
-                           value={formik.values.email}
-                           placeholder={'Введите e-mail'}
-                           type={'email'}/>
-                <FormInput caption={'Пароль'}
-                           placeholder={'Введите пароль'}
-                           type={'password'}
-                           password={true}
-                           {...formik.getFieldProps('password')}
-                           name="password"
-                           onBlur={formik.handleBlur}
-                           onChange={formik.handleChange}
-                           value={formik.values.password}
-                           style={style}
-                           errorText={formik.errors.password}
-                           error={formik.errors.password &&
+                       {...formik.getFieldProps('email')}
+                       name="email"
+                       onBlur={formik.handleBlur}
+                       onChange={formik.handleChange}
+                       value={formik.values.email}
+                       placeholder={'Введите e-mail'}
+                       type={'email'}/>
+                <Input caption={'Пароль'}
+                       placeholder={'Введите пароль'}
+                       type={'password'}
+                       password={true}
+                       {...formik.getFieldProps('password')}
+                       name="password"
+                       onBlur={formik.handleBlur}
+                       onChange={formik.handleChange}
+                       value={formik.values.password}
+                       style={style}
+                       errorText={formik.errors.password}
+                       error={formik.errors.password &&
                            formik.touched.password || errorStatus}/>
                 <p className={s.recommendation}>Пароль должен содержать не менее 8 символов. Заглавные, строчные буквы и
                     цифры</p>
-                <FormInput caption={'Повторите пароль'}
-                           placeholder={'Повторите пароль'}
-                           type={'password'}
-                           password={true}
-                           {...formik.getFieldProps('password_repeat')}
-                           name="password_repeat"
-                           onBlur={formik.handleBlur}
-                           onChange={formik.handleChange}
-                           value={formik.values.password_repeat}
-                           errorText={formik.errors.password_repeat}
-                           error={formik.errors.password_repeat &&
+                <Input caption={'Повторите пароль'}
+                       placeholder={'Повторите пароль'}
+                       type={'password'}
+                       password={true}
+                       {...formik.getFieldProps('password_repeat')}
+                       name="password_repeat"
+                       onBlur={formik.handleBlur}
+                       onChange={formik.handleChange}
+                       value={formik.values.password_repeat}
+                       errorText={formik.errors.password_repeat}
+                       error={formik.errors.password_repeat &&
                            formik.touched.password_repeat || errorStatus}/>
                 <div className={s.form__row} style={{marginTop: '24px', justifyContent: "flex-end"}}>
                     <Button type='submit' title={'Далее'}/>

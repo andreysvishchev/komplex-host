@@ -1,5 +1,5 @@
 import React from 'react';
-import ServerBlock from "../../components/info-blocks/ServerBlock";
+import ServerBlock from "../assets/info-blocks/ServerBlock";
 
 const ServerRental = () => {
     return (

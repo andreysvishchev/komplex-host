@@ -1,0 +1,51 @@
+@import "../../../style/vars";
+
+.radio {
+  display: flex;
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid $blue;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      right: 50%;
+      background-color: $blue;
+      border-radius: 1px;
+      transform: translateX(50%) translateY(-50%);
+      opacity: 0;
+      transition: opacity .2s ease-in-out;
+    }
+
+    &.active {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__title {
+    margin-left: 15px;
+  }
+
+  &__input {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+}

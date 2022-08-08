@@ -1,5 +1,6 @@
 import React from 'react';
 import s from "../PersonalAccount.module.scss";
+import Tooltip from "../../components/tooltip/Tooltip";
 
 
 const Docs = () => {
@@ -41,7 +42,7 @@ const Docs = () => {
             <div className={s.top}>
                 <div className={s.col}>
                     <div className={s.caption}>Документы</div>
-                    <button className={s.tooltip}>?</button>
+                    <Tooltip/>
                 </div>
                 <a className={s.button} href="/" download>Скачать всё</a>
             </div>

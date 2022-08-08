@@ -1,31 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
-import {AppDispatchType, useAppSelector} from "../../store/store";
-import {closeModalAC, togglePayModal} from "../../reducers/modalReducer";
+import {AppDispatchType} from "../../store/store";
 import {useDispatch} from "react-redux";
-import {DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import TextField from "@mui/material/TextField";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import ReactDatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
-import FormInput from "../forms/components/FormInput/FormInput";
-import Button from "../personal-account/components/button/Button";
-import {Field, useField, useFormik, useFormikContext} from "formik";
-import {login} from "../../reducers/authReducer";
-import DatePickerField from "../personal-account/components/date-picker/DatePickerField";
-import DatepickerField from "../personal-account/components/date-picker/DatePickerField";
+import Input from "../components/Input/Input";
+import Button from "../components/button/Button";
+import {useFormik} from "formik";
+import DatePickerField from "../components/date-picker/DatePickerField";
 
 type FormikErrorType = {
     email?: string
 }
 
-const PayModal = () => {
+type PropsType = {
+    open: boolean
+    setOpen: (open: boolean) => void
+}
+
+const PayModal: React.FC<PropsType> = ({open, setOpen}) => {
+
     const dispatch = useDispatch<AppDispatchType>()
-    const open = useAppSelector(state => state.modal.payModal)
+
     const handleClose = () => {
-        dispatch(togglePayModal(false))
+        setOpen(false)
     }
 
     const formik = useFormik({
@@ -50,52 +49,48 @@ const PayModal = () => {
         },
     })
     return (
-        <div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={modal}>
-                    <button onClick={handleClose} className={s.close}/>
-                    <div className={s.pay}>
-                        <form onSubmit={formik.handleSubmit}>
-                            <div className={s.caption}>Сформировать акт сверки</div>
-                            <div className={s.pay__row}>
-                                <div className={s.pay__col}>
-                                    <label htmlFor="start_date" className={s.pay__label}/>
-                                    <DatePickerField id='start_date'
-                                                     onChange={formik.setFieldValue}
-                                                     value={formik.values.start_date}
-                                                     name='start_date'/>
-                                </div>
-                                <span className={s.pay__hyp}/>
-                                <div className={s.pay__col}>
-                                    <label htmlFor="end_date" className={s.pay__label}/>
-                                    <DatePickerField id='end_date'
-                                                     onChange={formik.setFieldValue}
-                                                     value={formik.values.end_date}
-                                                     name='end_date'/>
-                                </div>
+        <Modal
+            open={open}
+            onClose={handleClose}>
+            <Box sx={modal}>
+                <button onClick={handleClose} className={s.close}/>
+                <div className={s.pay}>
+                    <form onSubmit={formik.handleSubmit}>
+                        <div className={s.caption}>Сформировать акт сверки</div>
+                        <div className={s.pay__row}>
+                            <div className={s.pay__col}>
+                                <label htmlFor="start_date" className={s.pay__label}/>
+                                <DatePickerField id='start_date'
+                                                 onChange={formik.setFieldValue}
+                                                 value={formik.values.start_date}
+                                                 name='start_date'/>
                             </div>
-                            <FormInput
-                                errorText={formik.errors.email}
-                                error={formik.errors.email &&
-                                formik.touched.email}
-                                {...formik.getFieldProps('email')}
-                                caption={'Email *'}
-                                placeholder={'Введите e-mail'}
-                            />
-                            <div className={s.pay__buttons}>
-                                <Button callBack={handleClose} type={'button'} title={'Отмена'} light={true}/>
-                                <Button type={'submit'} title={'Отправить запрос'}/>
+                            <span className={s.pay__hyp}/>
+                            <div className={s.pay__col}>
+                                <label htmlFor="end_date" className={s.pay__label}/>
+                                <DatePickerField id='end_date'
+                                                 onChange={formik.setFieldValue}
+                                                 value={formik.values.end_date}
+                                                 name='end_date'/>
                             </div>
-                        </form>
-                    </div>
-                </Box>
-            </Modal>
-        </div>
+                        </div>
+                        <Input
+                            errorText={formik.errors.email}
+                            error={formik.errors.email &&
+                            formik.touched.email}
+                            {...formik.getFieldProps('email')}
+                            caption={'Email *'}
+                            placeholder={'Введите e-mail'}
+                        />
+                        <div className={s.pay__buttons}>
+                            <Button callBack={handleClose} type={'button'}
+                                    title={'Отмена'} light={true}/>
+                            <Button type={'submit'} title={'Отправить запрос'}/>
+                        </div>
+                    </form>
+                </div>
+            </Box>
+        </Modal>
     );
 };
 

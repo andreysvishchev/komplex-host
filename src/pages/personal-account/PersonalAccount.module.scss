@@ -40,18 +40,6 @@
   align-items: center;
 }
 
-.tooltip {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 26px;
-  height: 26px;
-  border: 1px solid $blue;
-  border-radius: 50%;
-  font-weight: 500;
-  text-decoration: none;
-}
-
 .show {
   min-height: 26px;
   font-weight: 500;
@@ -67,64 +55,6 @@
 .notices {
   width: 100%;
   margin-bottom: 30px;
-}
-
-.notice {
-  margin-bottom: 32px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  &__headline {
-    background-color: $silver-shape;
-    border: 1px solid $gray;
-    border-radius: 4px;
-    padding: 14px 18px;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    &.unread {
-      padding-left: 40px;
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: $red;
-        top: 20px;
-        left: 18px;
-      }
-    }
-  }
-
-  &__text {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0 20px;
-    will-change: max-height;
-    transition: all 0.2s ease-out;
-    box-sizing: content-box;
-
-
-    &.isOpen {
-      opacity: 1;
-      padding: 15px 20px 0 20px;
-    }
-  }
-
-  &__title {
-    font-weight: 500;
-  }
-
-  &__date {
-    font-weight: 500;
-    color: $silver-text;
-  }
 }
 
 .docs {
@@ -177,73 +107,6 @@
     background-size: contain;
     top: 16px;
     right: 20px;
-  }
-}
-
-.quest {
-  margin-bottom: 32px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-  &__title {
-    background-color: $silver-shape;
-    border: 1px solid $gray;
-    border-radius: 4px;
-    position: relative;
-    padding: 14px 60px;
-    cursor: pointer;
-    &.isOpen {
-      &:before {
-        transform:translateY(-50%) rotate(180deg);
-      }
-    }
-
-    &::before,
-    &::after {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-    }
-
-    &::after {
-      content: '?';
-      background-color: $blue;
-      color: $white;
-      font-weight: 500;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      left: 16px;
-    }
-
-    &::before {
-      content: '';
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center center;
-      background-image: url('../../img/arrow-circle.svg');
-      right: 16px;
-      transition: transform .2s ease-in-out;
-    }
-  }
-  &__text {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0 20px;
-    will-change: max-height;
-    transition: all 0.2s ease-out;
-    box-sizing: content-box;
-
-
-    &.isOpen {
-      opacity: 1;
-      padding: 15px 20px 0 20px;
-    }
   }
 }
 

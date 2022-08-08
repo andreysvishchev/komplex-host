@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import s from './Services.module.scss'
 import AllServices from "./all-services/AllServices";
@@ -6,8 +6,6 @@ import PlaceRental from "./place-rental/PlaceRental";
 import ServerRental from "./server-rental/ServerRental";
 import ServiceArchive from "./service-archive/ServiceArchive";
 import RackRental from "./rack-rental/RackRental";
-import {useAppSelector} from "../../../store/store";
-import {ModalType} from "../../../reducers/modalReducer";
 import NoticeModal from "../../modals/NoticeModal";
 
 const Services = () => {

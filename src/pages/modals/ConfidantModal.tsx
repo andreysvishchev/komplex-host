@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {Box, Modal} from "@mui/material";
-import {addConfidantAC, ConfidantType, editConfidantAC} from "../../reducers/confidantReducer";
-import FormInput from "../forms/components/FormInput/FormInput";
 import s from './Modal.module.scss'
 import {modal} from "../../style/style";
-import EditableInput from "../forms/components/EditInput/EditableInput";
 import {useDispatch} from "react-redux";
+import EditableInput from "../components/editable-input/EditableInput";
+import {addConfidant, editConfidant} from "../../reducers/confidantReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
 
 type PropsType = {
     new?: boolean
@@ -19,7 +19,7 @@ type PropsType = {
 }
 
 const ConfidantModal = (props: PropsType) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatchType>()
     const handleClose = () => props.setOpen(false);
 
     const [name, setName] = useState<string>(props.name)
@@ -32,16 +32,14 @@ const ConfidantModal = (props: PropsType) => {
     const telHandler = (value: string) => setTel(value)
 
 
-    const editConfidant = (name: string, passport: string, tel: string) => {
-        if (props.id) {
-            dispatch(editConfidantAC(props.id, name, passport, tel))
+    const editConfidantHandler = (name: string, passport: string, tel: string) => {
+            dispatch(editConfidant(props.id!, name, passport, tel))
             props.setOpen(false)
-        }
     }
 
-    const newConfidant = (name: string, passport: string, tel: string) => {
-        if (name !== '' && passport !== '' && tel !== '') {
-            dispatch(addConfidantAC(name, passport, tel))
+    const newConfidantHandler = (name: string, passport: string, tel: string) => {
+        if (name !== '' && tel !== '') {
+            dispatch(addConfidant(name, passport, tel))
             setName('')
             setTel('')
             setPassport('')
@@ -63,8 +61,8 @@ const ConfidantModal = (props: PropsType) => {
                 <div className={s.row}>
                     <button onClick={handleClose} className={s.cancel}>Отмена</button>
                     <button onClick={props.new
-                        ? () => newConfidant(name, passport, tel)
-                        : () => editConfidant(name, passport, tel)
+                        ? () => newConfidantHandler(name, passport, tel)
+                        : () => editConfidantHandler(name, passport, tel)
                     } className={s.save}>Сохранить
                     </button>
                 </div>

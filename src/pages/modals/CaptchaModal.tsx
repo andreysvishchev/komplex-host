@@ -2,14 +2,14 @@ import React from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
-import FormInput from "../forms/components/FormInput/FormInput";
+import Input from "../components/Input/Input";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openCaptchaModal} from "../../reducers/modalReducer";
 import {useFormik} from "formik";
 import {getCaptchaUrl, sendCaptcha} from "../../reducers/authReducer";
 import {resetCaptcha} from "../../reducers/errorReducer";
-import Button from "../personal-account/components/button/Button";
+import Button from "../components/button/Button";
 
 
 type FormikErrorType = {
@@ -20,7 +20,7 @@ const CaptchaModal = () => {
     const url = useAppSelector<string>(state => state.error.captchaUrl)
     const errorStatus = useAppSelector<boolean>(state => state.error.captchaError)
     const errorMessage = useAppSelector<string>(state => state.error.captchaErrorMessage)
-    const open = useAppSelector<boolean>(state => state.modal.openCaptchaModal)
+    const open = useAppSelector<boolean>(state => state.modal.captchaModal)
     const resCaptcha = useAppSelector<number>(state=> state.error.resetCaptcha)
     const dispatch = useDispatch<AppDispatchType>()
 
@@ -64,7 +64,7 @@ const CaptchaModal = () => {
                     </div>
                     {errorStatus &&
                     <div className={s.auth__error}>{errorMessage}</div>}
-                    <FormInput
+                    <Input
                         caption={'Введите код с картинки'}
                         placeholder={'Код с картинки'}
                         errorText={formik.errors.captcha}

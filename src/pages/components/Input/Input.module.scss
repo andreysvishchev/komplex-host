@@ -1,0 +1,79 @@
+@import "../../../style/vars";
+.input {
+  width: 100%;
+  margin-bottom: 16px;
+
+  &__caption {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+    color: $black;
+  }
+
+  &__password {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 4px;
+    right: 15px;
+    width: 16px;
+    height: 12px;
+    background-image: url('../../../img/eye.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+
+    &.hidden {
+      background-image: url('../../../img/invisible-pasword.svg');
+    }
+  }
+
+  &__field {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black;
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color .2s ease-in-out;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    &:-webkit-autofill {
+      -webkit-text-fill-color: $black;
+      box-shadow: inset 0 0 0 50px white;
+    }
+
+    &::placeholder {
+      color: $silver-text;
+    }
+
+    &:focus {
+      border-color: $blue;
+    }
+
+    &.error {
+      border-color: $red;
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+    line-height: 16px;
+    color: $red;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+}

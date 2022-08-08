@@ -2,13 +2,13 @@ import React from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
-import FormInput from "../forms/components/FormInput/FormInput";
+import Input from "../components/Input/Input";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openCaptchaModal, openRecoveryModal} from "../../reducers/modalReducer";
 import {useFormik} from "formik";
 import {recoveryPassword, sendCaptcha} from "../../reducers/authReducer";
 import {useDispatch} from "react-redux";
-import Button from "../personal-account/components/button/Button";
+import Button from "../components/button/Button";
 
 
 type FormikErrorType = {
@@ -17,7 +17,7 @@ type FormikErrorType = {
 
 const RecoveryPasswordModal = () => {
     const dispatch = useDispatch<AppDispatchType>()
-    const open = useAppSelector<boolean>(state => state.modal.openRecoverModal)
+    const open = useAppSelector<boolean>(state => state.modal.recoverModal)
     const errorStatus = useAppSelector<boolean>(state => state.error.captchaError)
     const errorMessage = useAppSelector<string>(state => state.error.captchaErrorMessage)
     const handleClose = () => {
@@ -52,17 +52,17 @@ const RecoveryPasswordModal = () => {
                 {errorStatus &&
                 <div className={s.auth__error}>{errorMessage}</div>}
                 <form onSubmit={formik.handleSubmit}>
-                    <FormInput caption={'Электронная почта'}
-                               errorText={formik.errors.email}
-                               error={formik.errors.email &&
+                    <Input caption={'Электронная почта'}
+                           errorText={formik.errors.email}
+                           error={formik.errors.email &&
                                formik.touched.email || errorStatus}
-                               {...formik.getFieldProps('email')}
-                               name="email"
-                               onBlur={formik.handleBlur}
-                               onChange={formik.handleChange}
-                               value={formik.values.email}
-                               placeholder={'Введите e-mail'}
-                               type={'email'}/>
+                           {...formik.getFieldProps('email')}
+                           name="email"
+                           onBlur={formik.handleBlur}
+                           onChange={formik.handleChange}
+                           value={formik.values.email}
+                           placeholder={'Введите e-mail'}
+                           type={'email'}/>
                     <Button title={'Восстановить'} type='submit'/>
                 </form>
             </Box>

@@ -1,30 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from '../PersonalAccount.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../store/store";
+import {AppDispatchType, AppStateType} from "../../../store/store";
 import {NoticeType, readNoticeAC} from "../../../reducers/noticeReducer";
-import NoticeAccordion from "../components/accordions/NoticeAccordion";
-import Button from "../components/button/Button";
+import NoticeAccordion from "../../components/accordions/NoticeAccordion";
+import Button from "../../components/button/Button";
+import Tooltip from "../../components/tooltip/Tooltip";
 
 const Notice = () => {
-
     const notice = useSelector<AppStateType, NoticeType[]>(state => state.notice)
-
-    const dispatch = useDispatch()
-
+    const dispatch = useDispatch<AppDispatchType>()
     const readNotice = (noticeId:number)=> {
         dispatch(readNoticeAC(noticeId))
     }
-
-
-
 
     return (
         <div className={s.wrap}>
             <div className={s.top}>
                 <div className={s.col}>
                     <div className={s.caption}>Уведомления</div>
-                    <button className={s.tooltip}>?</button>
+                    <Tooltip/>
                 </div>
              <Button type={'button'} title={'Прочитать всё'}/>
             </div>
