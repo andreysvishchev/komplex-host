@@ -3,9 +3,14 @@ import s from "./Form.module.scss";
 import Input from "../components/Input/Input";
 import Button from "../components/button/Button";
 import {useDispatch} from "react-redux";
-import {addPrivateData, choicePartner, RegistrationDataType} from "../../reducers/registrationReducer";
+import {
+    addPrivateData,
+    choicePartner,
+    RegistrationDataType
+} from "../../reducers/registrationReducer";
 import {useFormik} from "formik";
 import {AppDispatchType, useAppSelector} from "../../store/store";
+import DatePickerField from "../components/date-picker/DatePickerField";
 
 
 type PropsType = {
@@ -18,7 +23,8 @@ type FormikErrorType = {
     last_name?: string
     first_name?: string
     parent?: string
-    date_birth?: string
+    date_birth?: string | null
+    email?: string
     phone?: string
 }
 
@@ -36,6 +42,7 @@ const PersonalInfoForm = (props: PropsType) => {
             parent: data.parent,
             date_birth: data.date_birth,
             phone: data.phone,
+            email: data.email,
             partner: '1'
         },
         validate: (values) => {
@@ -55,11 +62,24 @@ const PersonalInfoForm = (props: PropsType) => {
             if (!values.phone) {
                 errors.phone = 'Поле обязательно для заполнения';
             }
+            if (!values.email) {
+                errors.email = 'Поле обязательно для заполнения';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Email указан некорректно';
+            }
 
             return errors;
         },
         onSubmit: values => {
-            dispatch(addPrivateData(Object.assign(data, values)))
+            const newData = {
+                first_name: values.first_name,
+                last_name: values.last_name,
+                parent: values.parent,
+                phone: values.phone,
+                email: values.email,
+                date_birth: values.date_birth!.toLocaleDateString('ru')
+            }
+            dispatch(addPrivateData(Object.assign(data, newData)))
             console.log(data)
             // const valueStr = window.btoa(unescape(encodeURIComponent(JSON.stringify(data))))
             //console.log(decodeURIComponent(escape(window.atob(valueStr))))
@@ -68,8 +88,10 @@ const PersonalInfoForm = (props: PropsType) => {
     })
 
     return (
-        <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
-            <input disabled={true} className={s.hidden} {...formik.getFieldProps('partner')} />
+        <form onSubmit={formik.handleSubmit}
+              className={props.registration ? `${s.registration} ${s.form}` : s.form}>
+            <input disabled={true}
+                   className={s.hidden} {...formik.getFieldProps('partner')} />
             <Input
                 caption={'Фамилия'}
                 placeholder={'Введите фамилию'}
@@ -91,21 +113,35 @@ const PersonalInfoForm = (props: PropsType) => {
                 error={formik.errors.parent && formik.touched.parent}
                 errorText={formik.errors.parent}
             />
-            <Input
+            {/*  <Input
                 caption={'Дата рождения'}
                 placeholder={'ДД.ММ.ГГГГ'}
                 {...formik.getFieldProps('date_birth')}
                 error={formik.errors.date_birth && formik.touched.date_birth}
                 errorText={formik.errors.date_birth}
-            />
+            />*/}
+            <div className={s.form__date}>
+                <div className={s.form__caption}>Дата рождения</div>
+                <DatePickerField id='date_birth'
+                                 onChange={formik.setFieldValue}
+                                 value={formik.values.date_birth}
+                                 name='date_birth'/>
+            </div>
+
             <Input
                 caption={'Номер телефона'}
-                type={'tel'}
                 placeholder={'Введите телефон'}
                 {...formik.getFieldProps('phone')}
                 error={formik.errors.phone && formik.touched.phone}
                 errorText={formik.errors.phone}
             />
+            <Input
+                caption={'Электронная почта'}
+                errorText={formik.errors.email}
+                error={formik.errors.email &&
+                formik.touched.email}
+                {...formik.getFieldProps('email')}
+                placeholder={'Введите e-mail'}/>
             <div className={s.form__buttons}>
                 <Button light={true} callBack={leaveReg} type={"button"} title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>

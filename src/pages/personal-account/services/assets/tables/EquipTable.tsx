@@ -1,36 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import s from './Table.module.scss';
 import EquipItem from "./EquipItem";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatchType, AppStateType} from "../../../../../store/store";
+import {useDispatch} from "react-redux";
+import {AppDispatchType} from "../../../../../store/store";
 import {
     ascEquipSort,
-    descEquipSort,
-    EquipType
+    descEquipSort, EquipType
 } from "../../../../../reducers/equipReducer";
 import Pagination from "../../../../components/pagination/Pagination";
 
-
-const EquipTable = () => {
-
-    useEffect(() => {
-        // dispatch(fetchEquips())
-    }, [])
-
-    let data = useSelector<AppStateType, EquipType[]>(state => state.equips)
+type PropsType = {
+    data: EquipType[]
+    currentPage: number
+    itemsAmount: number
+    maxPage: number
+    nextPage: () => void
+    prevPage: () => void
+    setCurrentPage: (currentPage: number) => void
+    setItemsPerPage: (itemsPerPage: number) => void
+    lastIndex: number
+    firstIndex: number
+    tableStatus: string
+}
+const EquipTable:React.FC<PropsType> = ({data, nextPage, prevPage, lastIndex, maxPage, currentPage, setItemsPerPage, firstIndex, itemsAmount, setCurrentPage, tableStatus}) => {
     const dispatch = useDispatch<AppDispatchType>()
+
     const [sort, changeSort] = useState<'desc' | 'asc'>('desc')
     const [show, setShow] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(4)
-    const itemsAmount = data.length
-    const maxPage = Math.ceil(data.length / itemsPerPage);
-    const lastItemIndex = currentPage * itemsPerPage
-    const firstItemIndex = lastItemIndex - itemsPerPage
-    data = data.slice(firstItemIndex, lastItemIndex)
 
-    const nextPage = () => setCurrentPage(prev => prev + 1)
-    const prevPage = () => setCurrentPage(prev => prev - 1)
     const sortByName = () => {
         if (sort === "asc") {
             dispatch(ascEquipSort())
@@ -73,7 +70,7 @@ const EquipTable = () => {
                             />
                         )
                     })
-                    : <div className={s.empty}>В таблице пока нет записей</div>
+                    : <div className={s.empty}>{tableStatus}</div>
                 }
             </div>
             <Pagination currentPage={currentPage}
@@ -83,8 +80,8 @@ const EquipTable = () => {
                         maxPage={maxPage}
                         nextPage={nextPage}
                         prevPage={prevPage}
-                        firstIndex={firstItemIndex}
-                        lastIndex={lastItemIndex}
+                        firstIndex={firstIndex}
+                        lastIndex={lastIndex}
             />
         </>
 

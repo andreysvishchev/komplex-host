@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import s from '../Support.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../store/store";
 import {ApplicationType,} from "../../../../reducers/supportReducer";
 import MessageForm from "../assets/message-form/MessageForm";
 import Message from "./Message";
+import {authReducer} from "../../../../reducers/authReducer";
 
 type PropsType = {
     applications: ApplicationType[]
@@ -13,53 +14,57 @@ type PropsType = {
 
 const Chat = React.memo((props: PropsType) => {
 
-
+    const dispatch = useDispatch<AppDispatchType>()
     const [end, setEnd] = useState<boolean>(true)
     const messages = useSelector<AppStateType, ApplicationType[]>(state => state.support)
-    const list = document.getElementById('messages')
-
-
     const arr = props.applications.filter(el => el.id === props.id)
+    const ref = React.useRef() as React.MutableRefObject<HTMLDivElement>
+    const [autoScroll, setAutoScroll] = useState(true)
+
 
     useEffect(() => {
-        if (list) {
-            list.scrollTop = list.scrollHeight
+        if (autoScroll) {
+            ref.current?.scrollIntoView({behavior: "smooth"})
         }
+
     }, [messages])
 
-    if (list) {
-        list.addEventListener('scroll', function () {
-            if (this.scrollTop === 0) {
-                setEnd(false)
-            } else {
-                setEnd(true)
-            }
-        })
+
+    const onScrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        console.log(autoScroll)
+        const el = e.currentTarget
+        el.scrollTop === 0 ? setEnd(false) : setEnd(true)
+        // ????
+        if(Math.abs((el.scrollHeight - el.scrollHeight) - el.clientHeight) < 100) {
+            setAutoScroll(true)
+        } else {
+            setAutoScroll(false)
+        }
+
     }
-
-    const dispatch = useDispatch<AppDispatchType>()
-    useEffect(() => {
-
-    }, [])
 
 
     return (
         <div className={s.chat}>
-
             <div className={s.chat__top}>
                 <div className={end ? `${s.chat__head} ${s.end}` : s.chat__head}>
-                    <div className={s.chat__title}>Заявка №2452 Как оплатить аренду стойки Как оплатить аренду стойки Как оплатить аренду стойки Как оплатить аренду стойки Как оплатить аренду стойки</div>
-                    <div className={s.chat__status}>Открыта</div>
+                    <div className={s.chat__title}>
+                        Заявка №{arr[0] ? arr[0].number_app : ''}
+                    </div>
+                    <div className={s.chat__status}>{arr[0] ? arr[0].status : ''}</div>
                     <div className={s.chat__date}>24 августа</div>
                 </div>
             </div>
 
-            <div id='messages' className={s.chat__messages}>
-                {arr[0].messages.map(el => {
+            <div onScroll={onScrollHandler} className={s.chat__messages}>
+                {arr[0] &&
+                arr[0].messages.map(el => {
                     return (
                         <Message data={el} key={el.id}/>
                     )
-                })}
+                })
+                }
+                <div ref={ref}/>
             </div>
             <div className={s.chat__bot}>
                 <MessageForm/>

@@ -18,6 +18,7 @@ type FormikErrorType = {
     first_name?: string
     last_name?: string
     parent?: string
+    email?: string
 }
 
 const EntrepreneurInfoForm = (props: PropsType) => {
@@ -34,6 +35,7 @@ const EntrepreneurInfoForm = (props: PropsType) => {
             last_name: data.last_name,
             first_name: data.first_name,
             parent: data.parent,
+            email: data.email,
             partner: 2
         },
         validate: (values) => {
@@ -55,6 +57,11 @@ const EntrepreneurInfoForm = (props: PropsType) => {
             if (!values.parent) {
                 errors.parent = 'Поле обязательно для заполнения';
             }
+            if (!values.email) {
+                errors.email = 'Поле обязательно для заполнения';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Email указан некорректно';
+            }
             return errors;
         },
         onSubmit: values => {
@@ -73,7 +80,6 @@ const EntrepreneurInfoForm = (props: PropsType) => {
             <Input
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
-                maxLength={12}
                 {...formik.getFieldProps('inn')}
                 error={formik.errors.inn && formik.touched.inn}
                 errorText={formik.errors.inn}
@@ -107,6 +113,13 @@ const EntrepreneurInfoForm = (props: PropsType) => {
                 error={formik.errors.parent && formik.touched.parent}
                 errorText={formik.errors.parent}
             />
+            <Input
+                caption={'Электронная почта'}
+                errorText={formik.errors.email}
+                error={formik.errors.email &&
+                formik.touched.email}
+                {...formik.getFieldProps('email')}
+                placeholder={'Введите e-mail'}/>
             <div className={s.form__buttons}>
                 <Button light={true} callBack={leaveReg} type={"button"} title={'Назад'}/>
                 <Button title={'Далее'} type={'submit'}/>

@@ -42,6 +42,9 @@ const RecoveryPasswordModal = () => {
             formik.resetForm()
         },
     })
+    const style = {
+        marginTop: '24px'
+    }
     return (
         <Modal
             open={open}
@@ -55,7 +58,7 @@ const RecoveryPasswordModal = () => {
                     <Input caption={'Электронная почта'}
                            errorText={formik.errors.email}
                            error={formik.errors.email &&
-                               formik.touched.email || errorStatus}
+                           formik.touched.email || errorStatus}
                            {...formik.getFieldProps('email')}
                            name="email"
                            onBlur={formik.handleBlur}
@@ -63,7 +66,7 @@ const RecoveryPasswordModal = () => {
                            value={formik.values.email}
                            placeholder={'Введите e-mail'}
                            type={'email'}/>
-                    <Button title={'Восстановить'} type='submit'/>
+                    <Button style={style} title={'Восстановить'} type='submit'/>
                 </form>
             </Box>
         </Modal>

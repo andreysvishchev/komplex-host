@@ -12,6 +12,7 @@ import BusinessAddressForm from "../../../../forms/BusinessAddressForm";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../../../store/store";
 import {nextPage, prevPage} from "../../../../../reducers/registrationReducer";
+import DirectorInfoForm from "../../../../forms/DirectorInfoForm";
 
 type PropsType = {
     leaveReg: () => void
@@ -20,7 +21,7 @@ type PropsType = {
 const CompanyRegistration = (props: PropsType) => {
     const coincidence = ['Да', 'Нет']
     const [value, onChangeOption] = useState(coincidence[0]);
-    const stepHeadlines = ['Введите информацию об организации', 'Введите юридический адрес', 'Почтовый адрес совпадает с юридическим?', 'Введите реквизиты', '']
+    const stepHeadlines = ['Введите информацию об организации', 'Введите информацию о руководителе', 'Введите юридический адрес', 'Почтовый адрес совпадает с юридическим?', 'Введите реквизиты', '']
     const dispatch = useDispatch<AppDispatchType>()
     const page = useAppSelector(state => state.registration.step)
     const nextPageHandler = () => {
@@ -43,33 +44,56 @@ const CompanyRegistration = (props: PropsType) => {
     const PageDisplay = () => {
         switch (page) {
             case 0:
-                return <CompanyInfoForm leaveReg={props.leaveReg} nextPage={nextPageHandler} registration={true}/>
+                return <CompanyInfoForm
+                    leaveReg={props.leaveReg}
+                    nextPage={nextPageHandler}
+                    registration={true}/>
             case 1:
-                return <MailAddressForm prevPage={prevPageHandler} registration={true} lastStep={false} nextPage={nextPageHandler}/>
+                return <DirectorInfoForm
+                    prevPage={prevPageHandler}
+                    nextPage={nextPageHandler}/>
             case 2:
+                return <MailAddressForm
+                    prevPage={prevPageHandler}
+                    registration={true}
+                    lastStep={false}
+                    nextPage={nextPageHandler}/>
+            case 3:
                 return (<>
-                    <form onSubmit={formik.handleSubmit} className={`${form.form} ${form.registration}`}>
+                    <form onSubmit={formik.handleSubmit}
+                          className={`${form.form} ${form.registration}`}>
                         <div className={value == 'Да' ? `${s.frame} ${s.not}` : s.frame}>
-                            <Radio value={value} name={'coincidence'} options={coincidence}
+                            <Radio value={value}
+                                   name={'coincidence'}
+                                   options={coincidence}
                                    onChangeOption={onChangeOption}/>
                         </div>
                         {
                             value == 'Да' &&
                             <div className={form.form__buttons}>
-                                <Button light={true} callBack={prevPageHandler} type={"button"} title={'Назад'}/>
+                                <Button light={true} callBack={prevPageHandler}
+                                        type={"button"} title={'Назад'}/>
                                 <Button title={'Далее'} type={'submit'}/>
                             </div>
                         }
                     </form>
                     {
                         value === 'Нет' &&
-                        <BusinessAddressForm prevPage={prevPageHandler}  registration={true} nextPage={nextPageHandler}/>
+                        <BusinessAddressForm
+                            prevPage={prevPageHandler}
+                            registration={true}
+                            nextPage={nextPageHandler}/>
                     }
                 </>)
-            case 3:
-                return <RequisitesForm registration={true} prevPage={prevPageHandler} nextPage={nextPageHandler}/>
             case 4:
-                return <ContactsForm registration={true} prevPage={prevPageHandler} />
+                return <RequisitesForm
+                    registration={true}
+                    prevPage={prevPageHandler}
+                    nextPage={nextPageHandler}/>
+            case 5:
+                return <ContactsForm
+                    registration={true}
+                    prevPage={prevPageHandler}/>
 
 
         }

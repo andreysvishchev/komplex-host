@@ -5,18 +5,28 @@ import s from './Support.module.scss'
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../store/store";
 import {ApplicationType} from "../../../reducers/supportReducer";
+import NewApplication from "./new-application/NewApplication";
 
 
 const Support = () => {
-
+    const [id, setId] = useState<string>('')
     const applications = useSelector<AppStateType, ApplicationType[]>(state => state.support)
-    const [id, setId] = useState<string>(applications[0].id)
+
+    useEffect(() => {
+        if (applications.length !== 0) {
+            setId(applications[0].id)
+        }
+    },[])
 
 
     return (
         <div className={s.wrap}>
             <Applications applications={applications} setId={setId}/>
-            <Chat applications={applications} id={id}/>
+            {
+                applications.length !== 0
+                    ? <Chat applications={applications} id={id}/>
+                    : <NewApplication/>
+            }
         </div>
     );
 };

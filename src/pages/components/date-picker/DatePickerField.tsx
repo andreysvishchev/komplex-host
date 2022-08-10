@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
+import MaskedInput from 'react-text-mask'
 import s from '../../modals/Modal.module.scss'
 
 type PropsType = {
     onChange: any
-    value: Date
+    value: Date | null
     name: string
     id: string
+    placeholder?: string
 }
 
-const DatepickerField = ({name, value, onChange, id}: PropsType) => {
+const DatepickerField = ({name, value, onChange, id, placeholder}: PropsType) => {
 
     return (
         <ReactDatePicker
@@ -37,10 +39,14 @@ const DatepickerField = ({name, value, onChange, id}: PropsType) => {
             onChange={val => {
                 onChange(name, val);
             }}
+            placeholderText={'ДД.ММ.ГГГГ'}
             locale={ru}
             calendarClassName="calendar"
             customInput={
-                <input className={s.pay__input}/>
+                <MaskedInput
+                    className='date-input'
+                    mask={[/\d/, /\d/, ".", /\d/, /\d/, ".", /\d/, /\d/, /\d/, /\d/]}
+                />
             }
         />
     )

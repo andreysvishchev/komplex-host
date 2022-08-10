@@ -218,7 +218,7 @@ const ContactsForm = (props: PropsType) => {
                             </div>
                         </>
                         :
-                        <div style={{marginTop: '12px'}}>
+                        <div style={{marginTop: '32px'}}>
                             <Button title={'Сохранить'} type={'submit'}/>
                         </div>
                 }

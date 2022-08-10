@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import s from './Services.module.scss'
 import AllServices from "./all-services/AllServices";
@@ -7,8 +7,14 @@ import ServerRental from "./server-rental/ServerRental";
 import ServiceArchive from "./service-archive/ServiceArchive";
 import RackRental from "./rack-rental/RackRental";
 import NoticeModal from "../../modals/NoticeModal";
+import {fetchEquips} from "../../../reducers/equipReducer";
+import {useDispatch} from "react-redux";
+import {AppDispatchType} from "../../../store/store";
 
 const Services = () => {
+    const dispatch = useDispatch<AppDispatchType>()
+
+
 
 
 

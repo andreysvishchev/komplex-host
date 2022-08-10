@@ -8,21 +8,23 @@ type PropsType = {
     name?: string
     caption: string
     placeholder: string
-    error: any
+    error?: any
     errorText?: string
+    style?: any
 }
 
 const Textarea = (props: PropsType) => {
     return (
-        <div className={s.textarea}>
+        <div className={s.textarea} style={props.style}>
             <div className={s.textarea__caption}>{props.caption}</div>
             <textarea
-                className={props.error ? `${s.error} ${s.textarea__field}` : s.textarea__field }
+                className={props.error ? `${s.error} ${s.textarea__field}` : s.textarea__field}
                 placeholder={props.placeholder}
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 value={props.value}
                 name={props.name}
+
             />
             {props.error &&
             <div className={s.textarea__error}>{props.errorText}</div>

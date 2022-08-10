@@ -20,7 +20,6 @@ type FormikErrorType = {
     mail_index?: string
     mail_country?: string
     mail_area?: string
-    mail_district?: string
     mail_locality?: string
     mail_street?: string
     mail_home?: string
@@ -40,6 +39,7 @@ const MailAddressForm = (props: PropsType) => {
             mail_locality: data.mail_locality,
             mail_street: data.mail_street,
             mail_home: data.mail_home,
+            mail_corps: data.mail_corps,
             mail_flat: data.mail_flat,
             create_application: true
         },
@@ -56,8 +56,8 @@ const MailAddressForm = (props: PropsType) => {
             if (!values.mail_area) {
                 errors.mail_area = 'Поле обязательно для заполнения';
             }
-            if (!values.mail_district) {
-                errors.mail_district = 'Поле обязательно для заполнения';
+            if (!values.mail_home) {
+                errors.mail_home = 'Поле обязательно для заполнения';
             }
             if (!values.mail_locality) {
                 errors.mail_locality = 'Поле обязательно для заполнения';
@@ -113,8 +113,6 @@ const MailAddressForm = (props: PropsType) => {
                 caption={'Район/Округ'}
                 placeholder={'Введите район или округ'}
                 {...formik.getFieldProps('mail_district')}
-                error={formik.errors.mail_district && formik.touched.mail_district}
-                errorText={formik.errors.mail_district}
             />
             <Input
                 caption={'Населенный пункт'}
@@ -129,20 +127,27 @@ const MailAddressForm = (props: PropsType) => {
                 {...formik.getFieldProps('mail_street')}
                 value={formik.values.mail_street}
             />
-            <div className={s.form__row}>
-                <Input
-                    caption={'Дом'}
-                    placeholder={'Номер дома'}
-                    {...formik.getFieldProps('mail_home')}
-                    value={formik.values.mail_home}
-                />
-                <Input
-                    caption={props.lastStep ? 'Квартира' : 'Квартира/офис'}
-                    placeholder={props.lastStep ? 'Номер квартиры' : 'Номер квартиры/офиса'}
-                    {...formik.getFieldProps('mail_flat')}
-                    value={formik.values.mail_flat}
-                />
-            </div>
+            <Input
+                caption={'Дом'}
+                placeholder={'Номер дома'}
+                {...formik.getFieldProps('mail_home')}
+                value={formik.values.mail_home}
+                error={formik.errors.mail_home && formik.touched.mail_home}
+                errorText={formik.errors.mail_home}
+            />
+            <Input
+                caption={'Корпус'}
+                placeholder={'Номер корпуса'}
+                {...formik.getFieldProps('mail_corps')}
+                value={formik.values.mail_corps}
+            />
+            <Input
+                caption={props.lastStep ? 'Квартира' : 'Квартира/офис'}
+                placeholder={props.lastStep ? 'Номер квартиры' : 'Номер квартиры/офиса'}
+                {...formik.getFieldProps('mail_flat')}
+                value={formik.values.mail_flat}
+            />
+
 
             {props.registration
                 ?
@@ -171,13 +176,13 @@ const MailAddressForm = (props: PropsType) => {
                         </div>
                     </>
                     :
-                    <div style={{marginTop: '12px'}} className={s.form__buttons}>
+                    <div className={s.form__buttons}>
                         <Button light={true} callBack={props.prevPage} type={"button"}
                                 title={'Назад'}/>
                         <Button title={'Далее'} type={'submit'}/>
                     </div>
                 :
-                <div style={{marginTop: '12px'}}>
+                <div style={{marginTop: '32px'}}>
                     <Button title={'Отправить запрос на изменение'} type={'submit'}/>
                 </div>
 

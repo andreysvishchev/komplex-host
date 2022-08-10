@@ -14,7 +14,6 @@ type PropsType = {
 }
 
 const Pagination = ({itemsAmount, currentPage, maxPage, nextPage, prevPage, show,  firstIndex, lastIndex, showPagination}: PropsType) => {
-
     return (
         <div className={s.pagination}>
             <button onClick={showPagination}

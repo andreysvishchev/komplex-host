@@ -17,7 +17,6 @@ type FormikErrorType = {
     business_index?: string
     business_country?: string
     business_area?: string
-    business_district?: string
     business_locality?: string
     business_street?: string
     business_home?: string
@@ -38,6 +37,7 @@ const BusinessAddressForm = (props: PropsType) => {
             business_street: data.business_street,
             business_home: data.business_home,
             business_flat: data.business_flat,
+            business_corps: data.bank_corps,
             create_application: true
         },
         validate: (values) => {
@@ -53,11 +53,11 @@ const BusinessAddressForm = (props: PropsType) => {
             if (!values.business_area) {
                 errors.business_area = 'Поле обязательно для заполнения';
             }
-            if (!values.business_district) {
-                errors.business_district = 'Поле обязательно для заполнения';
-            }
             if (!values.business_locality) {
                 errors.business_locality = 'Поле обязательно для заполнения';
+            }
+            if (!values.business_home) {
+                errors.business_home = 'Поле обязательно для заполнения';
             }
             return errors;
         },
@@ -71,7 +71,8 @@ const BusinessAddressForm = (props: PropsType) => {
     })
 
     return (
-        <form onSubmit={formik.handleSubmit} className={props.registration ? `${s.registration} ${s.form}` : s.form}>
+        <form onSubmit={formik.handleSubmit}
+              className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <div className={s.form__row}>
                 <Input
                     caption={'Индекс'}
@@ -99,8 +100,6 @@ const BusinessAddressForm = (props: PropsType) => {
                 caption={'Район/Округ'}
                 placeholder={'Введите район или округ'}
                 {...formik.getFieldProps('business_district')}
-                error={formik.errors.business_district && formik.touched.business_district}
-                errorText={formik.errors.business_district}
             />
             <Input
                 caption={'Населенный пункт'}
@@ -115,29 +114,37 @@ const BusinessAddressForm = (props: PropsType) => {
                 {...formik.getFieldProps('business_street')}
                 value={formik.values.business_street}
             />
-            <div className={s.form__row}>
-                <Input
-                    caption={'Дом'}
-                    placeholder={'Номер дома'}
-                    {...formik.getFieldProps('business_home')}
-                    value={formik.values.business_home}
-                />
-                <Input
-                    caption={'Квартира/офис'}
-                    placeholder={'Номер квартиры/офиса'}
-                    {...formik.getFieldProps('business_flat')}
-                    value={formik.values.business_flat}
-                />
-            </div>
+            <Input
+                caption={'Дом'}
+                placeholder={'Номер дома'}
+                {...formik.getFieldProps('business_home')}
+                value={formik.values.business_home}
+                error={formik.errors.business_home && formik.touched.business_home}
+                errorText={formik.errors.business_home}
+            />
+            <Input
+                caption={'Корпус'}
+                placeholder={'Номер корпуса'}
+                {...formik.getFieldProps('business_corps')}
+                value={formik.values.business_corps}
+            />
+            <Input
+                caption={'Квартира/офис'}
+                placeholder={'Номер квартиры/офиса'}
+                {...formik.getFieldProps('business_flat')}
+                value={formik.values.business_flat}
+            />
+
 
             {props.registration
                 ?
-                <div style={{marginTop: '12px'}} className={s.form__buttons}>
-                    <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
+                <div className={s.form__buttons}>
+                    <Button light={true} callBack={props.prevPage} type={"button"}
+                            title={'Назад'}/>
                     <Button title={'Далее'} type={'submit'}/>
                 </div>
                 :
-                <div style={{marginTop: '12px'}}>
+                <div style={{marginTop: '32px'}}>
                     <Button title={'Отправить запрос на изменение'} type={'submit'}/>
                 </div>
 

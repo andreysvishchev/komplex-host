@@ -1,31 +1,43 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ConfidantTable from "../tables/ConfidantTable";
 import s from "./InfoBlock.module.scss";
 import Search from "../../../../components/search/Search";
 import ConfidantMenu from "../../../../components/contextMenu/ConfidantMenu";
 import Tooltip from "../../../../components/tooltip/Tooltip";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../../store/store";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatchType, AppStateType} from "../../../../../store/store";
 import {ConfidantType} from "../../../../../reducers/confidantReducer";
+import {Pagination} from "../../../../../function/pagination";
 
 
 const ConfidantBlock = () => {
+
     let data = useSelector<AppStateType, ConfidantType[]>(state => state.confidant)
-    //pagination
-    const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(4)
-    const itemsAmount = data.length
-    const maxPage = Math.ceil(data.length / itemsPerPage);
-    const lastItemIndex = currentPage * itemsPerPage
-    const firstItemIndex = lastItemIndex - itemsPerPage
-    data = data.slice(firstItemIndex, lastItemIndex)
-    const nextPage = () => setCurrentPage(prev => prev + 1)
-    const prevPage = () => setCurrentPage(prev => prev - 1)
-    //search
+    let tableStatus = 'В таблице пока нет записей'
+    const dispatch = useDispatch<AppDispatchType>()
+
     const [value, setValue] = useState('')
     data = data.filter(el => {
-        return el.name.toLowerCase().includes(value.toLowerCase())
+        if (el.name.toLowerCase().includes(value.toLowerCase())) {
+            return el.name.toLowerCase().includes(value.toLowerCase())
+        } else {
+            tableStatus = 'Поиск не дал результатов'
+        }
     })
+
+    const {
+        data: newData,
+        prevPage,
+        nextPage,
+        itemsAmount,
+        maxPage,
+        lastItemIndex,
+        firstItemIndex,
+        setCurrentPage,
+        currentPage,
+        setItemsPerPage
+    } = Pagination(data, 4)
+
 
     return (
         <div className={s.wrap}>
@@ -33,12 +45,14 @@ const ConfidantBlock = () => {
                 <div className={s.col}>
                     <div className={s.caption}>Доверенное лицо</div>
                     <Tooltip/>
-                    <Search value={value} setValue={setValue}/>
+                    <Search value={value} setValue={setValue}
+                            prevPage={setCurrentPage}/>
                 </div>
                 <ConfidantMenu/>
             </div>
             <ConfidantTable
-                data={data}
+                tableStatus={tableStatus}
+                data={newData}
                 lastIndex={lastItemIndex}
                 firsIndex={firstItemIndex}
                 setItemsPerPage={setItemsPerPage}

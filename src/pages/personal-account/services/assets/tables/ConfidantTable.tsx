@@ -21,12 +21,14 @@ type PropsType = {
     setItemsPerPage: (itemsPerPage: number) => void
     lastIndex: number
     firsIndex: number
+    tableStatus: string
 }
 
-const ConfidantTable = ({data, nextPage, prevPage, lastIndex, maxPage, currentPage, setItemsPerPage, firsIndex, itemsAmount, setCurrentPage}: PropsType) => {
+const ConfidantTable = ({data, nextPage, prevPage, lastIndex, maxPage, currentPage, setItemsPerPage, firsIndex, itemsAmount, setCurrentPage, tableStatus}: PropsType) => {
     const [sort, changeSort] = useState<'desc' | 'asc'>('desc')
     const dispatch = useDispatch<AppDispatchType>()
     const [show, setShow] = useState(false)
+
     const sortByName = () => {
         if (sort === "asc") {
             dispatch(ascNameSort())
@@ -64,7 +66,7 @@ const ConfidantTable = ({data, nextPage, prevPage, lastIndex, maxPage, currentPa
                                            passport={el.passport} name={el.name}/>
                         )
                     })
-                    : <div className={s.empty}>В таблице пока нет записей</div>
+                    : <div className={s.empty}>{tableStatus}</div>
                 }
             </div>
             <Pagination currentPage={currentPage}

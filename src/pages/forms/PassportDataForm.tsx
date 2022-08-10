@@ -173,7 +173,6 @@ const PassportDataForm = (props: PropsType) => {
               className={props.registration ? `${s.registration} ${s.form}` : s.form}>
             <div className={s.form__row}>
                 <Input
-                    maxLength={4}
                     caption={'Серия'}
                     placeholder={'_ _ _ _'}
                     {...formik.getFieldProps('series')}
@@ -182,7 +181,6 @@ const PassportDataForm = (props: PropsType) => {
                 <Input
                     caption={'Номер'}
                     placeholder={'_ _ _ _ _ _'}
-                    maxLength={6}
                     {...formik.getFieldProps('number')}
                     error={formik.errors.number && formik.touched.number}
                     errorText={formik.errors.number}/>
@@ -203,7 +201,6 @@ const PassportDataForm = (props: PropsType) => {
             <Input
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
-                maxLength={12}
                 {...formik.getFieldProps('inn')}
                 error={formik.errors.inn && formik.touched.inn}
                 errorText={formik.errors.inn}

@@ -64,7 +64,6 @@ const CompanyInfoForm = (props: PropsType) => {
             <Input
                 caption={'ИНН'}
                 placeholder={'Номер ИНН'}
-                maxLength={12}
                 {...formik.getFieldProps('inn')}
                 error={formik.errors.inn && formik.touched.inn}
                 errorText={formik.errors.inn}
@@ -79,7 +78,6 @@ const CompanyInfoForm = (props: PropsType) => {
             />
             <Input caption={'КПП'}
                    placeholder={' Номер КПП'}
-                   maxLength={9}
                    {...formik.getFieldProps('kpp')}
                    error={formik.errors.kpp && formik.touched.kpp}
                    errorText={formik.errors.kpp}

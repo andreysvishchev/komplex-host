@@ -20,7 +20,6 @@ type FormikErrorType = {
     bank_index?: string
     bank_country?: string
     bank_area?: string
-    bank_district?: string
     bank_locality?: string
     bank_street?: string
     bank_home?: string
@@ -43,6 +42,7 @@ const RequisitesForm = (props: PropsType) => {
             bank_locality: data.bank_locality,
             bank_street: data.bank_street,
             bank_home: data.bank_home,
+            bank_corps: data.bank_corps,
             bank_office: data.bank_office
         },
         validate: (values) => {
@@ -71,11 +71,11 @@ const RequisitesForm = (props: PropsType) => {
             if (!values.bank_area) {
                 errors.bank_area = 'Поле обязательно для заполнения';
             }
-            if (!values.bank_district) {
-                errors.bank_district = 'Поле обязательно для заполнения';
-            }
             if (!values.bank_locality) {
                 errors.bank_locality = 'Поле обязательно для заполнения';
+            }
+            if (!values.bank_home) {
+                errors.bank_home = 'Поле обязательно для заполнения';
             }
             return errors;
         },
@@ -103,7 +103,6 @@ const RequisitesForm = (props: PropsType) => {
                 <Input
                     caption={'Расчетный счет'}
                     placeholder={'Номер рас/сч'}
-                    maxLength={20}
                     {...formik.getFieldProps('payment_score')}
                     error={formik.errors.payment_score && formik.touched.payment_score}
                     errorText={formik.errors.payment_score}
@@ -111,7 +110,6 @@ const RequisitesForm = (props: PropsType) => {
                 <Input
                     caption={'Корреспондентский счет'}
                     placeholder={'Номер кор/сч'}
-                    maxLength={20}
                     {...formik.getFieldProps('correspondent_score')}
                     error={formik.errors.correspondent_score && formik.touched.correspondent_score}
                     errorText={formik.errors.correspondent_score}
@@ -143,8 +141,6 @@ const RequisitesForm = (props: PropsType) => {
                     caption={'Район/Округ'}
                     placeholder={'Введите район или округ'}
                     {...formik.getFieldProps('bank_district')}
-                    error={formik.errors.bank_district && formik.touched.bank_district}
-                    errorText={formik.errors.bank_district}
                 />
                 <Input
                     caption={'Населенный пункт'}
@@ -159,30 +155,39 @@ const RequisitesForm = (props: PropsType) => {
                     {...formik.getFieldProps('bank_street')}
                     value={formik.values.bank_street}
                 />
-                <div className={s.form__row}>
-                    <Input
-                        caption={'Дом'}
-                        placeholder={'Номер дома'}
-                        {...formik.getFieldProps('bank_home')}
-                        value={formik.values.bank_home}
-                    />
-                    <Input
-                        caption={'Корпус/офис'}
-                        placeholder={'Номер корпуса/офиса'}
-                        {...formik.getFieldProps('bank_office')}
-                        value={formik.values.bank_office}
-                    />
-                </div>
+                <Input
+                    caption={'Дом'}
+                    placeholder={'Номер дома'}
+                    {...formik.getFieldProps('bank_home')}
+                    value={formik.values.bank_home}
+                    error={formik.errors.bank_home && formik.touched.bank_home}
+                    errorText={formik.errors.bank_home}
+                />
+                <Input
+                    caption={'Корпус'}
+                    placeholder={'Номер корпуса'}
+                    {...formik.getFieldProps('bank_corps')}
+                    value={formik.values.bank_corps}
+                />
+                <Input
+                    caption={'Офис'}
+                    placeholder={'Офиса'}
+                    {...formik.getFieldProps('bank_office')}
+                    value={formik.values.bank_office}
+                />
+
                 {
                     props.registration
                         ?
-                        <div style={{marginTop: '16px'}} className={s.form__buttons}>
-                            <Button light={true} callBack={props.prevPage} type={"button"} title={'Назад'}/>
+                        <div className={s.form__buttons}>
+                            <Button light={true} callBack={props.prevPage} type={"button"}
+                                    title={'Назад'}/>
                             <Button title={'Далее'} type={'submit'}/>
                         </div>
                         :
-                        <div style={{marginTop: '12px'}}>
-                            <Button title={'Отправить запрос на изменение'} type={'submit'}/>
+                        <div style={{marginTop: '32px'}}>
+                            <Button title={'Отправить запрос на изменение'}
+                                    type={'submit'}/>
                         </div>
                 }
 

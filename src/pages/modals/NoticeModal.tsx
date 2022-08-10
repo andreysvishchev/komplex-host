@@ -5,6 +5,7 @@ import s from "./Modal.module.scss";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openNoticeModal} from "../../reducers/modalReducer";
+import Button from "../components/button/Button";
 
 
 const NoticeModal = () => {
@@ -15,6 +16,10 @@ const NoticeModal = () => {
     const handleClose = () => {
         dispatch(openNoticeModal({message: '', success: true, open: false}))
     }
+    const style = {
+        width: "max-content",
+        margin: '0 auto'
+    }
 
     return (
         <div>
@@ -24,7 +29,7 @@ const NoticeModal = () => {
                 <Box sx={modal}>
                     <div className={s.notice}>
                         <div className={s.message}>{message}</div>
-                        <button onClick={handleClose} className={s.success}>Ок</button>
+                        <Button style={style} callBack={handleClose} type={'button'} title={'Ok'}/>
                     </div>
                 </Box>
             </Modal>

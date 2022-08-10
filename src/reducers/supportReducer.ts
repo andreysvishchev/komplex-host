@@ -21,7 +21,7 @@ export type MessageType = {
 }
 
 
-let initialState = [
+let initialState:ApplicationType[] = [
     {
         id: v1(),
         number_app: '20124',
@@ -41,7 +41,7 @@ let initialState = [
                 id: v1(),
                 text: 'Какой-то текст Какой-то текст',
                 time: '12:34',
-                my: true
+                my: false
             },
             {
                 id: v1(),
@@ -53,7 +53,25 @@ let initialState = [
                 id: v1(),
                 text: 'Какой-то текст Какой-то текст',
                 time: '12:34',
+                my: false
+            },
+            {
+                id: v1(),
+                text: 'Какой-то текст Какой-то текст',
+                time: '12:34',
+                my: false
+            },
+            {
+                id: v1(),
+                text: 'Какой-то текст Какой-то текст',
+                time: '12:34',
                 my: true
+            },
+            {
+                id: v1(),
+                text: 'Какой-то текст Какой-то текст',
+                time: '12:34',
+                my: false
             },
             {
                 id: v1(),

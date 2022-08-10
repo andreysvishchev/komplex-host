@@ -59,20 +59,10 @@ const LogIn = () => {
                        error={formik.errors.email &&
                            formik.touched.email || errorStatus}
                        {...formik.getFieldProps('email')}
-                       name="email"
-                       onBlur={formik.handleBlur}
-                       onChange={formik.handleChange}
-                       value={formik.values.email}
-                       placeholder={'Введите e-mail'}
-                       type={'email'}/>
+                       placeholder={'Введите e-mail'}/>
                 <Input caption={'Пароль'}
                        {...formik.getFieldProps('password')}
-                       name="password"
                        placeholder={'Введите пароль'}
-                       onBlur={formik.handleBlur}
-                       onChange={formik.handleChange}
-                       value={formik.values.password}
-                       type={'password'}
                        password={true}
                        errorText={formik.errors.password}
                        error={formik.errors.password &&

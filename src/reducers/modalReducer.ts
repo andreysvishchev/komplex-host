@@ -7,6 +7,15 @@ const initialState = {
     captchaModal: false,
     recoverModal: false,
     confirmRecoveryModal: false,
+    confirmModal: false,
+    noteModal: false,
+    confidantModal: false,
+    equipsModal: false,
+    configurator: false,
+    payModal: false,
+    applicationModal: false
+
+
 }
 
 

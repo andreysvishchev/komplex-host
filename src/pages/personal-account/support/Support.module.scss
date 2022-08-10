@@ -90,6 +90,10 @@
     }
   }
 
+  &__null {
+    font-weight: 500;
+    color: $silver-text;
+  }
 }
 
 .sort {
@@ -206,6 +210,13 @@
       background-color: rgba(13, 250, 180, .2);
       color: $green;
     }
+
+    &.position {
+      position: absolute;
+      top: 3px;
+      right: 0;
+    }
+
   }
 
   &__message {
@@ -239,45 +250,6 @@
     line-height: 16px;
     color: $silver-text;
     margin-top: 8px;
-  }
-}
-
-.search {
-  position: relative;
-  margin: 0 0 10px 0;
-
-  &__input {
-    border-radius: 4px;
-    background-color: rgba(190, 231, 246, .2);
-    border: 1px solid rgba(0, 182, 244, .2);
-    padding: 5px 32px 5px 16px;
-    outline: none;
-    width: 100%;
-    transition: border-color .2s ease-in-out;
-
-    &:focus {
-      border-color: $blue;
-    }
-
-    &::placeholder {
-      color: $dark-blue;
-    }
-  }
-
-  &__btn {
-    position: absolute;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 8px;
-    width: 16px;
-    height: 16px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
-    background-image: url('../../../img/search-blue.svg');
   }
 }
 
@@ -346,12 +318,19 @@
     align-items: center;
   }
 
+  &__wrapper {
+
+
+  }
+
   &__messages {
     padding: 15px 15px 20px 20px;
-    flex-grow: 1;
-    max-height: 660px;
+    height: 660px;
     overflow: auto;
     margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     scrollbar-color: $blue $gray;
     scrollbar-width: thin;
 
@@ -460,5 +439,60 @@
     color: $silver-text;
   }
 }
+
+.new {
+  padding: 30px 40px;
+  height: 840px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  border: 1px solid $gray;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+
+  &__head {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 24px;
+    position: relative;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  &__textarea {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  &__form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 35px 0 50px;
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
+    flex-grow: 1;
+  }
+
+  &__button {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+
+}
+
+
 
 

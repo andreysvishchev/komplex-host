@@ -2,11 +2,17 @@ let initialState: InitialStateType = {
     registrationPage: true,
     partners: null,
     registrationData: {
+        contact_person: '',
         partner: null,
         first_name: '',
         last_name: '',
         parent: '',
-        date_birth: '',
+        d_first_name: '',
+        d_last_name:'',
+        d_parent: '',
+        post: '',
+        email:'',
+        date_birth: null,
         phone: '',
         series: '',
         number: '',
@@ -25,6 +31,7 @@ let initialState: InitialStateType = {
         mail_street: '',
         mail_home: '',
         mail_flat: '',
+        mail_corps:'',
         business_index: '',
         business_country: '',
         business_area: '',
@@ -32,6 +39,7 @@ let initialState: InitialStateType = {
         business_locality: '',
         business_street: '',
         business_home: '',
+        business_corps:'',
         business_flat: '',
         bank: '',
         payment_score: '',
@@ -43,6 +51,7 @@ let initialState: InitialStateType = {
         bank_locality: '',
         bank_street: '',
         bank_home: '',
+        bank_corps:'',
         bank_office: '',
         tech_first_name: '',
         tech_last_name: '',
@@ -107,7 +116,14 @@ export type RegistrationDataType = {
     first_name: string
     last_name: string
     parent: string
-    date_birth: string
+    d_first_name: string
+    d_last_name: string
+    d_parent: string
+    post: string
+    email: string
+    contact_person: string
+
+    date_birth: Date | null
     phone: string
     series: string
     number: string
@@ -125,6 +141,7 @@ export type RegistrationDataType = {
     mail_locality: string
     mail_street: string
     mail_home: string
+    mail_corps: string
     mail_flat: string
     business_index: string
     business_country: string
@@ -133,6 +150,7 @@ export type RegistrationDataType = {
     business_locality: string
     business_street: string
     business_home: string
+    business_corps: string
     business_flat: string
     bank: string
     payment_score: string
@@ -145,6 +163,7 @@ export type RegistrationDataType = {
     bank_street: string
     bank_home: string
     bank_office: string
+    bank_corps: string
     tech_first_name: string
     tech_last_name: string
     tech_parent: string

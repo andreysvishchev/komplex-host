@@ -4,14 +4,15 @@ import s from './Search.module.scss'
 type PropsType = {
     value: string
     setValue: (value: string) => void
+    prevPage: (value: number) => void
 }
 
-const Search = ({value, setValue}: PropsType) => {
+const Search = ({value, setValue, prevPage}: PropsType) => {
 
     const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
+        prevPage(1)
     }
-
 
     return (
         <div className={s.wrap}>

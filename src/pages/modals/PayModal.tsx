@@ -20,6 +20,9 @@ type PropsType = {
 }
 
 const PayModal: React.FC<PropsType> = ({open, setOpen}) => {
+    const style = {
+        width: '100%'
+    }
 
     const dispatch = useDispatch<AppDispatchType>()
 
@@ -83,9 +86,15 @@ const PayModal: React.FC<PropsType> = ({open, setOpen}) => {
                             placeholder={'Введите e-mail'}
                         />
                         <div className={s.pay__buttons}>
-                            <Button callBack={handleClose} type={'button'}
-                                    title={'Отмена'} light={true}/>
-                            <Button type={'submit'} title={'Отправить запрос'}/>
+                            <Button
+                                style={style}
+                                callBack={handleClose}
+                                type={'button'}
+                                title={'Отмена'}
+                                light={true}/>
+                            <Button
+                                type={'submit'}
+                                title={'Отправить запрос'}/>
                         </div>
                     </form>
                 </div>
