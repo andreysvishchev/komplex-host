@@ -8,7 +8,8 @@ export const modal = {
     boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.05)',
     backgroundColor: '#fff',
     padding: '34px',
-    outline: 'none'
+    outline: 'none',
+    width: 'max-content'
 }
 
 

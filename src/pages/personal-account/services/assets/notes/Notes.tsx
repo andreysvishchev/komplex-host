@@ -1,22 +1,24 @@
 import React from 'react';
 import s from './Notes.module.scss'
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../../store/store";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatchType, AppStateType} from "../../../../../store/store";
 import {NoteType} from "../../../../../reducers/notesReducer";
 import NotesMenu from "../../../../components/contextMenu/NotesMenu";
 import NoteModal from "../../../../modals/NoteModal";
 import Tooltip from "../../../../components/tooltip/Tooltip";
 import {Note} from "./note/Note";
-
+import {openNoteModal} from "../../../../../reducers/modalReducer";
 
 
 const Notes = () => {
-    const [openNoteModal, setOpenNoteModal] = React.useState(false);
-
-    const openNoteModalHandler = () => {
-        setOpenNoteModal(true)
-    }
     const notes = useSelector<AppStateType, Array<NoteType>>(state => state.notes)
+    const dispatch = useDispatch<AppDispatchType>()
+
+    const openNoteModalHandler = () => dispatch(openNoteModal({
+        open: true,
+        newNote: true,
+        date: new Date().toLocaleDateString()
+    }))
 
     return (
         <div className={s.wrap}>
@@ -29,7 +31,6 @@ const Notes = () => {
             </div>
             <div className={s.items}>
                 {notes.length !== 0 ?
-
                     notes.map(note => {
                         return (
                             <Note key={note.id}
@@ -42,17 +43,13 @@ const Notes = () => {
                     }) :
                     <div>
                         <h6 className={s.empty}>Пока нет записей</h6>
-                        <button onClick={openNoteModalHandler} className={s.addNote}>Добавить +</button>
+                        <button onClick={openNoteModalHandler}
+                                className={s.addNote}>Добавить +
+                        </button>
                     </div>
                 }
             </div>
-            <NoteModal
-                new={true}
-                date={new Date().toLocaleDateString()}
-                open={openNoteModal}
-                setOpen={setOpenNoteModal}
-                text={''}
-                important={false}/>
+            <NoteModal/>
         </div>
     );
 };

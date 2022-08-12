@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../../store/store";
 import {ConfidantType} from "../../../../../reducers/confidantReducer";
 import {Pagination} from "../../../../../function/pagination";
+import ConfidantModal from "../../../../modals/ConfidantModal";
 
 
 const ConfidantBlock = () => {
@@ -63,6 +64,7 @@ const ConfidantBlock = () => {
                 nextPage={nextPage}
                 prevPage={prevPage}
             />
+            <ConfidantModal/>
         </div>
     );
 };

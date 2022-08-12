@@ -1,4 +1,6 @@
-export const initState = {
+import {v1} from "uuid";
+
+export const initState: InitStateType = {
     configurator: {
         typeEquip: {
             caption: 'Тип оборудования',
@@ -58,11 +60,19 @@ export const initState = {
                 {value: '400MB/S', label: '400MB/S'}
             ]
         },
-    }
-
+    },
+    servers: [
+        {id: v1(), number: 'D-01', cpu: 'Intel Xeon E3-1220', ram: '16 GB', hdd: '2 x 1000 GB', ipmi: 'Да', price: 4000 },
+        {id: v1(), number: 'D-02', cpu: 'Intel Xeon E3-1220', ram: '32 GB', hdd: '2 x 2000 GB', ipmi: 'Да', price: 5000 },
+        {id: v1(), number: 'D-03', cpu: 'Intel Xeon E3-1220', ram: '64 GB', hdd: '2 x 3000 GB', ipmi: 'Да', price: 6000 },
+        {id: v1(), number: 'D-04', cpu: 'Intel Xeon E3-1220', ram: '16 GB', hdd: '2 x 1000 GB', ipmi: 'Да', price: 4000 },
+        {id: v1(), number: 'D-05', cpu: 'Intel Xeon E3-1220', ram: '32 GB', hdd: '2 x 1000 GB', ipmi: 'Да', price: 4500 },
+        {id: v1(), number: 'D-06', cpu: 'Intel Xeon E3-1220', ram: '64 GB', hdd: '3 x 2000 GB', ipmi: 'Да', price: 7000 },
+        {id: v1(), number: 'D-07', cpu: 'Intel Xeon E3-1220', ram: '32 GB', hdd: '2 x 2000 GB', ipmi: 'Да', price: 5000 },
+    ]
 }
 
-export const rentBlockReducer = (state: initStateType = initState, action: ActionsType) => {
+export const rentBlockReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
     switch (action) {
         default:
             return state
@@ -71,8 +81,53 @@ export const rentBlockReducer = (state: initStateType = initState, action: Actio
 }
 
 //types
-export type initStateType = {
-    configurator: ConfiguratorType
-}
-export type ConfiguratorType = typeof initState.configurator
 type ActionsType = {}
+type InitStateType = {
+    configurator: ConfiguratorType
+    servers: ServerItemType[]
+}
+export type ServerItemType = {
+    id: string
+    number: string
+    cpu: string
+    ram: string
+    hdd: string
+    ipmi: string
+    price: number
+}
+export type ConfiguratorType = {
+    typeEquip: {
+        caption: string
+        title: string
+        price: null
+    }
+    amountUnit: {
+        caption: string
+        amount: number
+        price: number
+    }
+    power: {
+        caption: string
+        list: ConfiguratorListType[]
+    }
+    sockets: {
+        caption: string
+        list: ConfiguratorListType[]
+    }
+    ports: {
+        caption: string
+        list: ConfiguratorListType[]
+    }
+    amountIP: {
+        caption: string
+        list: ConfiguratorListType[]
+    }
+    speed: {
+        caption: string
+        list: ConfiguratorListType[]
+    }
+}
+export type ConfiguratorListType = {
+    value: string
+    label: string
+}

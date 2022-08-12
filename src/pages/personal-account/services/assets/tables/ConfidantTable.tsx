@@ -24,7 +24,14 @@ type PropsType = {
     tableStatus: string
 }
 
-const ConfidantTable = ({data, nextPage, prevPage, lastIndex, maxPage, currentPage, setItemsPerPage, firsIndex, itemsAmount, setCurrentPage, tableStatus}: PropsType) => {
+const ConfidantTable: React.FC<PropsType> = (
+    {
+        data, nextPage, prevPage,
+        lastIndex, maxPage, currentPage,
+        setItemsPerPage, firsIndex, itemsAmount,
+        setCurrentPage, tableStatus
+    }
+) => {
     const [sort, changeSort] = useState<'desc' | 'asc'>('desc')
     const dispatch = useDispatch<AppDispatchType>()
     const [show, setShow] = useState(false)

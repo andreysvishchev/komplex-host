@@ -1,23 +1,30 @@
 import React, {useState} from 'react';
 import s from "./Table.module.scss";
-import {useAppSelector} from "../../../../../store/store";
 import Pagination from "../../../../components/pagination/Pagination";
+import {UnionType} from "../../../../../reducers/unionReducer";
 
-const UnionTable = () => {
+type PropsType = {
+    data: UnionType[]
+    currentPage: number
+    itemsAmount: number
+    maxPage: number
+    nextPage: () => void
+    prevPage: () => void
+    lastIndex: number
+    firsIndex: number
+}
 
-    let table = useAppSelector(state => state.union)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(20)
-    const itemsAmount = table.length
-    const maxPage = Math.ceil(table.length / itemsPerPage);
-    const lastItemIndex = currentPage * itemsPerPage
-    const firstItemIndex = lastItemIndex - itemsPerPage
-    table = table.slice(firstItemIndex, lastItemIndex)
+const UnionTable: React.FC<PropsType> = (
+    {
+        data, nextPage, prevPage,
+        lastIndex, maxPage, currentPage,
+        firsIndex, itemsAmount
+    }
+) => {
+
     const [show, setShow] = useState(false)
-
     const showPagination = () => setShow(!show)
-    const nextPage = () => setCurrentPage(prev => prev + 1)
-    const prevPage = () => setCurrentPage(prev => prev - 1)
+
 
     return (
         <>
@@ -27,15 +34,16 @@ const UnionTable = () => {
                     <h6 className={s.caption}>Сумма</h6>
                     <h6 className={s.caption}>Дата</h6>
                 </div>
-                {table.length !== 0 ?
-                    table.map(el => {
+                {data.length !== 0 ?
+                    data.map(el => {
                         return (
                             <div className={`${s.row} ${s.union}`} key={el.id}>
                                 <div className={s.col}>{el.check}</div>
                                 <div className={s.col}>{el.sum}</div>
                                 <div className={s.col}>{el.date}</div>
                                 <div className={s.col}>
-                                    {el.download && <a href="/" className={s.download} download/>}
+                                    {el.download &&
+                                    <a href="/" className={s.download} download/>}
                                 </div>
                             </div>
                         )
@@ -48,8 +56,8 @@ const UnionTable = () => {
                         maxPage={maxPage}
                         nextPage={nextPage}
                         prevPage={prevPage}
-                        lastIndex={lastItemIndex}
-                        firstIndex={firstItemIndex}
+                        lastIndex={lastIndex}
+                        firstIndex={firsIndex}
                         showPagination={showPagination}
                         show={show}
             />

@@ -5,6 +5,7 @@ import s from './PersonalAccount.module.scss'
 import {Outlet, useNavigate} from "react-router-dom";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
+import ConfirmModal from "../modals/ConfirmModal";
 
 
 
@@ -29,6 +30,7 @@ const PersonalAccount = () => {
                     <Outlet/>
                 </div>
             </div>
+            <ConfirmModal/>
         </div>
     );
 };

@@ -34,12 +34,12 @@ export const notesReducer = (state: InitStateType = initState, action: ActionTyp
 
 export type ActionType =
     | ReturnType<typeof deleteAllNotes>
-    | ReturnType<typeof deleteNoteAC>
+    | ReturnType<typeof deleteNote>
     | ReturnType<typeof addNoteAC>
     | ReturnType<typeof editNoteAC>
 
 
-export const deleteNoteAC = (noteId: string) => {
+export const deleteNote = (noteId: string) => {
     return {type: 'DELETE-NOTE', noteId} as const
 }
 export const deleteAllNotes = () => {

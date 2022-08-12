@@ -1,11 +1,11 @@
 import React from 'react';
 import s from "./InfoBlock.module.scss";
 import IpTable from "../tables/IpTable";
-import ConfidantMenu from "../../../../components/contextMenu/ConfidantMenu";
 import RentMenu from "../../../../components/contextMenu/rentMenu";
 
 type PropsType = {
     archive?: boolean
+
 }
 
 const ServerBlock = (props: PropsType) => {

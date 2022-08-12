@@ -4,11 +4,27 @@ import UnionTable from "../services/assets/tables/UnionTable";
 import Button from "../../components/button/Button";
 import PayModal from "../../modals/PayModal";
 import Tooltip from "../../components/tooltip/Tooltip";
+import {useDispatch} from "react-redux";
+import {AppDispatchType, useAppSelector} from "../../../store/store";
+import {openPayModal} from "../../../reducers/modalReducer";
+import {Pagination} from "../../../function/pagination";
 
 const Union = () => {
-    const [open, setOpen] = useState(false)
+    const dispatch = useDispatch<AppDispatchType>()
+    let data = useAppSelector(state => state.union)
+    const {
+        data: newData,
+        prevPage,
+        nextPage,
+        itemsAmount,
+        maxPage,
+        lastItemIndex,
+        firstItemIndex,
+        currentPage,
+    } = Pagination(data, 20)
+
     const openModal = () => {
-        setOpen(true)
+        dispatch(openPayModal(true))
     }
 
     return (
@@ -22,9 +38,18 @@ const Union = () => {
                     <Button callBack={openModal} type={'button'}
                             title={'Сформировать акт сверки'}/>
                 </div>
-                <UnionTable/>
+                <UnionTable
+                    data={newData}
+                    lastIndex={lastItemIndex}
+                    firsIndex={firstItemIndex}
+                    currentPage={currentPage}
+                    maxPage={maxPage}
+                    itemsAmount={itemsAmount}
+                    nextPage={nextPage}
+                    prevPage={prevPage}
+                />
             </div>
-            <PayModal open={open} setOpen={setOpen}/>
+            <PayModal/>
         </>
 
     );

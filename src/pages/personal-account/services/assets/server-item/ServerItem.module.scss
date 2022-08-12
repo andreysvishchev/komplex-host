@@ -1,0 +1,59 @@
+@import "../../../../../style/vars";
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $silver-shape;
+  padding: 30px;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__col {
+    width: max-content;
+    padding: 0 45px 0 10px;
+
+    &:nth-child(2) {
+      border-right: 1px solid $gray;
+      border-left: 1px solid $gray;
+    }
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5){
+      border-right: 1px solid $gray;
+    }
+
+    &.blue {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: $dark-blue;
+    }
+  }
+
+  &__caption {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $silver-text;
+    margin-bottom: 4px;
+  }
+
+  &__text {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: $black;
+
+    &.blue {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: $dark-blue;
+    }
+  }
+
+}

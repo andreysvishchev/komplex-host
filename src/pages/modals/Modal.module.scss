@@ -336,3 +336,24 @@
     gap: 16px;
   }
 }
+.server {
+  &__items {
+    max-height: 600px;
+    overflow: auto;
+    padding-right: 10px;
+    &::-webkit-scrollbar {
+      width: 4px;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #00B6F4;
+      border-radius: 10px;
+      height: 27px;
+      cursor: pointer;
+      width: 3px;
+    }
+    scrollbar-color: #00B6F4 #DEDEDE ;
+    scrollbar-width: thin;
+  }
+}

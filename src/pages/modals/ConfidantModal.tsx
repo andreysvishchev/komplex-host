@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Modal} from "@mui/material";
 import s from './Modal.module.scss'
 import {modal} from "../../style/style";
@@ -6,63 +6,68 @@ import {useDispatch} from "react-redux";
 import EditableInput from "../components/editable-input/EditableInput";
 import {addConfidant, editConfidant} from "../../reducers/confidantReducer";
 import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openConfidantModal} from "../../reducers/modalReducer";
 
-type PropsType = {
-    new?: boolean
-    id?: string
-    title: string
-    open: boolean
-    setOpen: (open: boolean) => void
-    passport: string
-    name: string
-    tel: string
-}
 
-const ConfidantModal = (props: PropsType) => {
+const ConfidantModal = () => {
     const dispatch = useDispatch<AppDispatchType>()
-    const handleClose = () => props.setOpen(false);
+    const open = useAppSelector(state => state.modal.confidantModal.open)
+    const newConfidant = useAppSelector(state => state.modal.confidantModal.newConfidant)
+    const id = useAppSelector(state => state.modal.confidantModal.id)
+    const title = useAppSelector(state => state.modal.confidantModal.title)
+    const passport = useAppSelector(state => state.modal.confidantModal.passport)
+    const name = useAppSelector(state => state.modal.confidantModal.name)
+    const tel = useAppSelector(state => state.modal.confidantModal.tel)
 
-    const [name, setName] = useState<string>(props.name)
-    const [passport, setPassport] = useState<string>(props.passport)
-    const [tel, setTel] = useState<string>(props.tel)
+    const [nameValue, setNameValue] = useState<string>(name!)
+    const [passportValue, setPassportValue] = useState<string>(passport!)
+    const [telValue, setTelValue] = useState<string>(tel!)
 
+    useEffect(()=> {
+        setNameValue(name!)
+        setPassportValue(passport!)
+        setTelValue(tel!)
+    },[name, passport, tel])
 
-    const nameHandler = (value: string) => setName(value)
-    const passportHandler = (value: string) => setPassport(value)
-    const telHandler = (value: string) => setTel(value)
-
+    const handleClose = () => dispatch(openConfidantModal({open: false, name: ''}))
+    const nameHandler = (value: string) => setNameValue(value)
+    const passportHandler = (value: string) => setPassportValue(value)
+    const telHandler = (value: string) => setTelValue(value)
 
     const editConfidantHandler = (name: string, passport: string, tel: string) => {
-            dispatch(editConfidant(props.id!, name, passport, tel))
-            props.setOpen(false)
+        dispatch(editConfidant(id!, name, passport, tel))
+        dispatch(openConfidantModal({open: false, name: ''}))
     }
 
     const newConfidantHandler = (name: string, passport: string, tel: string) => {
         if (name !== '' && tel !== '') {
             dispatch(addConfidant(name, passport, tel))
-            setName('')
-            setTel('')
-            setPassport('')
-            props.setOpen(false)
+            setNameValue('')
+            setTelValue('')
+            setPassportValue('')
+            dispatch(openConfidantModal({open: false, name: ''}))
         }
     }
 
     return (
         <Modal
-            open={props.open}
+            open={open}
             onClose={handleClose}>
             <Box sx={modal}>
                 <button onClick={handleClose} className={s.close}/>
-                <div className={s.caption}>{props.title} </div>
-                <EditableInput caption={'ФИО'} placeholder={'Введите ФИО'} value={name} setValue={nameHandler}/>
-                <EditableInput caption={'Серия и номер паспорта'} placeholder={'Введите серию и номер паспорта'}
-                               value={passport} setValue={passportHandler}/>
-                <EditableInput caption={'Телефон'} placeholder={'Введите телефон'} value={tel} setValue={telHandler}/>
+                <div className={s.caption}>{title} </div>
+                <EditableInput caption={'ФИО'} placeholder={'Введите ФИО'} value={nameValue}
+                               setValue={nameHandler}/>
+                <EditableInput caption={'Серия и номер паспорта'}
+                               placeholder={'Введите серию и номер паспорта'}
+                               value={passportValue} setValue={passportHandler}/>
+                <EditableInput caption={'Телефон'} placeholder={'Введите телефон'}
+                               value={telValue} setValue={telHandler}/>
                 <div className={s.row}>
                     <button onClick={handleClose} className={s.cancel}>Отмена</button>
-                    <button onClick={props.new
-                        ? () => newConfidantHandler(name, passport, tel)
-                        : () => editConfidantHandler(name, passport, tel)
+                    <button onClick={newConfidant
+                        ? () => newConfidantHandler(nameValue, passportValue, telValue)
+                        : () => editConfidantHandler(nameValue, passportValue, telValue)
                     } className={s.save}>Сохранить
                     </button>
                 </div>

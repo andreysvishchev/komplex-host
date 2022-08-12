@@ -4,29 +4,34 @@ import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
 import {deleteAllConfidant, deleteConfidant} from "../../reducers/confidantReducer";
 import {useDispatch} from "react-redux";
-import {deleteAllNotes} from "../../reducers/notesReducer";
-import {openNoticeModal} from "../../reducers/modalReducer";
+import {deleteAllNotes, deleteNote} from "../../reducers/notesReducer";
+import {
+    ConfirmParamsType,
+    openConfirmModal,
+    openNoticeModal
+} from "../../reducers/modalReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
 
-type PropsType = {
-    messages: string
-    open: boolean
-    setOpen: (open: boolean) => void
-    deleteAll?: boolean
-    notes?: boolean
-    noteId?: string
-    noteCaption?: string
-    confidant?: boolean
-    confidantId?: string
-    confidantCaption?: string
-    rent?: boolean
-}
 
-const ConfirmModal = (props: PropsType) => {
-    const handleClose = () => props.setOpen(false);
-    const dispatch = useDispatch()
+const ConfirmModal = () => {
+    const closeParams: ConfirmParamsType = {
+        open: false,
+        deleteAll: false,
+        messages: '',
+        type: ''
+    }
+    const deleteAll = useAppSelector(state => state.modal.confirmModal.deleteAll)
+    const messages = useAppSelector(state => state.modal.confirmModal.messages)
+    const type = useAppSelector(state => state.modal.confirmModal.type)
+    const open = useAppSelector(state => state.modal.confirmModal.open)
+    const noteData = useAppSelector(state => state.modal.confirmModal.noteData)
+    const confidantData = useAppSelector(state => state.modal.confirmModal.confidantData)
+    const dispatch = useDispatch<AppDispatchType>()
+
+    const handleClose = () => dispatch(openConfirmModal(closeParams));
 
     const deleteConfidantsHandler = () => {
-        props.setOpen(false);
+        dispatch(openConfirmModal(closeParams));
         dispatch(deleteAllConfidant())
         dispatch(openNoticeModal({
             open: true,
@@ -35,7 +40,7 @@ const ConfirmModal = (props: PropsType) => {
         }))
     }
     const deleteNotesHandler = () => {
-        props.setOpen(false);
+        dispatch(openConfirmModal(closeParams));
         dispatch(deleteAllNotes())
         dispatch(openNoticeModal({
             open: true,
@@ -44,28 +49,26 @@ const ConfirmModal = (props: PropsType) => {
         }))
     }
     const deleteNoteHandler = () => {
-        if (props.noteId) {
-            props.setOpen(false)
-            dispatch(openNoticeModal({
-                open: true,
-                success: true,
-                message: `Запись ${props.noteCaption} удалена`
-            }))
-        }
+        dispatch(openConfirmModal(closeParams));
+        dispatch(deleteNote(noteData!.id))
+        dispatch(openNoticeModal({
+            open: true,
+            success: true,
+            message: `Запись ${noteData!.caption} удалена`
+        }))
     }
     const deleteConfidantHandler = () => {
-        if (props.confidantId) {
-            props.setOpen(false)
-            dispatch(deleteConfidant(props.confidantId))
-            dispatch(openNoticeModal({
-                open: true,
-                success: true,
-                message: `Доверенное лицо ${props.confidantCaption} удалено из таблицы`
-            }))
-        }
+        dispatch(openConfirmModal(closeParams));
+        dispatch(deleteConfidant(confidantData!.id))
+        dispatch(openNoticeModal({
+            open: true,
+            success: true,
+            message: `Доверенное лицо ${confidantData!.caption} удалено из таблицы`
+        }))
+
     }
     const offRentHandler = () => {
-        props.setOpen(false)
+        dispatch(openConfirmModal(closeParams));
         dispatch(openNoticeModal({
             open: true,
             success: true,
@@ -76,26 +79,26 @@ const ConfirmModal = (props: PropsType) => {
     return (
         <div>
             <Modal
-                open={props.open}
+                open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={modal}>
                     <div className={s.confirm}>
-                        <div className={s.message}>{props.messages}</div>
+                        <div className={s.message}>{messages}</div>
                         <div className={s.row}>
                             <button onClick={handleClose} className={s.cancel}>Отмена
                             </button>
-                            {props.confidant &&
+                            {type === "confidant" &&
                             <button
-                                onClick={props.deleteAll ? deleteConfidantsHandler : deleteConfidantHandler}
+                                onClick={deleteAll ? deleteConfidantsHandler : deleteConfidantHandler}
                                 className={s.save}>Ок</button>}
-                            {props.notes &&
+                            {type === "notes" &&
                             <button
-                                onClick={props.deleteAll ? deleteNotesHandler : deleteNoteHandler}
+                                onClick={deleteAll ? deleteNotesHandler : deleteNoteHandler}
                                 className={s.save}>Ок</button>}
-                            {props.rent &&
+                            {type === "rent" &&
                             <button onClick={offRentHandler}
                                     className={s.save}>Ок</button>}
                         </div>

@@ -16,11 +16,11 @@
   gap: 15px;
 
   &.confidant {
-    grid-template-columns: 30% 30% 20% 100px;
+    grid-template-columns: 1.5fr 1fr 1fr 60px;
   }
 
   &.equip {
-    grid-template-columns: 30% 30% 40%;
+    grid-template-columns: 1.35fr 1fr 1fr;
   }
 
   &.ip {
@@ -28,15 +28,15 @@
   }
 
   &.rent {
-    grid-template-columns: 50% 15% 15% 20%;
+    grid-template-columns: 4fr 1fr 1fr 1fr;
 
     &.archive {
-      grid-template-columns: 70% 30%;
+      grid-template-columns: 3fr 1fr;
     }
   }
 
   &.union {
-    grid-template-columns: 1fr 25% 15% 70px;
+    grid-template-columns: 3fr 1fr 1fr 60px;
   }
 }
 
@@ -45,14 +45,19 @@
   padding: 8px 19px;
   display: grid;
   gap: 15px;
+  transition: background-color .2s ease-in-out;
+
+  &:hover {
+    background-color: rgba(222, 222, 222, .2);
+  }
 
   &.confidant {
-    grid-template-columns: 30% 30% 20% 100px;
+    grid-template-columns: 1.5fr 1fr 1fr 60px;
     position: relative;
   }
 
   &.equip {
-    grid-template-columns: 30% 30% 40%;
+    grid-template-columns: 1.35fr 1fr 1fr;
   }
 
   &.ip {
@@ -60,15 +65,15 @@
   }
 
   &.rent {
-    grid-template-columns: 50% 15% 15% 20%;
+    grid-template-columns: 4fr 1fr 1fr 1fr;
 
     &.archive {
-      grid-template-columns: 70% 30%;
+      grid-template-columns: 3fr 1fr;
     }
   }
 
   &.union {
-    grid-template-columns: 1fr 25% 15% 70px;
+    grid-template-columns: 3fr 1fr 1fr 60px;
   }
 }
 
@@ -186,9 +191,10 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+
   &.desc {
     &:after {
-      transform: rotate(180deg);
+      transform: rotate(0deg);
     }
   }
 
@@ -197,8 +203,9 @@
     width: 10px;
     height: 7px;
     display: block;
-    margin-left: 5px;
+    margin-left: 10px;
     background-image: url('../../../../../img/arrow-sort.svg');
+    transform: rotate(180deg);
     background-repeat: no-repeat;
     background-size: cover;
     transition: transform .1s ease-in-out;

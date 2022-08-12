@@ -2,32 +2,30 @@ import React from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
-import {AppDispatchType} from "../../store/store";
+import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
 import ru from "date-fns/locale/ru";
 import Input from "../components/Input/Input";
 import Button from "../components/button/Button";
 import {useFormik} from "formik";
 import DatePickerField from "../components/date-picker/DatePickerField";
+import {openPayModal} from "../../reducers/modalReducer";
 
 type FormikErrorType = {
     email?: string
 }
 
-type PropsType = {
-    open: boolean
-    setOpen: (open: boolean) => void
-}
+type PropsType = {}
 
-const PayModal: React.FC<PropsType> = ({open, setOpen}) => {
+const PayModal: React.FC<PropsType> = ({}) => {
     const style = {
         width: '100%'
     }
-
+    const open = useAppSelector(state => state.modal.payModal)
     const dispatch = useDispatch<AppDispatchType>()
 
     const handleClose = () => {
-        setOpen(false)
+        dispatch(openPayModal(false))
     }
 
     const formik = useFormik({

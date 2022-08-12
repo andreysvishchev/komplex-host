@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {RentTable} from '../tables/RentTable';
 import s from "./InfoBlock.module.scss";
-import ConfidantMenu from "../../../../components/contextMenu/ConfidantMenu";
-import Configurator from "../../../../modals/Configurator";
 import RentMenu from "../../../../components/contextMenu/rentMenu";
 import Tooltip from "../../../../components/tooltip/Tooltip";
 

@@ -1,26 +1,30 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Box, Modal} from "@mui/material";
 import {modal} from "../../style/style";
 import s from "./Modal.module.scss";
 import {useDispatch} from "react-redux";
 import {addNoteAC, editNoteAC} from "../../reducers/notesReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openNoteModal} from "../../reducers/modalReducer";
 
+const NoteModal = () => {
+    const open = useAppSelector(state => state.modal.noteModal.open)
+    const newNote = useAppSelector(state => state.modal.noteModal.newNote)
+    const date = useAppSelector(state => state.modal.noteModal.date)
+    const text = useAppSelector(state => state.modal.noteModal.text)
+    const id = useAppSelector(state => state.modal.noteModal.id)
+    const important = useAppSelector(state => state.modal.noteModal.important)
 
-type PropsType = {
-    new?: boolean
-    id?: string
-    date: string
-    open: boolean
-    setOpen: (open: boolean) => void
-    text: string
-    important: boolean
-}
+    const dispatch = useDispatch<AppDispatchType>()
+    const [check, setCheck] = useState<boolean>(important!)
+    const [value, setValue] = useState<string>(text!)
 
-const NoteModal = (props: PropsType) => {
-    const handleClose = () => props.setOpen(false);
-    const [check, setCheck] = useState<boolean>(props.important)
-    const [value, setValue] = useState<string>(props.text)
-    const dispatch = useDispatch()
+    useEffect(() => {
+        setCheck(important!)
+        setValue(text!)
+    }, [text, important])
+
+    const handleClose = () => dispatch(openNoteModal({open: false}));
     const onCheckHandler = () => {
         setCheck(!check)
     }
@@ -28,39 +32,41 @@ const NoteModal = (props: PropsType) => {
         setValue(e.currentTarget.value)
     }
     const addNote = () => {
-        if (value !== '') {
-            dispatch(addNoteAC(props.date, value, check))
-            setValue('')
-            props.setOpen(false)
-        }
+        dispatch(addNoteAC(date!, value, check))
+        setValue('')
+        dispatch(openNoteModal({open: false}))
+
     }
     const editNote = () => {
-        if(props.id) {
-            dispatch(editNoteAC(props.id, value, check))
-            props.setOpen(false)
-        }
+        dispatch(editNoteAC(id!, value, check))
+        dispatch(openNoteModal({open: false}))
     }
+
 
     return (
         <>
             <Modal
-                open={props.open}
+                open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={modal}>
                     <button onClick={handleClose} className={s.close}/>
-                    <div className={s.caption}>{props.date}</div>
-                    <textarea onChange={onChangeHandler} className={s.textarea} value={value}/>
+                    <div className={s.caption}>{date}</div>
+                    <textarea onChange={onChangeHandler} className={s.textarea}
+                              value={value}/>
                     <label className={s.checkbox}>
                         <div className={s.checkbox__text}>Отметить важность</div>
-                        <span className={check ? `${s.checkbox__icon} ${s.active}` : s.checkbox__icon}/>
-                        <input onChange={onCheckHandler} className={s.checkbox__input} type="checkbox" checked={check}/>
+                        <span
+                            className={check ? `${s.checkbox__icon} ${s.active}` : s.checkbox__icon}/>
+                        <input onChange={onCheckHandler} className={s.checkbox__input}
+                               type="checkbox" checked={check}/>
                     </label>
                     <div className={s.row}>
                         <button onClick={handleClose} className={s.cancel}>Отмена</button>
-                        <button className={s.save} onClick={props.new ? addNote : editNote}>Сохранить
+                        <button className={s.save}
+                                onClick={newNote ? addNote : editNote}>Сохранить
                         </button>
                     </div>
                 </Box>
