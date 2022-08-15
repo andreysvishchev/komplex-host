@@ -8,12 +8,9 @@ const instance = axios.create({
 
 
 export const supportApi = {
-    getApplications() {
-        return axios.get('http://localhost:3004/applications')
+    getSupportData() {
+        return axios.get('http://localhost:3004/support')
     },
-    getMessages() {
-        return axios.get('http://localhost:3004/messages')
-    }
 }
 
 export const servicesApi = {
@@ -48,4 +45,6 @@ export const authApi = {
         return instance.post(`recovery`, {guid, password})
     }
 }
+
+
 

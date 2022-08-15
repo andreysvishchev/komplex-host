@@ -1,20 +1,17 @@
 import React, {MutableRefObject, useState} from 'react';
 import s from "./ContextMenu.module.scss";
 import Configurator from "../../modals/Configurator";
-import ConfirmModal from "../../modals/ConfirmModal";
 import {useOnClickOutside} from "../../../function/useOnClickOutside";
 import {useDispatch} from "react-redux";
-import {AppDispatchType, useAppSelector} from "../../../store/store";
-import {openConfirmModal} from "../../../reducers/modalReducer";
+import {AppDispatchType} from "../../../store/store";
+import {openConfigurator, openConfirmModal} from "../../../reducers/modalReducer";
 
 const RentMenu = () => {
-
     const [toggle, setToggle] = useState(false);
     const myRef = React.useRef() as MutableRefObject<HTMLDivElement>
-    useOnClickOutside(myRef, () => setToggle(false))
-    const openConfirm = useAppSelector(state=> state.modal.confirmModal)
     const dispatch = useDispatch<AppDispatchType>()
-    const [openConfigurator, setOpenConfigurator] = useState<boolean>(false)
+
+    useOnClickOutside(myRef, () => setToggle(false))
 
     const openConfirmModalHandler = () => dispatch(openConfirmModal({
         open: true,
@@ -22,9 +19,8 @@ const RentMenu = () => {
         messages: 'Вы уверены, что хотите отключить услугу Аренда места?'
     }))
 
-
     const openConfiguratorHandler = () => {
-        setOpenConfigurator(true)
+      dispatch(openConfigurator(true))
     }
 
     return (
@@ -42,7 +38,7 @@ const RentMenu = () => {
                 <button onClick={openConfirmModalHandler} className={s.button}>Отключить
                 </button>
             </div>
-            <Configurator open={openConfigurator} setOpen={setOpenConfigurator}/>
+            <Configurator/>
         </div>
     );
 };

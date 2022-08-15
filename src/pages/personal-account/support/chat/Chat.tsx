@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import s from '../Support.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../../store/store";
@@ -6,42 +6,27 @@ import {ApplicationType,} from "../../../../reducers/supportReducer";
 import MessageForm from "../assets/message-form/MessageForm";
 import Message from "./Message";
 import {authReducer} from "../../../../reducers/authReducer";
+import MessagesContainer from "./MessagesContainer";
 
 type PropsType = {
     applications: ApplicationType[]
-    id: string
+    id: number
 }
 
-const Chat = React.memo((props: PropsType) => {
+const Chat = (props: PropsType) => {
 
-    const dispatch = useDispatch<AppDispatchType>()
+    const filterApplications = props.applications.filter(el => el.id === props.id)
+    const data = filterApplications[0]
     const [end, setEnd] = useState<boolean>(true)
-    const messages = useSelector<AppStateType, ApplicationType[]>(state => state.support)
-    const arr = props.applications.filter(el => el.id === props.id)
-    const ref = React.useRef() as React.MutableRefObject<HTMLDivElement>
-    const [autoScroll, setAutoScroll] = useState(true)
+    const dispatch = useDispatch<AppDispatchType>()
 
 
-    useEffect(() => {
-        if (autoScroll) {
-            ref.current?.scrollIntoView({behavior: "smooth"})
-        }
-
-    }, [messages])
 
 
-    const onScrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-        console.log(autoScroll)
-        const el = e.currentTarget
-        el.scrollTop === 0 ? setEnd(false) : setEnd(true)
-        // ????
-        if(Math.abs((el.scrollHeight - el.scrollHeight) - el.clientHeight) < 100) {
-            setAutoScroll(true)
-        } else {
-            setAutoScroll(false)
-        }
 
-    }
+
+
+
 
 
     return (
@@ -49,28 +34,21 @@ const Chat = React.memo((props: PropsType) => {
             <div className={s.chat__top}>
                 <div className={end ? `${s.chat__head} ${s.end}` : s.chat__head}>
                     <div className={s.chat__title}>
-                        Заявка №{arr[0] ? arr[0].number_app : ''}
+                        Заявка №{data && `${data.number_app} ${data.title}`}
                     </div>
-                    <div className={s.chat__status}>{arr[0] ? arr[0].status : ''}</div>
+                    <div
+                        className={data && data.status ? `${s.chat__status} ${s.open} ` : `${s.chat__status} ${s.close}`}>
+                        {data && data.status ? 'Открыта' : 'Закрыта'}
+                    </div>
                     <div className={s.chat__date}>24 августа</div>
                 </div>
             </div>
-
-            <div onScroll={onScrollHandler} className={s.chat__messages}>
-                {arr[0] &&
-                arr[0].messages.map(el => {
-                    return (
-                        <Message data={el} key={el.id}/>
-                    )
-                })
-                }
-                <div ref={ref}/>
-            </div>
+           <MessagesContainer data={data} setEnd={setEnd}/>
             <div className={s.chat__bot}>
                 <MessageForm/>
             </div>
         </div>
     );
-});
+};
 
 export default Chat;

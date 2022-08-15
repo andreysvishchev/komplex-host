@@ -36,7 +36,7 @@ const ConfidantModal = () => {
 
     const editConfidantHandler = (name: string, passport: string, tel: string) => {
         dispatch(editConfidant(id!, name, passport, tel))
-        dispatch(openConfidantModal({open: false, name: ''}))
+        dispatch(openConfidantModal({open: false}))
     }
 
     const newConfidantHandler = (name: string, passport: string, tel: string) => {
@@ -45,7 +45,7 @@ const ConfidantModal = () => {
             setNameValue('')
             setTelValue('')
             setPassportValue('')
-            dispatch(openConfidantModal({open: false, name: ''}))
+            dispatch(openConfidantModal({open: false}))
         }
     }
 

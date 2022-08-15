@@ -1,12 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import s from '../Support.module.scss'
-import {ApplicationType,  MessageType} from "../../../../reducers/supportReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../store/store";
+import {ApplicationType} from "../../../../reducers/supportReducer";
+import {useDispatch} from "react-redux";
 
 type PropsType = {
     data: ApplicationType
-    setId: (id: string) => void
+    setId: (id: number) => void
+    curApp: number
 }
 
 const Application = (props: PropsType) => {
@@ -19,12 +19,14 @@ const Application = (props: PropsType) => {
     }
 
     return (
-        <div onClick={callback} className={s.application} id={id}>
-            <div className={!read ? `${s.application__top} ${s.not}` : s.application__top}>
+        <div onClick={callback}
+             className={props.curApp === id ? `${s.application} ${s.active}` : s.application}>
+            <div
+                className={!read ? `${s.application__top} ${s.not}` : s.application__top}>
                 <div className={s.application__title}>{title}</div>
-                <span className={status === 'open' ? `${s.application__status} ${s.open}` :
+                <span className={status ? `${s.application__status} ${s.open}` :
                     `${s.application__status} ${s.close}`}>
-                    {status === 'open' ? 'Открыта' : 'Закрыта'}</span>
+                    {status ? 'Открыта' : 'Закрыта'}</span>
             </div>
             <div className={s.application__message}>{last_message}</div>
             <div className={s.application__date}>{created_date}</div>

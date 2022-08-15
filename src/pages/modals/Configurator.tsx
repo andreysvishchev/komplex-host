@@ -5,38 +5,40 @@ import {modal} from "../../style/style";
 import Input from "../components/Input/Input";
 import FormSelect from "../components/form-select/FormSelect";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../store/store";
+import {AppDispatchType, AppStateType, useAppSelector} from "../../store/store";
 import {ConfiguratorType} from "../../reducers/rentBlockReducer";
-import {openNoticeModal} from "../../reducers/modalReducer";
+import {openConfigurator, openNoticeModal} from "../../reducers/modalReducer";
 import Button from "../components/button/Button";
 
 
 type PropsType = {
-    open: boolean
-    setOpen: (open: boolean) => void
+
+}
+
+const style = {
+    width: '100%'
 }
 
 const Configurator = (props: PropsType) => {
-    const handleClose = () => props.setOpen(false)
     const configurator = useSelector<AppStateType, ConfiguratorType>(state => state.rent.configurator)
-    const dispatch = useDispatch()
+    const open  = useAppSelector(state => state.modal.configurator)
+    const dispatch = useDispatch<AppDispatchType>()
+
+    const handleClose = () => dispatch(openConfigurator(false))
+
     const saveConfiguration = () => {
-        props.setOpen(false)
+        dispatch(openConfigurator(false))
         dispatch(openNoticeModal({
             open: true,
             success: true,
             message: 'Запрос на изменение услуги Аренда места отправлен'
         }))
     }
-    const style = {
-        width: '100%'
-    }
-
 
     return (
         <div className={s.configurator}>
             <Modal
-                open={props.open}
+                open={open}
                 onClose={handleClose}>
                 <Box sx={modal}>
                     <button onClick={handleClose} className={s.close}/>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import s from '../Support.module.scss'
 import Tooltip from "../../../components/tooltip/Tooltip";
 import {useDispatch} from "react-redux";
@@ -9,17 +9,20 @@ import ChatSearch from "../assets/chat-search/ChatSearch";
 
 type PropsType = {
     applications: ApplicationType[]
-    setId: (id: string) => void
+    setId: (id: number) => void
+    curApp: number
 }
 
 const Applications = React.memo((props: PropsType) => {
-
+    const length = props.applications.length
     const dispatch = useDispatch<AppDispatchType>()
     const [end, setEnd] = useState(false)
-    const ref = React.useRef() as React.MutableRefObject<HTMLDivElement>
+    const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
-    const onScrollHandler = (e: React.SyntheticEvent)=> {
-        if (e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight) {
+    const onScrollHandler = (e: React.SyntheticEvent) => {
+        const a = Math.round(e.currentTarget.scrollHeight - e.currentTarget.scrollTop)
+        const b = e.currentTarget.clientHeight
+        if (Math.round(e.currentTarget.scrollHeight - e.currentTarget.scrollTop) < e.currentTarget.clientHeight + 50) {
             setEnd(true)
         } else {
             setEnd(false)
@@ -33,18 +36,18 @@ const Applications = React.memo((props: PropsType) => {
                     <div className={s.applications__title}>Заявки</div>
                     <Tooltip/>
                     {
-                        props.applications.length !== 0 &&
+                        length !== 0 &&
                         <button type={'button'} className={s.applications__button}>Создать
                             заявку
                         </button>
                     }
                 </div>
                 {
-                    props.applications.length !== 0 &&
+                    length !== 0 &&
                     <ChatSearch/>
                 }
                 {
-                    props.applications.length !== 0 &&
+                    length !== 0 &&
                     <div className={s.sort}>
                         <div className={s.sort__caption}>Сортировка по:</div>
                         <button className={s.sort__btn}>Дате</button>
@@ -53,11 +56,13 @@ const Applications = React.memo((props: PropsType) => {
                 }
             </div>
 
-            <div ref={ref} onScroll={onScrollHandler} className={s.applications__list}>
-                {props.applications.length !== 0 ?
+            <div ref={ref} onScroll={onScrollHandler}
+                 className={s.applications__list}>
+                {length !== 0 ?
                     props.applications.map(el => {
                         return (
                             <Application
+                                curApp={props.curApp}
                                 setId={props.setId}
                                 key={el.id}
                                 data={el}/>

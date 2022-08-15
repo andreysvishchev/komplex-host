@@ -1,348 +1,48 @@
 import {Dispatch} from "redux";
 import {supportApi} from "../api/api";
-import {v1} from "uuid";
 
-export type ApplicationType = {
-    id: string
-    number_app: string
-    title: string
-    last_message: string
-    created_date: string
-    read: boolean
-    status: string
-    messages: MessageType[]
-}
-
-export type MessageType = {
-    id: string
-    text: string
-    time: string
-    my: boolean
-}
-
-
-let initialState:ApplicationType[] = [
-    {
-        id: v1(),
-        number_app: '20124',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: false,
-        status: 'open',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: false
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: false
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: false
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: false
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-    {
-        id: v1(),
-        number_app: '20224',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: true,
-        status: 'open',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-    {
-        id: v1(),
-        number_app: '20254',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: true,
-        status: 'close',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-    {
-        id: v1(),
-        number_app: '20124',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: true,
-        status: 'close',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-    {
-        id: v1(),
-        number_app: '20324',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: true,
-        status: 'close',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-    {
-        id: v1(),
-        number_app: '20124',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: true,
-        status: 'close',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-    {
-        id: v1(),
-        number_app: '20224',
-        title: 'Как оплатить аренду стойки',
-        last_message: 'Какой-то текст из последнего диалога последнего диалога',
-        created_date: '06.07.2022, 12:01:12',
-        read: true,
-        status: 'close',
-        messages: [
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-            {
-                id: v1(),
-                text: 'Какой-то текст Какой-то текст',
-                time: '12:34',
-                my: true
-            },
-        ]
-    },
-]
+let initialState: ApplicationType[] = []
 
 export const supportReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    switch (action) {
-
+    switch (action.type) {
+        case "GET-DATA":
+            return action.data
 
         default:
             return state
     }
 }
 
+export const getSupportData = (data: ApplicationType[]) => {
+    return {type: 'GET-DATA', data} as const
+}
 
+export const fetchSupportData = () => (dispatch: Dispatch) => {
+
+    supportApi.getSupportData()
+        .then((res)=> {
+          dispatch(getSupportData(res.data))
+        })
+
+
+}
 
 export type InitialStateType = ApplicationType[]
+export type ApplicationType = {
+    id: number
+    number_app: string
+    title: string
+    last_message: string
+    created_date: string
+    read: boolean
+    status: boolean
+    messages: MessageType[]
+}
+export type MessageType = {
+    id: number
+    text: string
+    time: string
+    my: boolean
+}
 
-
-
-
-export type ActionsType = {}
+export type ActionsType = ReturnType<typeof getSupportData>
