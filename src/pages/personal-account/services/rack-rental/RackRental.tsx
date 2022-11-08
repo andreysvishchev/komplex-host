@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import RentBlock from "../assets/info-blocks/RentBlock";
-import Notes from "../assets/notes/Notes";
-import EquipBlock from "../assets/info-blocks/EquipBlock";
-import ConfidantBlock from "../assets/info-blocks/ConfidantBlock";
-import IpBlock from "../assets/info-blocks/IpBlock";
+import RentPlaceFrame from "../assets/frames/rent-place-frame/RentPlaceFrame";
+import NotesFrame from "../assets/frames/notes-frame/NotesFrame";
+import EquipFrame from "../assets/frames/equip-frame/EquipFrame";
+import ConfidantFrame from "../assets/frames/confidant-frame/ConfidantFrame";
+import IpFrame from "../assets/frames/ip-frame/IpFrame";
 import ru from "date-fns/locale/ru";
 import s from '../Services.module.scss'
 import ReactDatePicker from "react-datepicker";
@@ -12,7 +12,7 @@ const RackRental = () => {
     const [startDate, setStartDate] = useState(new Date());
     return (
         <div className={s.wrap}>
-            <RentBlock/>
+            <RentPlaceFrame/>
             <div className={s.row}>
                 <ReactDatePicker
                     selected={startDate}
@@ -21,11 +21,11 @@ const RackRental = () => {
                     inline
                     calendarClassName="calendar-inline"
                 />
-                <Notes/>
+                <NotesFrame/>
             </div>
-            <EquipBlock/>
-            <ConfidantBlock/>
-            <IpBlock/>
+            <EquipFrame/>
+            <ConfidantFrame/>
+            <IpFrame/>
         </div>
     );
 };

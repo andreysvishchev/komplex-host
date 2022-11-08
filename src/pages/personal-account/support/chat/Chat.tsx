@@ -1,11 +1,9 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import s from '../Support.module.scss'
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatchType, AppStateType} from "../../../../store/store";
-import {ApplicationType,} from "../../../../reducers/supportReducer";
+import {useDispatch} from "react-redux";
+import {AppDispatchType} from "../../../../store/store";
+import {ApplicationType,} from "../../../../store/supportReducer";
 import MessageForm from "../assets/message-form/MessageForm";
-import Message from "./Message";
-import {authReducer} from "../../../../reducers/authReducer";
 import MessagesContainer from "./MessagesContainer";
 
 type PropsType = {

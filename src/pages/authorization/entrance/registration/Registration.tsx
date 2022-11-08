@@ -1,13 +1,13 @@
 import React from 'react';
-import s from "../../../forms/Form.module.scss";
-import Input from "../../../components/Input/Input";
+import s from "../../../../components/forms/Form.module.scss";
+import Input from "../../../../components/Input/Input";
 import {useDispatch} from "react-redux";
-import {registrationPage} from '../../../../reducers/registrationReducer';
+import {registrationPage} from '../../../../store/registrationReducer';
 import {useFormik} from "formik";
-import {getCaptchaUrl, registration} from "../../../../reducers/authReducer";
+import {getCaptchaUrl, registration} from "../../../../store/authReducer";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
-import CaptchaModal from "../../../modals/CaptchaModal";
-import Button from "../../../components/button/Button";
+import CaptchaModal from "../../../../components/modals/CaptchaModal";
+import Button from "../../../../components/button/Button";
 
 
 type FormikErrorType = {

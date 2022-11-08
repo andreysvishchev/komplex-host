@@ -1,18 +1,18 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
-import {notesReducer} from "../reducers/notesReducer";
-import {confidantReducer} from "../reducers/confidantReducer";
-import {noticeReducer} from "../reducers/noticeReducer";
-import {authReducer} from "../reducers/authReducer";
+import {notesReducer} from "./notesReducer";
+import {confidantReducer} from "./confidantReducer";
+import {noticeReducer} from "./noticeReducer";
+import {authReducer} from "./authReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {modalReducer} from "../reducers/modalReducer";
-import {equipReducer} from "../reducers/equipReducer";
-import {rentBlockReducer} from "../reducers/rentBlockReducer";
-import {registrationReducer} from "../reducers/registrationReducer";
-import {supportReducer} from "../reducers/supportReducer";
+import {modalReducer} from "./modalReducer";
+import {equipReducer} from "./equipReducer";
+import {rentBlockReducer} from "./rentBlockReducer";
+import {registrationReducer} from "./registrationReducer";
+import {supportReducer} from "./supportReducer";
 import thunk, { ThunkDispatch } from "redux-thunk";
-import {errorReducer} from "../reducers/errorReducer";
-import {appReducer} from "../reducers/appReducer";
-import {unionReducer} from "../reducers/unionReducer";
+import {errorReducer} from "./errorReducer";
+import {appReducer} from "./appReducer";
+import {unionReducer} from "./unionReducer";
 
 
 const rootReducer = combineReducers({

@@ -6,9 +6,9 @@ import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {Route, Routes, useLocation, useSearchParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../store/store";
-import {loginError} from "../../../reducers/errorReducer";
-import ConfirmPasswordModal from "../../modals/ConfirmPasswordModal";
-import {openConfirmRecoveryModal} from "../../../reducers/modalReducer";
+import {loginError} from "../../../store/errorReducer";
+import ConfirmPasswordModal from "../../../components/modals/ConfirmPasswordModal";
+import {openConfirmRecoveryModal} from "../../../store/modalReducer";
 
 
 const Entrance = () => {

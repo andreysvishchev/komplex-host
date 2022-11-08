@@ -257,6 +257,9 @@
   outline: none;
   transition: border-color .2s ease-in-out;
   -moz-appearance: textfield;
+  &.error {
+    border-color: $red;
+  }
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

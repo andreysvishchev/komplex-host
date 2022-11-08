@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+ import React, {useEffect, useRef, useState} from 'react';
 import s from '../Support.module.scss'
-import Tooltip from "../../../components/tooltip/Tooltip";
+import Tooltip from "../../../../components/tooltip/Tooltip";
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../../../../store/store";
-import {ApplicationType} from "../../../../reducers/supportReducer";
+import {ApplicationType} from "../../../../store/supportReducer";
 import Application from "./application";
 import ChatSearch from "../assets/chat-search/ChatSearch";
 

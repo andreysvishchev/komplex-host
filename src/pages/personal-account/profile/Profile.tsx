@@ -1,10 +1,10 @@
 import React from 'react';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import s from "../PersonalAccount.module.scss";
-import MailAddressForm from '../../forms/MailAddressForm';
-import ContactsForm from "../../forms/ContactsForm";
-import RequisitesForm from "../../forms/RequisitesForm";
-import CommonForm from "../../forms/CommonForm";
+import MailAddressForm from '../../../components/forms/MailAddressForm';
+import ContactsForm from "../../../components/forms/ContactsForm";
+import RequisitesForm from "../../../components/forms/RequisitesForm";
+import CommonForm from "../../../components/forms/CommonForm";
 
 export const Profile = () => {
 

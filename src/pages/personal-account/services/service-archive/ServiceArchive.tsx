@@ -1,12 +1,12 @@
 import React from 'react';
-import RentBlock from "../assets/info-blocks/RentBlock";
-import ServerBlock from "../assets/info-blocks/ServerBlock";
+import RentPlaceFrame from "../assets/frames/rent-place-frame/RentPlaceFrame";
+import RentServerFrame from "../assets/frames/rent-server-frame/RentServerFrame";
 
 const ServiceArchive = () => {
     return (
         <div>
-            <RentBlock archive={true}/>
-            <ServerBlock archive={true} />
+            <RentPlaceFrame archive={true}/>
+            <RentServerFrame archive={true} />
         </div>
     );
 };

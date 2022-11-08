@@ -1,15 +1,15 @@
 import React from 'react';
-import s from './../../../forms/Form.module.scss'
-import Input from "../../../components/Input/Input";
+import s from '../../../../components/forms/Form.module.scss'
+import Input from "../../../../components/Input/Input";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
-import {getStatus, login} from "../../../../reducers/authReducer";
+import {getStatus, login} from "../../../../store/authReducer";
 import {useFormik} from "formik";
-import {openRecoveryModal} from "../../../../reducers/modalReducer";
-import RecoveryPasswordModal from "../../../modals/RecoveryPasswordModal";
+import {openRecoveryModal} from "../../../../store/modalReducer";
+import RecoveryPasswordModal from "../../../../components/modals/RecoveryPasswordModal";
 import load from '../../../../img/load-btn.svg'
-import Button from "../../../components/button/Button";
-import ConfirmPasswordModal from "../../../modals/ConfirmPasswordModal";
+import Button from "../../../../components/button/Button";
+import ConfirmPasswordModal from "../../../../components/modals/ConfirmPasswordModal";
 import {btoa} from "buffer";
 
 

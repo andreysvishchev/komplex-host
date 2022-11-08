@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from '../PersonalAccount.module.scss'
-import UnionTable from "../services/assets/tables/UnionTable";
-import Button from "../../components/button/Button";
-import PayModal from "../../modals/PayModal";
-import Tooltip from "../../components/tooltip/Tooltip";
+import UnionTable from "../services/assets/tables/union-table/UnionTable";
+import Button from "../../../components/button/Button";
+import PayModal from "../../../components/modals/PayModal";
+import Tooltip from "../../../components/tooltip/Tooltip";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../../store/store";
-import {openPayModal} from "../../../reducers/modalReducer";
+import {openPayModal} from "../../../store/modalReducer";
 import {Pagination} from "../../../function/pagination";
 
 const Union = () => {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import RentBlock from "../assets/info-blocks/RentBlock";
+import RentPlaceFrame from "../assets/frames/rent-place-frame/RentPlaceFrame";
 import s from './AllServices.module.scss'
 
 const AllServices = () => {
@@ -35,7 +35,7 @@ const AllServices = () => {
                         </div>
                     </div>
                 </>
-                : <RentBlock/>
+                : <RentPlaceFrame/>
             }
 
 

@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import Nav from "./nav/Nav";
-import Header from "./header/Header";
+import Nav from "../../components/nav/Nav";
+import Header from "../../components/header/Header";
 import s from './PersonalAccount.module.scss'
 import {Outlet, useNavigate} from "react-router-dom";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
-import ConfirmModal from "../modals/ConfirmModal";
+import ConfirmModal from "../../components/modals/ConfirmModal";
 
 
 

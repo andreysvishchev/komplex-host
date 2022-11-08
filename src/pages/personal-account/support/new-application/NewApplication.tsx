@@ -1,9 +1,9 @@
 import React from 'react';
 import s from '../Support.module.scss'
-import Input from "../../../components/Input/Input";
-import Textarea from "../../../components/textarea/Textarea";
+import Input from "../../../../components/Input/Input";
+import Textarea from "../../../../components/textarea/Textarea";
 import ChatFile from "../assets/chat-file/ChatFile";
-import Button from "../../../components/button/Button";
+import Button from "../../../../components/button/Button";
 
 const NewApplication = () => {
     const styleTextArea = {

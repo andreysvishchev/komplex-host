@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Auth from "./pages/authorization/Auth";
 import PersonalAccount from "./pages/personal-account/PersonalAccount";
 import {AppDispatchType, useAppSelector} from "./store/store";
-import {Route, Routes, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Services from "./pages/personal-account/services/Services";
 import Union from "./pages/personal-account/Union/Union";
 import Notice from "./pages/personal-account/notifications/Notice";
@@ -11,7 +11,6 @@ import Docs from "./pages/personal-account/docs/Docs";
 import {Profile} from "./pages/personal-account/profile/Profile";
 import Faq from "./pages/personal-account/faq/Faq";
 import {useDispatch} from "react-redux";
-import {getStatus} from "./reducers/authReducer";
 
 function App() {
 
@@ -29,7 +28,6 @@ function App() {
 
     return (
         <div className="App">
-
             <Routes>
                 <Route path='/' element={<Auth/>}/>
                 <Route path='/account' element={<PersonalAccount/>}>
@@ -43,8 +41,6 @@ function App() {
                     <Route path="profile" element={<Profile/>}/>
                     <Route path="faq" element={<Faq/>}/>
                 </Route>
-
-
             </Routes>
 
 

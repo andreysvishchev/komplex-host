@@ -1,6 +1,6 @@
 import React from 'react';
 import s from '../Support.module.scss'
-import {MessageType} from "../../../../reducers/supportReducer";
+import {MessageType} from "../../../../store/supportReducer";
 
 
 type PropsType = {

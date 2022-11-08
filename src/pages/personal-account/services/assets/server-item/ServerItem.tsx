@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './ServerItem.module.scss'
-import Button from "../../../../components/button/Button";
+import Button from "../../../../../components/button/Button";
 
 type PropsType = {
     id: string

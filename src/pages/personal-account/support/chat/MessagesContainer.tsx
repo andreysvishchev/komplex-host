@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from "../Support.module.scss";
 import Message from "./Message";
-import {ApplicationType} from "../../../../reducers/supportReducer";
+import {ApplicationType} from "../../../../store/supportReducer";
 
 type PropsType = {
     data: ApplicationType

@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "../PersonalAccount.module.scss";
-import Tooltip from "../../components/tooltip/Tooltip";
+import Tooltip from "../../../components/tooltip/Tooltip";
 
 
 const Docs = () => {
@@ -44,7 +44,7 @@ const Docs = () => {
                     <div className={s.caption}>Документы</div>
                     <Tooltip/>
                 </div>
-                <a className={s.button} href="/" download>Скачать всё</a>
+                <a className={s.button} href="/src/pages" download>Скачать всё</a>
             </div>
             <div className={s.docs}>
                 {state.map((el, i) => {
@@ -52,7 +52,7 @@ const Docs = () => {
                         <div key={i} className={s.docs__item}>
                             <div className={s.docs__icon}/>
                             <div className={s.docs__title}>{el.title}</div>
-                            <a href="/" download className={s.docs__link}/>
+                            <a href="/src/pages" download className={s.docs__link}/>
                         </div>
                     )
                 })}

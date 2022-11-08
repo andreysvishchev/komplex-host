@@ -1,12 +1,12 @@
 import React from 'react';
-import ServerBlock from "../assets/info-blocks/ServerBlock";
-import s from '../assets/info-blocks/InfoBlock.module.scss'
-import Button from "../../../components/button/Button";
-import Tooltip from "../../../components/tooltip/Tooltip";
-import AddRentModal from "../../../modals/AddRentModal";
+import RentServerFrame from "../assets/frames/rent-server-frame/RentServerFrame";
+import s from '../assets/frames/Frames.module.scss'
+import Button from "../../../../components/button/Button";
+import Tooltip from "../../../../components/tooltip/Tooltip";
+import AddRentModal from "../../../../components/modals/AddRentModal";
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../../../../store/store";
-import {openAddRentModal} from "../../../../reducers/modalReducer";
+import {openAddRentModal} from "../../../../store/modalReducer";
 
 const ServerRental = () => {
     const dispatch = useDispatch<AppDispatchType>()
@@ -25,7 +25,7 @@ const ServerRental = () => {
                     <Button callBack={openModal} type={'button'} title={'Добавить +'}/>
                 </div>
             </div>
-            <ServerBlock/>
+            <RentServerFrame/>
             <AddRentModal/>
         </div>
     );

@@ -1,11 +1,10 @@
 import axios from "axios";
-import {LoginParamsType} from "../reducers/authReducer";
+import {LoginParamsType} from "../store/authReducer";
 
 const instance = axios.create({
     baseURL: 'https://192.168.254.26/api/',
     withCredentials: true,
 })
-
 
 export const supportApi = {
     getSupportData() {

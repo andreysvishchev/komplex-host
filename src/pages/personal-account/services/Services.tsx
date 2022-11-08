@@ -6,8 +6,8 @@ import PlaceRental from "./place-rental/PlaceRental";
 import ServerRental from "./server-rental/ServerRental";
 import ServiceArchive from "./service-archive/ServiceArchive";
 import RackRental from "./rack-rental/RackRental";
-import NoticeModal from "../../modals/NoticeModal";
-import {fetchEquips} from "../../../reducers/equipReducer";
+import NoticeModal from "../../../components/modals/NoticeModal";
+import {fetchEquips} from "../../../store/equipReducer";
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../../../store/store";
 

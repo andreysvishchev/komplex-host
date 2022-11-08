@@ -4,7 +4,7 @@ import Chat from "./chat/Chat";
 import s from './Support.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatchType, AppStateType} from "../../../store/store";
-import {ApplicationType, fetchSupportData} from "../../../reducers/supportReducer";
+import {ApplicationType, fetchSupportData} from "../../../store/supportReducer";
 import NewApplication from "./new-application/NewApplication";
 
 

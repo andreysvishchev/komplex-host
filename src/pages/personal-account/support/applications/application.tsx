@@ -1,6 +1,6 @@
 import React from 'react';
 import s from '../Support.module.scss'
-import {ApplicationType} from "../../../../reducers/supportReducer";
+import {ApplicationType} from "../../../../store/supportReducer";
 import {useDispatch} from "react-redux";
 
 type PropsType = {
